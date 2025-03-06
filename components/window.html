@@ -60,7 +60,7 @@
 </head>
 <body>
 
-<toggle-content>
+<toggle-content id="note1">
     <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽</div>
     <div slot="expanded">
         <div class="scrolable">
@@ -88,10 +88,20 @@
             <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
             <p>To jest dodatkowy tekst, który wydłuża zawartość i nie mieści się na jednej stronie.</p>
             <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
-            <script-list data-list-embedded></script-list>
+            <script-list data-list-embedded id="note2"></script-list>
         </div>
     </div>
 </toggle-content>
+
+<!-- Przykład użycia elementu -->
+<my-refresh>
+    <div data-reference-id="note1">
+        Element okienka
+    </div>
+    <div data-reference-id="note2">
+        Element do spisywania skryptów automatycznie
+    </div>
+</my-refresh>
 
 <Script data-no-list>
     console.log("załadowano moduły");

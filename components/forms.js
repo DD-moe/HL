@@ -138,7 +138,60 @@ class ScriptList extends HTMLElement {
     }
 }
 
+class MyRefresh extends HTMLElement {
+    constructor() {
+        super();
+
+        // Utworzenie Shadow DOM
+        this.attachShadow({mode: 'open'});
+
+        // HTML dla Shadow DOM
+        this.shadowRoot.innerHTML = `
+        <button>🔄</button>
+            <div data-container="true">
+                <slot></slot>
+            </div>
+        `;
+
+        // Obsługa kliknięcia przycisku
+        const refreshButton = this.shadowRoot.querySelector('button');
+        refreshButton.addEventListener('click', () => {
+            this.refreshNotes();
+        });
+
+        // Obsługa załadowania strony
+        window.addEventListener('load', () => {
+            this.refreshNotes();
+        });
+    }
+
+    // Funkcja do odświeżania notatek
+    refreshNotes() {
+        const slot = this.shadowRoot.querySelector('slot');
+        const notes = slot.assignedNodes({flatten: true}).filter(node => node.nodeType === Node.ELEMENT_NODE);
+
+        notes.forEach(note => {
+            const referenceId = note.getAttribute('data-reference-id');
+            if (referenceId) {
+                // Próba pobrania elementu o odpowiednim ID
+                const element = document.getElementById(referenceId);
+                if (element) {
+                    let pre = note.querySelector('pre');
+                    if (!pre) {
+                        pre = document.createElement('pre');
+                        note.appendChild(pre);
+                    }
+                    // Aktualizacja lub dodanie zawartości do <pre>
+                    pre.textContent = element.outerHTML;
+                }
+            }
+        });
+    }
+}
+
+// Rejestracja niestandardowego elementu
+customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList};
+export {ToggleContent, ScriptList, MyRefresh};
