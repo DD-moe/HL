@@ -111,9 +111,10 @@ class ScriptList extends HTMLElement {
         scripts.forEach(script => {
             const desc = script.getAttribute("data-opis") || "Brak opisu";
             const type = script.getAttribute("type") || "domyślny";
-            const src = script.getAttribute("src") || "(wbudowany kod)";
+            const src = script.getAttribute("src");
+            const fullSrc = src ? new URL(src, window.location.href).href : "(wbudowany kod)";            
             if (type !== 'domyślny') {
-                html += `<li><strong>${desc}</strong>: <a href="${src}" target="_blank">${src}</a> - ${type}</li>`;
+                html += `<li><strong>${desc}</strong>: <a href="${fullSrc}" target="_blank">${src}</a> - ${type}</li>`;
             }
         });
         html += "</ul>";
