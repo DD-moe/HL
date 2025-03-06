@@ -40,6 +40,7 @@
         }
 
         minimize() {
+            this.exitFullscreen();
             this.expanded.style.display = 'none';
             this.minimized.style.display = 'block';
         }
