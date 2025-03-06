@@ -19,8 +19,9 @@
             padding: 10px;
             background: white;
             position: relative;
-            max-height: 80vh;
-            overflow-y: auto;
+        }
+        .scrolable{
+            overflow: auto;
         }
         .controls {
             position: absolute;
@@ -57,30 +58,32 @@
 <toggle-content>
     <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽</div>
     <div slot="expanded">
-        <h2>Rozwinięta treść</h2>
-        <table>
-            <tr>
-                <th>Nazwa</th>
-                <th>Wartość</th>
-            </tr>
-            <tr>
-                <td>Element 1</td>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>Element 2</td>
-                <td>456</td>
-            </tr>
-            <tr>
-                <td>Element 3</td>
-                <td>789</td>
-            </tr>
-        </table>
-        <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
-        <p>To jest dodatkowy tekst, który wydłuża zawartość i nie mieści się na jednej stronie.</p>
-        <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
-        <p>To jest dodatkowy tekst, który wydłuża zawartość i nie mieści się na jednej stronie.</p>
-        <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
+        <div class="scrolable">
+            <h2>Rozwinięta treść</h2>
+            <table>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Wartość</th>
+                </tr>
+                <tr>
+                    <td>Element 1</td>
+                    <td>123</td>
+                </tr>
+                <tr>
+                    <td>Element 2</td>
+                    <td>456</td>
+                </tr>
+                <tr>
+                    <td>Element 3</td>
+                    <td>789</td>
+                </tr>
+            </table>
+            <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
+            <p>To jest dodatkowy tekst, który wydłuża zawartość i nie mieści się na jednej stronie.</p>
+            <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
+            <p>To jest dodatkowy tekst, który wydłuża zawartość i nie mieści się na jednej stronie.</p>
+            <img src="https://0.allegroimg.com/original/0c0bb0/62d8be1e417fa124c4426c447d60"></img>
+        </div>
     </div>
 </toggle-content>
 
