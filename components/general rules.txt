@@ -1,0 +1,10 @@
+Write custom elemen for html, following rulse below:
+First do not use id , but data-rule instead in custom element 
+Secondin constructor use only really neaded operations , while major of them allocate onConnected()
+
+in shadow root there are two buttons - give them not text but emoji and tittle with describtion of their function. 
+first button is to unselect palete element, second is to set to selected pallete swatch color basing on rgb from inputs
+allocate in shadow dom 3 inputs with labels for eac h channel.
+
+there is also slot for swatches - utilising data-role ="swatch" where each swatch has style attribute with background color. 
+what is more on Connected set to all swatches in slot border i pxblack, and when clicked elemnt in variable selected has border set to black, then newly clicked element is added to selected and ist border becomes red.
