@@ -10,6 +10,12 @@ class EditableText extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <style>
+                :host {
+                    display: block;
+                    border: 1px solid black; /* Default border */
+                    padding: 10px;
+                    border-radius: 5px; /* Optional rounded corners */
+                }
                 div, textarea { font-family: Arial, sans-serif; }
                 div { cursor: pointer; }
                 textarea { width: 100%; height: 100px; display: none; }
