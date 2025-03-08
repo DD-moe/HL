@@ -187,4 +187,4 @@ class PageComponent extends HTMLElement {
 // Rejestracja komponentu
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
-export {EditableText};
+export {EditableText, PageComponent};
