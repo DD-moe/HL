@@ -209,7 +209,7 @@ function findElementInShadowDom(selectors) {
 }
 
 function focusOnElement(element){
-    if (previous_BCG && focused){
+    if (focused){
         focused.style.backgroundColor = previous_BCG;
     }
     focused = element;
