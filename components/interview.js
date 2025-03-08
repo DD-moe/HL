@@ -331,7 +331,91 @@ class EncoderComponent extends HTMLElement {
     }
 }
 
+class QRScanner extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                #video-container {
+                    width: 300px;
+                    height: 300px;
+                    display: none;
+                }
+                video {
+                    width: 100%;
+                    height: auto;
+                }
+                #start-btn {
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+            </style>
+            <button id="start-btn">📷</button>
+            <div id="video-container">
+                <video id="video" autoplay playsinline></video>
+            </div>
+            <input type="text" id="qr-result" readonly placeholder="Kod QR tutaj">
+        `;
+        this.videoStream = null;
+        this.video = this.shadowRoot.getElementById('video');
+        this.qrResult = this.shadowRoot.getElementById('qr-result');
+        this.videoContainer = this.shadowRoot.getElementById('video-container');
+        this.startBtn = this.shadowRoot.getElementById('start-btn');
+
+        this.startBtn.addEventListener('click', () => this.startCamera());
+    }
+
+    async startCamera() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert('Twoja przeglądarka nie obsługuje dostępu do kamery.');
+            return;
+        }
+        try {
+            this.videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            this.video.srcObject = this.videoStream;
+            this.videoContainer.style.display = 'block';
+            this.detectQR();
+        } catch (error) {
+            alert('Błąd uruchamiania kamery: ' + error.message);
+            console.error('Błąd uruchamiania kamery:', error);
+        }
+    }
+
+    async detectQR() {
+        if (!('BarcodeDetector' in window)) {
+            alert('Twoja przeglądarka nie obsługuje BarcodeDetector API.');
+            return;
+        }
+        const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+        const interval = setInterval(async () => {
+            try {
+                const barcodes = await barcodeDetector.detect(this.video);
+                if (barcodes.length > 0) {
+                    this.qrResult.value = barcodes[0].rawValue;
+                    this.stopCamera();
+                    clearInterval(interval);
+                    this.dispatchEvent(new CustomEvent('qr-scanned', { detail: barcodes[0].rawValue }));
+                }
+            } catch (error) {
+                console.error('Błąd detekcji kodu QR:', error);
+            }
+        }, 500);
+    }
+
+    stopCamera() {
+        if (this.videoStream) {
+            this.videoStream.getTracks().forEach(track => track.stop());
+            this.video.srcObject = null;
+            this.videoContainer.style.display = 'none';
+        }
+    }
+}
 // Rejestracja komponentu
+customElements.define('qr-scanner', QRScanner);
 customElements.define('encoder-component', EncoderComponent);
 customElements.define('my-shadow-component', MyShadowComponent);  
 customElements.define('page-component', PageComponent);
