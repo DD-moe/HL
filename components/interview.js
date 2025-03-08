@@ -1,3 +1,7 @@
+// module scope variables
+let focused;
+let previous_BCG;
+
 class EditableText extends HTMLElement {
     constructor() {
         super();
@@ -126,7 +130,7 @@ class PageComponent extends HTMLElement {
       controls.appendChild(submitButton);
 
       this.shadowRoot.appendChild(controls);
-      
+
     // Tworzymy slot
     const slot = document.createElement('slot');
     this.shadowRoot.appendChild(slot);
@@ -181,9 +185,85 @@ class PageComponent extends HTMLElement {
         alert("Numer strony jest poza zakresem!");
       }
     }
-  }
+}
 
-  // Rejestracja komponentu
-  customElements.define('page-component', PageComponent);
+// Funkcja z poprzedniego kroku
+function findElementInShadowDom(selectors) {
+    let currentElement = document.querySelector(selectors[0]);
+    if (!currentElement) {
+        return null;
+    }
+
+    for (let i = 1; i < selectors.length; i++) {
+        if (currentElement.shadowRoot) {
+            currentElement = currentElement.shadowRoot.querySelector(selectors[i]);
+        } else {
+            return null;
+        }
+        if (!currentElement) {
+            return null;
+        }
+    }
+
+    return currentElement;
+}
+
+function focusOnElement(element){
+    if (previous_BCG && focused){
+        focused.style.backgroundColor = previous_BCG;
+    }
+    focused = element;
+    previous_BCG = focused.style.backgroundColor;
+    element.style.backgroundColor = "red";
+}
+
+// Stworzenie Web Componentu
+class MyShadowComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+
+        // Tworzenie przycisku w shadow DOM
+        const button = document.createElement('button');
+        button.textContent = 'Znaleźć element';
+        button.addEventListener('click', () => this.handleClick());
+
+        // Dodanie przycisku do shadow DOM
+        this.shadowRoot.appendChild(button);
+    }
+
+    // Funkcja wywoływana po kliknięciu przycisku
+    handleClick() {
+        // Pobranie atrybutu z JSON-em, np.:
+        const selectorsJson = this.getAttribute('selectors');
+        if (!selectorsJson) {
+            console.error('Brak atrybutu "selectors"!');
+            return;
+        }
+
+        // Parsowanie JSON-a
+        let selectors = [];
+        try {
+            selectors = JSON.parse(selectorsJson);
+        } catch (e) {
+            console.error('Niepoprawny format JSON w atrybucie "selectors"!');
+            return;
+        }
+
+        // Wywołanie funkcji findElementInShadowDom
+        const element = findElementInShadowDom(selectors);
+        if (element) {
+            // Przewinięcie do znalezionego elementu
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            focusOnElement(element);
+        } else {
+            console.log('Element nie został znaleziony');
+        }
+    }
+}
+
+// Rejestracja komponentu
+customElements.define('my-shadow-component', MyShadowComponent);  
+customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
 export {EditableText, PageComponent};
