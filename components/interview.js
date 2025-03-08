@@ -110,14 +110,14 @@ class PageComponent extends HTMLElement {
       slider.id = 'slider';
       slider.type = 'range';
       slider.min = '0';
-      slider.max = '2';  // Liczba stron - 1 (bo indeksy zaczynają się od 0)
+      //slider.max = '2';  // Liczba stron - 1 (bo indeksy zaczynają się od 0)
       slider.value = this.currentPage;
 
       inputField.id = 'page-input';
       inputField.type = 'number';
       inputField.value = this.currentPage + 1;  // Ustawiamy jako 1-indexed
       inputField.min = '1';
-      inputField.max = '3';  // Liczba stron
+      //inputField.max = '3';  // Liczba stron
       inputField.placeholder = 'Wpisz numer strony';
 
       submitButton.id = 'submit';
@@ -139,7 +139,8 @@ class PageComponent extends HTMLElement {
     updatePages() {
       // Pobieramy wszystkie elementy przypisane do slotu
       const pages = this.querySelectorAll('div.page');
-      
+      slider.max = pages.length - 1;
+      inputField.max = pages.length;
       // Ukrywamy wszystkie strony
       pages.forEach((page, index) => {
         page.style.display = "none";
