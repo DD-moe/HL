@@ -214,7 +214,6 @@ function focusOnElement(element){
     }
     focused = element;
     previous_BCG = focused.style.backgroundColor;
-    console.log(focused, previous_BCG);
     element.style.backgroundColor = "red";
 }
 
@@ -263,7 +262,75 @@ class MyShadowComponent extends HTMLElement {
     }
 }
 
+class EncoderComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.innerHTML = `
+            <style>
+                div { display: flex; flex-direction: column; gap: 8px; }
+                input, button, textarea { padding: 8px; font-size: 16px; }
+            </style>
+            <div>
+                <label for="password">Hasło:</label>
+                <input type="text" id="password" placeholder="Wpisz hasło">
+                
+                <label for="text">Tekst:</label>
+                <textarea id="text" placeholder="Wpisz tekst"></textarea>
+                
+                <button id="encode">Zakoduj</button>
+                <button id="decode">Zdekoduj</button>
+            </div>
+        `;
+    }
+
+    connectedCallback() {
+        this.shadowRoot.getElementById('encode').addEventListener('click', () => this.encodeText());
+        this.shadowRoot.getElementById('decode').addEventListener('click', () => this.decodeText());
+    }
+
+    encodeText() {
+        const password = this.shadowRoot.getElementById('password').value;
+        const textArea = this.shadowRoot.getElementById('text');
+        const text = textArea.value;
+        if (!password || !text) return;
+        
+        let combined = text + password;
+        let encoded = Array.from(combined)
+            .map(char => char.charCodeAt(0).toString(36))
+            .join('');
+        
+        textArea.value = encoded;
+    }
+
+    decodeText() {
+        const password = this.shadowRoot.getElementById('password').value;
+        const textArea = this.shadowRoot.getElementById('text');
+        const encoded = textArea.value;
+        if (!password || !encoded) return;
+        
+        try {
+            let decoded = '';
+            let temp = encoded;
+            while (temp.length) {
+                let charCode = parseInt(temp.substring(0, 2), 36);
+                decoded += String.fromCharCode(charCode);
+                temp = temp.substring(2);
+            }
+            
+            if (decoded.endsWith(password)) {
+                textArea.value = decoded.slice(0, -password.length);
+            } else {
+                alert("Błąd dekodowania: niepoprawne hasło");
+            }
+        } catch (e) {
+            alert("Błąd dekodowania!");
+        }
+    }
+}
+
 // Rejestracja komponentu
+customElements.define('encoder-component', EncoderComponent);
 customElements.define('my-shadow-component', MyShadowComponent);  
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
