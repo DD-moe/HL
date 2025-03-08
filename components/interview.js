@@ -101,7 +101,8 @@ class PageComponent extends HTMLElement {
       const slider = document.createElement('input');
       const inputField = document.createElement('input');
       const submitButton = document.createElement('button');
-
+      this.slider = slider;
+      this.inputField = inputField;
       prevButton.id = 'prev';
       prevButton.textContent = 'Poprzednia';
       nextButton.id = 'next';
@@ -139,8 +140,8 @@ class PageComponent extends HTMLElement {
     updatePages() {
       // Pobieramy wszystkie elementy przypisane do slotu
       const pages = this.querySelectorAll('div.page');
-      slider.max = pages.length - 1;
-      inputField.max = pages.length;
+      this.slider.max = pages.length - 1;
+      this.inputField.max = pages.length;
       // Ukrywamy wszystkie strony
       pages.forEach((page, index) => {
         page.style.display = "none";
