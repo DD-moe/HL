@@ -61,10 +61,6 @@ class PageComponent extends HTMLElement {
       // Tworzymy shadow DOM
       this.attachShadow({ mode: 'open' });
 
-      // Tworzymy slot
-      const slot = document.createElement('slot');
-      this.shadowRoot.appendChild(slot);
-
       // Inicjalizacja zmiennych
       this.currentPage = 0;
     }
@@ -130,6 +126,10 @@ class PageComponent extends HTMLElement {
       controls.appendChild(submitButton);
 
       this.shadowRoot.appendChild(controls);
+      
+    // Tworzymy slot
+    const slot = document.createElement('slot');
+    this.shadowRoot.appendChild(slot);
     }
 
     updatePages() {
