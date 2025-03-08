@@ -55,5 +55,136 @@ class EditableText extends HTMLElement {
     }
 }
 
+class PageComponent extends HTMLElement {
+    constructor() {
+      super();
+      // Tworzymy shadow DOM
+      this.attachShadow({ mode: 'open' });
+
+      // Tworzymy slot
+      const slot = document.createElement('slot');
+      this.shadowRoot.appendChild(slot);
+
+      // Inicjalizacja zmiennych
+      this.currentPage = 0;
+    }
+
+    connectedCallback() {
+      // Po połączeniu z dokumentem, dodajemy przyciski, suwak oraz input
+      this.renderControls();
+      this.updatePages();
+
+      // Nasłuchujemy na zmiany suwaka
+      this.shadowRoot.querySelector('#slider').addEventListener('input', (e) => this.changePageFromSlider(e));
+
+      // Nasłuchujemy na zatwierdzenie wartości z inputa
+      this.shadowRoot.querySelector('#page-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          this.changePageFromInput();
+        }
+      });
+
+      // Nasłuchujemy na kliknięcia przycisków
+      this.shadowRoot.querySelector('#prev').addEventListener('click', () => this.changePage(-1));
+      this.shadowRoot.querySelector('#next').addEventListener('click', () => this.changePage(1));
+
+      // Nasłuchujemy na kliknięcie przycisku "Zatwierdź"
+      this.shadowRoot.querySelector('#submit').addEventListener('click', () => this.changePageFromInput());
+    }
+
+    renderControls() {
+      // Tworzymy przyciski do przewijania stron
+      const controls = document.createElement('div');
+      controls.classList.add('controls');
+
+      const prevButton = document.createElement('button');
+      const nextButton = document.createElement('button');
+      const slider = document.createElement('input');
+      const inputField = document.createElement('input');
+      const submitButton = document.createElement('button');
+
+      prevButton.id = 'prev';
+      prevButton.textContent = 'Poprzednia';
+      nextButton.id = 'next';
+      nextButton.textContent = 'Następna';
+
+      slider.id = 'slider';
+      slider.type = 'range';
+      slider.min = '0';
+      slider.max = '2';  // Liczba stron - 1 (bo indeksy zaczynają się od 0)
+      slider.value = this.currentPage;
+
+      inputField.id = 'page-input';
+      inputField.type = 'number';
+      inputField.value = this.currentPage + 1;  // Ustawiamy jako 1-indexed
+      inputField.min = '1';
+      inputField.max = '3';  // Liczba stron
+      inputField.placeholder = 'Wpisz numer strony';
+
+      submitButton.id = 'submit';
+      submitButton.textContent = 'Zatwierdź';
+      
+      controls.appendChild(prevButton);
+      controls.appendChild(nextButton);
+      controls.appendChild(slider);
+      controls.appendChild(inputField);
+      controls.appendChild(submitButton);
+
+      this.shadowRoot.appendChild(controls);
+    }
+
+    updatePages() {
+      // Pobieramy wszystkie elementy przypisane do slotu
+      const pages = this.querySelectorAll('div.page');
+      
+      // Ukrywamy wszystkie strony
+      pages.forEach((page, index) => {
+        page.classList.remove('active');
+        if (index === this.currentPage) {
+          page.classList.add('active');
+        }
+      });
+
+      // Aktualizujemy suwak i input
+      this.shadowRoot.querySelector('#slider').value = this.currentPage;
+      this.shadowRoot.querySelector('#page-input').value = this.currentPage + 1;
+    }
+
+    changePage(direction) {
+      // Zmieniamy stronę (w prawo lub w lewo)
+      const pages = this.querySelectorAll('div.page');
+      this.currentPage += direction;
+
+      // Zapobiegamy wychodzeniu poza zakres
+      if (this.currentPage < 0) {
+        this.currentPage = pages.length - 1;
+      } else if (this.currentPage >= pages.length) {
+        this.currentPage = 0;
+      }
+
+      // Aktualizujemy widoczność stron
+      this.updatePages();
+    }
+
+    changePageFromSlider(event) {
+      // Zmieniamy stronę na podstawie wartości suwaka
+      this.currentPage = parseInt(event.target.value);
+      this.updatePages();
+    }
+
+    changePageFromInput() {
+      // Zmieniamy stronę na podstawie wartości w input (po kliknięciu "Enter" lub "Zatwierdź")
+      const inputValue = parseInt(this.shadowRoot.querySelector('#page-input').value);
+      if (inputValue >= 1 && inputValue <= 3) {
+        this.currentPage = inputValue - 1;  // Ustawiamy na 0-indexed
+        this.updatePages();
+      } else {
+        alert("Numer strony jest poza zakresem!");
+      }
+    }
+  }
+
+// Rejestracja komponentu
+customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
 export {EditableText};
