@@ -95,7 +95,6 @@ class PageComponent extends HTMLElement {
     renderControls() {
       // Tworzymy przyciski do przewijania stron
       const controls = document.createElement('div');
-      controls.classList.add('controls');
 
       const prevButton = document.createElement('button');
       const nextButton = document.createElement('button');
@@ -139,9 +138,9 @@ class PageComponent extends HTMLElement {
       
       // Ukrywamy wszystkie strony
       pages.forEach((page, index) => {
-        page.classList.remove('active');
+        page.style.display = "none";
         if (index === this.currentPage) {
-          page.classList.add('active');
+          page.style.display = "block";
         }
       });
 
