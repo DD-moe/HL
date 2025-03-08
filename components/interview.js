@@ -266,4 +266,4 @@ class MyShadowComponent extends HTMLElement {
 customElements.define('my-shadow-component', MyShadowComponent);  
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
-export {EditableText, PageComponent};
+export {EditableText, PageComponent, MyShadowComponent};
