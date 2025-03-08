@@ -156,7 +156,30 @@
   <div class="page">
     <h2>Multi checkbox</h2>
     <p>Gdy potrzebujesz zaznaczyć jeden z wielu</p>
-    <encoder-component></encoder-component>
+
+    <h3>Suma</h3>
+    <custom-checkbox-group max="3" calc="sum">
+        <input type="checkbox" data-value="10"> Opcja 1 
+        <input type="checkbox" data-value="20"> Opcja 2
+        <input type="checkbox" data-value="30"> Opcja 3
+        <input type="checkbox" data-value="40"> Opcja 4
+    </custom-checkbox-group>
+
+    <h3>mnożenie</h3>
+    <custom-checkbox-group max="3" calc="multiply">
+        <input type="checkbox" data-value="10"> Opcja 1 
+        <input type="checkbox" data-value="20"> Opcja 2
+        <input type="checkbox" data-value="30"> Opcja 3
+        <input type="checkbox" data-value="40"> Opcja 4
+    </custom-checkbox-group>
+    
+    <h3>maskymalna Wartość</h3>
+    <custom-checkbox-group max="3" calc="max">
+        <input type="checkbox" data-value="10"> Opcja 1 
+        <input type="checkbox" data-value="20"> Opcja 2
+        <input type="checkbox" data-value="30"> Opcja 3
+        <input type="checkbox" data-value="40"> Opcja 4
+    </custom-checkbox-group>    
   </div>  
 
 </page-component>

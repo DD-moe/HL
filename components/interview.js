@@ -414,10 +414,78 @@ class QRScanner extends HTMLElement {
         }
     }
 }
+
+class CustomCheckboxGroup extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.max = parseInt(this.getAttribute('max')) || Infinity;
+        this.calcFunc = this.getCalcFunction(this.getAttribute('calc'));
+        
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host { display: block; padding: 10px; border: 1px solid #ccc; }
+                button { cursor: pointer; border: none; background: none; font-size: 1.2em; }
+                .error { color: red; font-size: 0.9em; display: none; }
+            </style>
+            <slot></slot>
+            <button title="Odznacz wszystko">🗑️</button>
+            <p class="error">Można wybrać opcje w liczbie maksymalnie: ${this.max}.</p>
+            <p>Wynik: <span id="result">0</span></p>
+        `;
+    }
+
+    connectedCallback() {
+        this.checkboxes = Array.from(this.querySelectorAll('input[type="checkbox"]'));
+        this.button = this.shadowRoot.querySelector('button');
+        this.resultSpan = this.shadowRoot.querySelector('#result');
+        this.errorMsg = this.shadowRoot.querySelector('.error');
+        
+        this.checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (event) => this.updateSelection(event));
+        });
+        this.button.addEventListener('click', () => this.clearSelection());
+    }
+
+    getCalcFunction(name) {
+        const functions = {
+            sum: values => values.reduce((a, b) => a + b, 0),
+            multiply: values => values.reduce((a, b) => a * b, 1),
+            max: values => Math.max(...values, 0),
+        };
+        return functions[name] || functions.sum;
+    }
+
+    updateSelection(event) {
+        const checked = this.checkboxes.filter(cb => cb.checked);
+        if (checked.length > this.max) {
+            event.target.checked = false;
+            this.errorMsg.style.display = 'block';
+        } else {
+            this.errorMsg.style.display = 'none';
+        }
+        this.updateResult();
+    }
+
+    updateResult() {
+        const values = this.checkboxes
+            .filter(cb => cb.checked)
+            .map(cb => parseFloat(cb.getAttribute('data-value')) || 0);
+        this.resultSpan.textContent = this.calcFunc(values);
+    }
+
+    clearSelection() {
+        this.checkboxes.forEach(cb => cb.checked = false);
+        this.errorMsg.style.display = 'none';
+        this.updateResult();
+    }
+}
+
 // Rejestracja komponentu
+customElements.define('custom-checkbox-group', CustomCheckboxGroup);
 customElements.define('qr-scanner', QRScanner);
 customElements.define('encoder-component', EncoderComponent);
 customElements.define('my-shadow-component', MyShadowComponent);  
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
-export {EditableText, PageComponent, MyShadowComponent};
+export {EditableText, PageComponent, MyShadowComponent, EncoderComponent, QRScanner, CustomCheckboxGroup};
