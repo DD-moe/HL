@@ -214,6 +214,7 @@ function focusOnElement(element){
     }
     focused = element;
     previous_BCG = focused.style.backgroundColor;
+    console.log(focused, previous_BCG);
     element.style.backgroundColor = "red";
 }
 
