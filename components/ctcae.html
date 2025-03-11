@@ -24,6 +24,7 @@
             max-width: 100%;
             max-height: 100vh;
         }
+        textarea{width: 90%;}
         custom-checkbox-group{width: 96%; margin-left: 2%;}
     </style>
 </head>
@@ -178,7 +179,62 @@
                     </custom-checkbox-group>
                 </div>
             </div>
-        </toggle-content>        
+        </toggle-content> 
+        
+        <div>
+            <!-- Dane pacjenta -->
+            <label><h3>ID pacjenta: </h3><encoder-component id="patient-id"></encoder-component></label>
+            <label><h3>Data pobytu: </h3><encoder-component id="stay-date"></encoder-component></label>
+            <label><h3>Schemat leczenia: </h3><br><textarea id="treatment-plan"></textarea><br>
+            <button id="summarize-btn">Podsumuj</button>
+
+            <!-- Miejsce na tabelę wynikową -->
+            <div id="summary-output"></div>            
+        </div>
+
+        <script>
+            document.getElementById('summarize-btn').addEventListener('click', () => {
+                const summaryDiv = document.getElementById('summary-output');
+                summaryDiv.innerHTML = ''; // Czyści stare podsumowanie
+    
+                // Pobranie danych pacjenta
+                const patientId = document.getElementById('patient-id').shadowRoot.getElementById("text").value;
+                const stayDate = document.getElementById('stay-date').shadowRoot.getElementById("text").value;
+                const treatmentPlan = document.getElementById('treatment-plan').value;
+    
+                // Tworzenie tabeli
+                const table = document.createElement('table');
+                table.border = "1";
+                const headerRow = table.insertRow();
+                headerRow.innerHTML = "<th>Parametr</th><th>Ocena CTCAE</th>";
+    
+                // Dodanie danych pacjenta na początku tabeli
+                const patientData = [
+                    ["ID Pacjenta", patientId],
+                    ["Data pobytu", stayDate],
+                    ["Schemat leczenia", treatmentPlan]
+                ];
+                patientData.forEach(([label, value]) => {
+                    const row = table.insertRow();
+                    row.innerHTML = `<td><b>${label}</b></td><td>${value}</td>`;
+                });
+    
+                // Pobieranie wartości z custom-checkbox-group
+                document.querySelectorAll('custom-checkbox-group').forEach(group => {
+                    const title = group.querySelector('h2')?.textContent || "Brak nazwy";
+                    const shadowRoot = group.shadowRoot;
+                    const resultSpan = shadowRoot?.querySelector('#result');
+                    const value = resultSpan ? resultSpan.textContent.trim() : "Brak wartości";
+    
+                    const row = table.insertRow();
+                    row.innerHTML = `<td>${title}</td><td>${value}</td>`;
+                });
+    
+                // Dodanie tabeli do dokumentu
+                summaryDiv.appendChild(table);
+            });
+        </script>
+
     </main>
     <footer>
         <p>&copy; <span id="year"></span> [Damian Bezara]. Wszelkie prawa zastrzeżone.</p>
