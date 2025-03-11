@@ -189,7 +189,78 @@ class MyRefresh extends HTMLElement {
     }
 }
 
+class EditableElement extends HTMLElement {
+    constructor() {
+      super();
+  
+      // Tworzenie shadow DOM
+      this.attachShadow({ mode: 'open' });
+  
+      // Elementy w shadow DOM
+      this.checkbox = document.createElement('input');
+      this.checkbox.type = 'checkbox';
+      this.textarea = document.createElement('textarea');
+      this.applyButton = document.createElement('button');
+      this.applyButton.textContent = 'Apply';
+  
+      // Dodanie elementów do shadow DOM
+      this.shadowRoot.appendChild(this.checkbox);
+      this.shadowRoot.appendChild(this.textarea);
+      this.shadowRoot.appendChild(this.applyButton);
+  
+      // Właściwość, która przechowuje wybrany element
+      this.selected = null;
+    }
+  
+    connectedCallback() {
+      // Dodanie event listenera do body
+      document.body.addEventListener('click', this.handleBodyClick.bind(this));
+      
+      // Zdarzenie apply (zaktualizowanie innerHTML z textarea)
+      this.applyButton.addEventListener('click', () => {
+        if (this.selected) {
+          this.selected.innerHTML = this.textarea.value;
+        }
+      });
+    }
+  
+    disconnectedCallback() {
+      // Usunięcie event listenera po odłączeniu komponentu
+      document.body.removeEventListener('click', this.handleBodyClick.bind(this));
+    }
+  
+    handleBodyClick(event) {
+      // Ignorujemy kliknięcia w checkbox, textarea, applyButton lub wewnątrz tego custom elementu
+      if (event.target === this.checkbox || event.target === this.textarea || event.target === this.applyButton || this.contains(event.target)) {
+        return;
+      }
+  
+      // Jeśli checkbox jest zaznaczony, wybieramy element i kopiujemy jego innerHTML do textarea
+      if (this.checkbox.checked) {
+        if (this.selected) {
+          // Resetujemy poprzedni element
+          this.selected.style.border = '';
+        }
+  
+        // Przypisujemy kliknięty element do selected
+        this.selected = event.target;
+        this.textarea.value = this.selected.innerHTML;
+        
+        // Opcjonalnie, zaznaczamy kliknięty element, aby wizualnie wskazać, że jest wybrany
+        this.selected.style.border = '2px solid blue';
+      } else {
+        // Jeśli checkbox nie jest zaznaczony, resetujemy textarea i selected
+        this.textarea.value = '';
+        if (this.selected) {
+          this.selected.style.border = '';
+        }
+        this.selected = null;
+      }
+    }
+  }
+  
 // Rejestracja niestandardowego elementu
+customElements.define('editable-element', EditableElement);
 customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
