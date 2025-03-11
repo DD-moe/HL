@@ -5,14 +5,14 @@ class ToggleContent extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <style>
-                :host { display: block; }
-                .minimized { cursor: pointer; }
-                .expanded { display: none; border: 1px solid #ccc; padding: 10px; background: white; 100%}
-                .controls { position: relative; top: 10px; right: 10px; width: 100%}
+                :host { display: block;}
+                .minimized { cursor: pointer;}
+                .expanded { display: none; border: 1px solid #ccc; padding: 10px; background: white; position: relative;}
+                .controls { position: absolute; top: 10px; right: 10px;}
                 .controls button { background: none; border: none; font-size: 18px; cursor: pointer; }
             </style>
-            <div class="minimized"><slot name="minimized"></slot></div>
-            <div class="expanded">
+            <div class="minimized" part="minimized" ><slot name="minimized"></slot></div>
+            <div class="expanded" part="expanded">
                 <div class="controls">
                     <button class="minimize" title="Zminimalizuj">🟡</button>
                     <button class="fullscreen-btn" title="Pełny ekran">🟢</button>
