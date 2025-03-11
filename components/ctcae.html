@@ -14,7 +14,7 @@
         header { background-color: #4CAF50; color: white; text-align: center; padding: 1em; }
         main { margin-left: 1%; margin-top: 3em; margin-bottom: 3em; background: white; padding: 1% auto; max-width: 98%; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
         footer { background-color: #222; color: white; text-align: center; padding: 1em; position: relative; bottom: 0; width: 100%; }
-        table { width: 100%; border-collapse: collapse; background: white; margin: 20px auto; max-width: 800px; }
+        table { width: 100%; border-collapse: collapse; background: white; margin: 20px auto; }
         th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
         th { background-color: #4CAF50; color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
@@ -24,6 +24,7 @@
             max-width: 100%;
             max-height: 100vh;
         }
+        custom-checkbox-group{width: 90%; margin-left: 5%;}
     </style>
 </head>
 <body>
@@ -36,6 +37,7 @@
             <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Morfologia Krwii</h1></div>
             <div slot="expanded">
                 <div class="scrolable">
+                    <h3>Zobacz wyniki w morfologii krwii</h3>
                     <custom-checkbox-group max="1" calc="max">
                         <h2>Anemia</h2>
                         <table>
