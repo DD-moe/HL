@@ -8,3 +8,30 @@ allocate in shadow dom 3 inputs with labels for eac h channel.
 
 there is also slot for swatches - utilising data-role ="swatch" where each swatch has style attribute with background color. 
 what is more on Connected set to all swatches in slot border i pxblack, and when clicked elemnt in variable selected has border set to black, then newly clicked element is added to selected and ist border becomes red.
+
+
+
+
+wzorując się na tym komponencie:         <custom-checkbox-group max="1" calc="max">
+
+            <h2>CTCAE Term - Eosinophilia</h2>
+
+            <table>
+
+                <tr><th>Kategoria</th><th>Opis</th></tr>
+
+                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>>ULN and >Baseline</td></tr>
+
+                <tr><td>Grade 2 </td><td>-</td></tr>
+
+                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Steroids initiated</td></tr>
+
+                <tr><td>Grade 4 </td><td>-</td></tr>
+
+                <tr><td>Grade 5 </td><td>-</td></tr>
+
+                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an increased number of eosinophils in the blood.</td></tr>
+
+            </table>
+
+        </custom-checkbox-group> utwórz kod html dla poniższej tabeli: 

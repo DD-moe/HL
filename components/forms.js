@@ -8,7 +8,7 @@ class ToggleContent extends HTMLElement {
                 :host { display: block; }
                 .minimized { cursor: pointer; }
                 .expanded { display: none; border: 1px solid #ccc; padding: 10px; background: white; }
-                .controls { position: absolute; top: 10px; right: 10px; }
+                .controls { position: fixed; top: 10px; right: 10px; }
                 .controls button { background: none; border: none; font-size: 18px; cursor: pointer; }
             </style>
             <div class="minimized"><slot name="minimized"></slot></div>

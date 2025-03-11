@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="[Damian Bezara]">
+    <meta name="description" content="Formularz CTCAE dla HL - ocena działań niepożądanych">
+    <meta name="keywords" content="CTCAE, HL, formularz, ocena, zdrowie">
+    <title>Formularz CTCAE dla HL</title>
+    <script type="module" src="https://git.1ioe.top/HL/components/forms.js" blocking="render" data-opis="tools components"></script>
+    <script type="module" src="https://git.1ioe.top/HL/components/interview.js" blocking="render" data-opis="utility components"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #4CAF50; color: white; text-align: center; padding: 1em; }
+        main { margin-left: 1%; margin-top: 3em; margin-bottom: 3em; background: white; padding: 1% auto; max-width: 98%; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        footer { background-color: #222; color: white; text-align: center; padding: 1em; position: relative; bottom: 0; width: 100%; }
+        table { width: 100%; border-collapse: collapse; background: white; margin: 20px auto; max-width: 800px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Formularz CTCAE dla HL</h1>
+    </header>
+    <main>
+        <p>Proszę wypełnić poniższy formularz w celu oceny działań niepożądanych.</p>
+        <toggle-content>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Morfologia Krwii</h1></div>
+            <div slot="expanded">
+                <custom-checkbox-group max="1" calc="max">
+                    <h2>Anemia</h2>
+                    <table>
+                        <tr><th>Kategoria</th><th>Opis</th></tr>
+                        <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Hemoglobin (Hgb) < LLN - 10.0 g/dL; < LLN - 6.2 mmol/L; < LLN - 100 g/L</td></tr>
+                        <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Hgb <10.0 - 8.0 g/dL; <6.2 - 4.9 mmol/L; <100 - 80 g/L</td></tr>
+                        <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Hgb <8.0 g/dL; <4.9 mmol/L; <80 g/L; transfusion indicated</td></tr>
+                        <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent intervention indicated</td></tr>
+                        <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                        <tr><td>Definition</td><td>A disorder characterized by a reduction in the amount of hemoglobin...</td></tr>
+                    </table>
+                </custom-checkbox-group>
+
+                <custom-checkbox-group max="1" calc="max">
+                    <h2>Eosinophilia</h2>
+                    <table>
+                        <tr><th>Kategoria</th><th>Opis</th></tr>
+                        <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>>ULN and >Baseline</td></tr>
+                        <tr><td>Grade 2 </td><td>-</td></tr>
+                        <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Steroids initiated</td></tr>
+                        <tr><td>Grade 4 </td><td>-</td></tr>
+                        <tr><td>Grade 5 </td><td>-</td></tr>
+                        <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an increased number of eosinophils in the blood.</td></tr>
+                    </table>
+                </custom-checkbox-group>
+                
+                <custom-checkbox-group max="1" calc="max">
+                    <h2>Febrile neutropenia</h2>
+                    <table>
+                        <tr><th>Kategoria</th><th>Opis</th></tr>
+                        <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;1000/mms with a single temperature of 38.3°C</td></tr>
+                        <tr><td>Grade 2 </td><td>-</td></tr>
+                        <tr><td>Grade 3 </td><td>-</td></tr>
+                        <tr><td>Grade 4 </td><td>-</td></tr>
+                        <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Life threatening consequences; Death</td></tr>
+                        <tr><td>Definition</td><td>A disorder characterized by a low neutrophil count (&lt;1000/mms) with a single temperature of 38.3°C or higher.</td></tr>
+                    </table>
+                </custom-checkbox-group>
+                
+                <custom-checkbox-group max="1" calc="max">
+                    <h2>Hemolysis</h2>
+                    <table>
+                        <tr><th>Kategoria</th><th>Opis</th></tr>
+                        <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Laboratory evidence of hemolysis</td></tr>
+                        <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Evidence of hemolysis and 2 g/dL decrease in hemoglobin</td></tr>
+                        <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Transfusion or medical intervention indicated (e.g., steroids)</td></tr>
+                        <tr><td>Grade 4 </td><td>-</td></tr>
+                        <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Life threatening consequences; Death</td></tr>
+                        <tr><td>Definition</td><td>A disorder characterized by the destruction of red blood cells (hemolysis).</td></tr>
+                    </table>
+                </custom-checkbox-group>
+                
+                <custom-checkbox-group max="1" calc="max">
+                    <h2>Leukocytosis</h2>
+                    <table>
+                        <tr><th>Kategoria</th><th>Opis</th></tr>
+                        <tr><td>Grade 1 </td><td> - </td></tr>
+                        <tr><td>Grade 2 </td><td> - </td></tr>
+                        <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td> >100,000/mm3 </td></tr>
+                        <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Clinical manifestations of leucostasis; urgent intervention indicated</td></tr>
+                        <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                        <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an increased number of white blood cells in the blood.</td></tr>
+                    </table>
+                </custom-checkbox-group>
+            </div>
+        </toggle-content>
+        
+    </main>
+    <footer>
+        <p>&copy; <span id="year"></span> [Damian Bezara]. Wszelkie prawa zastrzeżone.</p>
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+</html>
