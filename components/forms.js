@@ -204,7 +204,7 @@ class EditableElement extends HTMLElement {
                 <button id="apply">Apply</button>
             </div>
             <style>
-                .editor { width: 100%; height: 200px; font-family: monospace; }
+                .editor { width: 100%; height: 20vh; font-family: monospace; }
             </style>
         `;
 
@@ -277,7 +277,7 @@ class CSSEditor extends HTMLElement {
                 <button id="download">Download</button>
             </div>
             <style>
-                .editor { width: 100%; height: 200px; font-family: monospace; }
+                .editor { width: 100%; height: 20vh; font-family: monospace; }
             </style>
         `;
 
@@ -351,7 +351,7 @@ class ScriptEditor extends HTMLElement {
                 <button id="download">Download</button>
             </div>
             <style>
-                .editor { width: 100%; height: 200px; font-family: monospace; }
+                .editor { width: 100%; height: 20vh; font-family: monospace; }
             </style>
         `;
 
