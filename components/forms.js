@@ -196,20 +196,25 @@ class EditableElement extends HTMLElement {
       // Tworzenie shadow DOM
       this.attachShadow({ mode: 'open' });
   
-      // Elementy w shadow DOM
-      this.checkbox = document.createElement('input');
-      this.checkbox.type = 'checkbox';
-      this.textarea = document.createElement('textarea');
-      this.applyButton = document.createElement('button');
-      this.applyButton.textContent = 'Apply';
-  
-      // Dodanie elementów do shadow DOM
-      this.shadowRoot.appendChild(this.checkbox);
-      this.shadowRoot.appendChild(this.textarea);
-      this.shadowRoot.appendChild(this.applyButton);
-  
-      // Właściwość, która przechowuje wybrany element
-      this.selected = null;
+        // Wstawienie HTML do shadow DOM
+        this.shadowRoot.innerHTML = `
+            <div>
+                <input type="checkbox" id="checkbox">
+                <textarea id="editor" part="textarea" class="editor"></textarea>
+                <button id="apply">Apply</button>
+            </div>
+            <style>
+                .editor { width: 100%; height: 200px; font-family: monospace; }
+            </style>
+        `;
+
+        // Pobranie referencji do elementów
+        this.checkbox = this.shadowRoot.querySelector("#checkbox");
+        this.textarea = this.shadowRoot.querySelector("#editor");
+        this.applyButton = this.shadowRoot.querySelector("#apply");
+
+        // Właściwość przechowująca wybrany element
+        this.selected = null;
     }
   
     connectedCallback() {
@@ -267,10 +272,13 @@ class CSSEditor extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div>
                 <select id="styles-list"></select>
-                <textarea id="editor" class="editor"></textarea>
+                <textarea id="editor" class="editor" part="textarea"></textarea>
                 <button id="apply">Apply</button>
                 <button id="download">Download</button>
             </div>
+            <style>
+                .editor { width: 100%; height: 200px; font-family: monospace; }
+            </style>
         `;
 
         this.stylesList = this.shadowRoot.querySelector("#styles-list");
@@ -338,7 +346,7 @@ class ScriptEditor extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div>
                 <select id="scripts-list"></select>
-                <textarea id="editor" class="editor"></textarea>
+                <textarea id="editor" part="textarea" class="editor"></textarea>
                 <button id="apply">Apply</button>
                 <button id="download">Download</button>
             </div>
