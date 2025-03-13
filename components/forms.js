@@ -266,7 +266,7 @@ class EditableElement extends HTMLElement {
         }
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
-        this.textarea.value = this.selected.innerHTML;
+        this.textarea.value = this.selected.innerHTML.replace(/\s*class\s*=\s*""\s*/g, '');
 
         this.selected.classList.add(this.getAttribute("highlight-class"));
       } else {
