@@ -236,11 +236,20 @@ class EditableElement extends HTMLElement {
     }
   
     handleBodyClick(event) {
-      // Ignorujemy kliknięcia w checkbox, textarea, applyButton lub wewnątrz tego custom elementu
-      if (event.target === this.checkbox || event.target === this.textarea || event.target === this.applyButton || this.contains(event.target)) {
-        return;
-      }
-  
+        // Pobierz ID elementu do zignorowania
+        const ignoreId = this.getAttribute('ignore-id');
+
+        // Ignorujemy kliknięcia w checkbox, textarea, applyButton, wewnątrz custom elementu lub element o określonym ID
+        if (
+            event.target === this.checkbox ||
+            event.target === this.textarea ||
+            event.target === this.applyButton ||
+            this.contains(event.target) ||
+            (ignoreId && event.target.id === ignoreId) // Sprawdzamy czy element ma id do zignorowania
+        ) {
+            return;
+        }
+
       // Jeśli checkbox jest zaznaczony, wybieramy element i kopiujemy jego innerHTML do textarea
       if (this.checkbox.checked) {
         if (this.selected) {
@@ -437,6 +446,9 @@ class DocumentEditor extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback(){
         this.render();
     }
 
@@ -464,7 +476,7 @@ class DocumentEditor extends HTMLElement {
                   <div class="scrolable">
                       <div>
                           <h3>Edytor DOM tej strony</h3>
-                          <editable-element once></editable-element>
+                          <editable-element ignore-id = "${this.getAttribute('ignore-id') || ''}"></editable-element>
                       </div>
                       <br>
                       <div>
