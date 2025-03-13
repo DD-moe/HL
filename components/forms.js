@@ -430,7 +430,58 @@ class ScriptEditor extends HTMLElement {
     }
 }
 
+class DocumentEditor extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                    width: 100%;
+                }
+                .scrolable {
+                    overflow: auto;
+                    width: 90%;
+                    margin-left: 5%;
+                    max-height: 100vh;
+                }
+                .toggle-button {
+                    cursor: pointer;
+                    user-select: none;
+                }
+            </style>
+            <toggle-content>
+              <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽EDYTOR strony WEB</h1></div>
+              <div slot="expanded">
+                  <div class="scrolable">
+                      <div>
+                          <h3>Edytor DOM tej strony</h3>
+                          <editable-element></editable-element>
+                      </div>
+                      <br>
+                      <div>
+                          <h3>Edytor STYLE tej strony</h3>
+                          <css-editor></css-editor>
+                      </div>
+                      <br>
+                      <div>
+                          <h3>Edytor SCRIPT tej strony</h3>
+                          <script-editor></script-editor>
+                      </div>
+                  </div>
+              </div>  
+          </toggle-content>
+        `;
+    }
+}
+
 // Rejestracja niestandardowego elementu
+customElements.define('document-editor', DocumentEditor);
 customElements.define("script-editor", ScriptEditor);
 customElements.define("css-editor", CSSEditor);  
 customElements.define('editable-element', EditableElement);
@@ -438,4 +489,4 @@ customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor};
+export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor, DocumentEditor};
