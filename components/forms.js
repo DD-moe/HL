@@ -257,6 +257,7 @@ class EditableElement extends HTMLElement {
           this.selected.style.border = '';
           console.log(this.selected.style.cssText);
           if (this.selected.style.cssText === '') {
+            console.log("0");
             this.selected.removeAttribute('style');
           }
         }
