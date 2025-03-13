@@ -270,8 +270,11 @@ class EditableElement extends HTMLElement {
         // Jeśli checkbox nie jest zaznaczony, resetujemy textarea i selected
         this.textarea.value = '';
         if (this.selected) {
-          this.selected.style.border = '';
-        }
+            this.selected.style.border = '';
+            if (this.selected.style.cssText === '') {
+                this.selected.removeAttribute('style');
+            }
+        }        
         this.selected = null;
       }
     }
