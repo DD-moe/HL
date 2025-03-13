@@ -249,7 +249,7 @@ class EditableElement extends HTMLElement {
         }
         
         if (this.hasAttribute("once")) {
-            this.checkbox.checked = "false";
+            this.checkbox.checked = false;
         }
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
