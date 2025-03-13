@@ -26,6 +26,34 @@
         }
         textarea{width: 90%;}
         custom-checkbox-group{width: 96%; margin-left: 2%;}
+        .highlight-class {
+            /* Początkowe tło i obramowanie */
+            background-color: rgba(255, 255, 0, 0.2); /* Jasnożółte tło */
+            border: 2px solid rgba(255, 255, 0, 0.7); /* Żółte obramowanie */
+            padding: 4px; /* Dodanie marginesu wewnętrznego dla efektu */
+            
+            /* Płynne przejście dla tła i obramowania */
+            transition: background-color 0.3s ease, border-color 0.3s ease, border 0.3s ease;
+
+            /* Można dodać animację pulsowania, zmieniając kolor */
+            animation: pulse 2s infinite alternate; /* Przykład animacji pulsowania */
+            }
+
+            /* Definicja animacji pulsowania */
+            @keyframes pulse {
+            0% {
+                background-color: rgba(255, 255, 0, 0.2); /* Jasnożółte tło */
+                border-color: rgba(255, 255, 0, 0.7); /* Żółte obramowanie */
+            }
+            50% {
+                background-color: rgba(255, 255, 0, 0.4); /* Ciemniejsze żółte tło */
+                border-color: rgba(255, 165, 0, 0.8); /* Pomarańczowe obramowanie */
+            }
+            100% {
+                background-color: rgba(255, 255, 0, 0.2); /* Powrót do początkowego tła */
+                border-color: rgba(255, 255, 0, 0.7); /* Powrót do początkowego obramowania */
+            }
+        }
     </style>
 </head>
 <body>
@@ -304,7 +332,7 @@
             </div>
         </toggle-content> 
         
-        <document-editor ignore-id = "documenteditor" id="documenteditor"></document-editor>
+        <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
 
         <div>
             <!-- Dane pacjenta -->
