@@ -235,11 +235,25 @@
             });
         </script>
 
-        <br>
-        <div>
-            <h3>Edytor kodu tej strony</h3>
-            <editable-element></editable-element>
-        </div>
+        <toggle-content>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽EDYTOR strony WEB</h1></div>
+            <div slot="expanded">
+                <div class="scrolable">
+            <div>
+                <h3>Edytor DOM tej strony</h3>
+                <editable-element></editable-element>
+            </div>
+            <br>
+            <div>
+                <h3>Edytor STYLE tej strony</h3>
+                <editable-element></editable-element>
+            </div>
+            <br>
+            <div>
+                <h3>Edytor SCRIPT tej strony</h3>
+                <editable-element></editable-element>
+            </div>  
+        </toggle-content>
 
     </main>
     <footer>
