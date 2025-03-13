@@ -1,37 +1,35 @@
-Write custom elemen for html, following rulse below:
-First do not use id , but data-rule instead in custom element 
-Secondin constructor use only really neaded operations , while major of them allocate onConnected()
+        <toggle-content>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽EDYTOR strony WEB</h1></div>
+            <div slot="expanded">
+                <div class="scrolable">
+                    <div>
+                        <h3>Edytor DOM tej strony</h3>
+                        <editable-element></editable-element>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>Edytor STYLE tej strony</h3>
+                        <css-editor></css-editor>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>Edytor SCRIPT tej strony</h3>
+                        <script-editor></script-editor>
+                    </div>
+                </div>
+            </div>  
+        </toggle-content>
 
-in shadow root there are two buttons - give them not text but emoji and tittle with describtion of their function. 
-first button is to unselect palete element, second is to set to selected pallete swatch color basing on rgb from inputs
-allocate in shadow dom 3 inputs with labels for eac h channel.
+        przrrób powyższy kod html na web component, gdzie: 
 
-there is also slot for swatches - utilising data-role ="swatch" where each swatch has style attribute with background color. 
-what is more on Connected set to all swatches in slot border i pxblack, and when clicked elemnt in variable selected has border set to black, then newly clicked element is added to selected and ist border becomes red.
+        toggle-content{width: 100%;}
 
+        .scrolable{
+            overflow: auto;
+            width: 90%;
+            margin-left: 5%;
+            max-height: 100vh;
+        }
 
-
-
-wzorując się na tym komponencie:         <custom-checkbox-group max="1" calc="max">
-
-            <h2>CTCAE Term - Eosinophilia</h2>
-
-            <table>
-
-                <tr><th>Kategoria</th><th>Opis</th></tr>
-
-                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>>ULN and >Baseline</td></tr>
-
-                <tr><td>Grade 2 </td><td>-</td></tr>
-
-                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Steroids initiated</td></tr>
-
-                <tr><td>Grade 4 </td><td>-</td></tr>
-
-                <tr><td>Grade 5 </td><td>-</td></tr>
-
-                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an increased number of eosinophils in the blood.</td></tr>
-
-            </table>
-
-        </custom-checkbox-group> utwórz kod html dla poniższej tabeli: 
+        zaś wszystkie webcomponents tu uŻyte są yte będą zawarte w tym samym module - do którego wstawię utworzony przez Ciebie webcomponents
+        Nazwijmy ten webcomponent - document editor lub whole documnet editor lub jeszcze inaczej ale zgodnie z koncepcją.
