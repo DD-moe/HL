@@ -281,6 +281,7 @@ class EditableElement extends HTMLElement {
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
         this.last_style = this.selected.getAttribute("style") || null;
+        console.log(this.last_style);
         this.textarea.value = this.selected.innerHTML;
 
         this.selected.style.border = '2px solid blue';
