@@ -427,4 +427,4 @@ customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList, MyRefresh, EditableElement, EditableElement, ScriptEditor};
+export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor};
