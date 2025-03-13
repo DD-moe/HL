@@ -464,7 +464,7 @@ class DocumentEditor extends HTMLElement {
                   <div class="scrolable">
                       <div>
                           <h3>Edytor DOM tej strony</h3>
-                          <editable-element></editable-element>
+                          <editable-element once></editable-element>
                       </div>
                       <br>
                       <div>
