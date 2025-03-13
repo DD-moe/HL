@@ -216,21 +216,23 @@ class EditableElement extends HTMLElement {
 
         // Właściwość przechowująca wybrany element
         this.selected = null;
-        this.last_border = null;
+        this.last_style = null;
+        this.boundHandleBodyClick = this.handleBodyClick.bind(this);
     }
   
     connectedCallback() {
       // Dodanie event listenera do body
-      document.body.addEventListener('click', this.handleBodyClick.bind(this));
+      document.body.addEventListener('click', this.boundHandleBodyClick);
       
       // Zdarzenie apply (zaktualizowanie innerHTML z textarea)
       this.applyButton.addEventListener('click', () => {
         // Resetujemy poprzedni element
-        this.selected.style.border = this.last_border;
         if (this.selected) {
-            if (this.selected.style.cssText === '') {
-                this.selected.removeAttribute('style');
-              }  
+            if (this.last_style) {
+                this.selected.setAttribute("style", this.last_style);
+            } else {
+                this.selected.removeAttribute("style");
+            }             
           this.selected.innerHTML = this.textarea.value;
         }
       });
@@ -238,7 +240,14 @@ class EditableElement extends HTMLElement {
   
     disconnectedCallback() {
       // Usunięcie event listenera po odłączeniu komponentu
-      document.body.removeEventListener('click', this.handleBodyClick.bind(this));
+      if (this.selected) {
+        if (this.last_style) {
+            this.selected.setAttribute("style", this.last_style);
+        } else {
+            this.selected.removeAttribute("style");
+        }
+    }    
+    document.body.removeEventListener('click', this.boundHandleBodyClick);
     }
   
     handleBodyClick(event) {
@@ -259,11 +268,11 @@ class EditableElement extends HTMLElement {
       // Jeśli checkbox jest zaznaczony, wybieramy element i kopiujemy jego innerHTML do textarea
       if (this.checkbox.checked) {
         if (this.selected) {
-          // Resetujemy poprzedni element
-          this.selected.style.border = this.last_border;
-          if (this.selected.style.cssText === '') {
-            this.selected.removeAttribute('style');
-          }
+            if (this.last_style) {
+                this.selected.setAttribute("style", this.last_style);
+            } else {
+                this.selected.removeAttribute("style");
+            }            
         }
         
         if (this.hasAttribute("once")) {
@@ -271,19 +280,19 @@ class EditableElement extends HTMLElement {
         }
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
+        this.last_style = this.selected.getAttribute("style") || null;
         this.textarea.value = this.selected.innerHTML;
-        
-        // Opcjonalnie, zaznaczamy kliknięty element, aby wizualnie wskazać, że jest wybrany
-        this.last_border = this.selected.style.border || "";
+
         this.selected.style.border = '2px solid blue';
       } else {
         // Jeśli checkbox nie jest zaznaczony, resetujemy textarea i selected
         this.textarea.value = '';
         if (this.selected) {
-            this.selected.style.border = this.last_border;
-            if (this.selected.style.cssText === '') {
-                this.selected.removeAttribute('style');
-            }
+            if (this.last_style) {
+                this.selected.setAttribute("style", this.last_style);
+            } else {
+                this.selected.removeAttribute("style");
+            }            
         }        
         this.selected = null;
       }
