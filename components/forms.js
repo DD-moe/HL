@@ -216,6 +216,7 @@ class EditableElement extends HTMLElement {
 
         // Właściwość przechowująca wybrany element
         this.selected = null;
+        this.last_border = null;
     }
   
     connectedCallback() {
@@ -224,7 +225,12 @@ class EditableElement extends HTMLElement {
       
       // Zdarzenie apply (zaktualizowanie innerHTML z textarea)
       this.applyButton.addEventListener('click', () => {
+        // Resetujemy poprzedni element
+        this.selected.style.border = this.last_border;
         if (this.selected) {
+            if (this.selected.style.cssText === '') {
+                this.selected.removeAttribute('style');
+              }  
           this.selected.innerHTML = this.textarea.value;
         }
       });
@@ -254,7 +260,7 @@ class EditableElement extends HTMLElement {
       if (this.checkbox.checked) {
         if (this.selected) {
           // Resetujemy poprzedni element
-          this.selected.style.border = '';
+          this.selected.style.border = this.last_border;
           if (this.selected.style.cssText === '') {
             this.selected.removeAttribute('style');
           }
@@ -268,12 +274,13 @@ class EditableElement extends HTMLElement {
         this.textarea.value = this.selected.innerHTML;
         
         // Opcjonalnie, zaznaczamy kliknięty element, aby wizualnie wskazać, że jest wybrany
+        this.last_border = this.selected.style.border || "";
         this.selected.style.border = '2px solid blue';
       } else {
         // Jeśli checkbox nie jest zaznaczony, resetujemy textarea i selected
         this.textarea.value = '';
         if (this.selected) {
-            this.selected.style.border = '';
+            this.selected.style.border = this.last_border;
             if (this.selected.style.cssText === '') {
                 this.selected.removeAttribute('style');
             }
