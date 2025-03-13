@@ -216,7 +216,6 @@ class EditableElement extends HTMLElement {
 
         // Właściwość przechowująca wybrany element
         this.selected = null;
-        this.last_style = null;
         this.boundHandleBodyClick = this.handleBodyClick.bind(this);
     }
   
@@ -227,12 +226,7 @@ class EditableElement extends HTMLElement {
       // Zdarzenie apply (zaktualizowanie innerHTML z textarea)
       this.applyButton.addEventListener('click', () => {
         // Resetujemy poprzedni element
-        if (this.selected) {
-            if (this.last_style) {
-                this.selected.setAttribute("style", this.last_style);
-            } else {
-                this.selected.removeAttribute("style");
-            }             
+        if (this.selected) {          
           this.selected.innerHTML = this.textarea.value;
         }
       });
@@ -241,11 +235,7 @@ class EditableElement extends HTMLElement {
     disconnectedCallback() {
       // Usunięcie event listenera po odłączeniu komponentu
       if (this.selected) {
-        if (this.last_style) {
-            this.selected.setAttribute("style", this.last_style);
-        } else {
-            this.selected.removeAttribute("style");
-        }
+        this.selected.classList.remove(this.getAttribute("highlight-class"));   
     }    
     document.body.removeEventListener('click', this.boundHandleBodyClick);
     }
@@ -268,11 +258,7 @@ class EditableElement extends HTMLElement {
       // Jeśli checkbox jest zaznaczony, wybieramy element i kopiujemy jego innerHTML do textarea
       if (this.checkbox.checked) {
         if (this.selected) {
-            if (this.last_style) {
-                this.selected.setAttribute("style", this.last_style);
-            } else {
-                this.selected.removeAttribute("style");
-            }            
+            this.selected.classList.remove(this.getAttribute("highlight-class"));            
         }
         
         if (this.hasAttribute("once")) {
@@ -280,20 +266,14 @@ class EditableElement extends HTMLElement {
         }
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
-        this.last_style = this.selected.getAttribute("style") || null;
-        this.selected.offsetHeight; // Wymusza synchronizację
         this.textarea.value = this.selected.innerHTML;
 
-        this.selected.style.border = '2px solid blue';
+        this.selected.classList.add(this.getAttribute("highlight-class"));
       } else {
         // Jeśli checkbox nie jest zaznaczony, resetujemy textarea i selected
         this.textarea.value = '';
         if (this.selected) {
-            if (this.last_style) {
-                this.selected.setAttribute("style", this.last_style);
-            } else {
-                this.selected.removeAttribute("style");
-            }            
+            this.selected.classList.remove(this.getAttribute("highlight-class"));            
         }        
         this.selected = null;
       }
@@ -499,7 +479,7 @@ class DocumentEditor extends HTMLElement {
                   <div class="scrolable">
                       <div>
                           <h3>Edytor DOM tej strony</h3>
-                          <editable-element ignore-id = "${this.getAttribute('ignore-id') || ''}"></editable-element>
+                          <editable-element ignore-id = "${this.getAttribute('ignore-id') || ''}" highlight-class="${this.getAttribute('highlight-class') || 'selected-element'}"></editable-element>
                       </div>
                       <br>
                       <div>
