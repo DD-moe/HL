@@ -255,6 +255,7 @@ class EditableElement extends HTMLElement {
         if (this.selected) {
           // Resetujemy poprzedni element
           this.selected.style.border = '';
+          console.log(this.selected.style.cssText);
           if (this.selected.style.cssText === '') {
             this.selected.removeAttribute('style');
           }
