@@ -247,7 +247,10 @@ class EditableElement extends HTMLElement {
           // Resetujemy poprzedni element
           this.selected.style.border = '';
         }
-  
+        
+        if (this.hasAttribute("once")) {
+            this.checkbox.checked = "false";
+        }
         // Przypisujemy kliknięty element do selected
         this.selected = event.target;
         this.textarea.value = this.selected.innerHTML;
