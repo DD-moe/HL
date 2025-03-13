@@ -258,11 +258,173 @@ class EditableElement extends HTMLElement {
       }
     }
   }
-  
+
+class CSSEditor extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+
+        this.shadowRoot.innerHTML = `
+            <div>
+                <select id="styles-list"></select>
+                <textarea id="editor" class="editor"></textarea>
+                <button id="apply">Apply</button>
+                <button id="download">Download</button>
+            </div>
+        `;
+
+        this.stylesList = this.shadowRoot.querySelector("#styles-list");
+        this.editor = this.shadowRoot.querySelector("#editor");
+        this.applyBtn = this.shadowRoot.querySelector("#apply");
+        this.downloadBtn = this.shadowRoot.querySelector("#download");
+
+        this.styles = [];
+    }
+
+    connectedCallback() {
+        this.loadStyles();
+        this.stylesList.addEventListener("change", () => this.loadStyleContent());
+        this.applyBtn.addEventListener("click", () => this.applyChanges());
+        this.downloadBtn.addEventListener("click", () => this.downloadCSS());
+    }
+
+    loadStyles() {
+        document.querySelectorAll("style, link[rel='stylesheet']").forEach((el, index) => {
+            const name = el.tagName === "LINK" ? el.href.split("/").pop() : `Inline Style ${index + 1}`;
+            this.styles.push(el);
+            this.stylesList.innerHTML += `<option value="${index}">${name}</option>`;
+        });
+        if (this.styles.length) this.loadStyleContent();
+    }
+
+    loadStyleContent() {
+        const selectedStyle = this.styles[this.stylesList.value];
+        if (selectedStyle.tagName === "LINK") {
+            fetch(selectedStyle.href)
+                .then(res => res.text())
+                .then(css => this.editor.value = css);
+        } else {
+            this.editor.value = selectedStyle.innerHTML;
+        }
+    }
+
+    applyChanges() {
+        const selectedStyle = this.styles[this.stylesList.value];
+        if (selectedStyle.tagName === "LINK") {
+            const newStyle = document.createElement("style");
+            newStyle.innerHTML = this.editor.value;
+            document.head.appendChild(newStyle);
+            selectedStyle.remove();
+            this.styles[this.stylesList.value] = newStyle;
+        } else {
+            selectedStyle.innerHTML = this.editor.value;
+        }
+    }
+
+    downloadCSS() {
+        const blob = new Blob([this.editor.value], { type: "text/css" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = this.stylesList.selectedOptions[0].textContent;
+        a.click();
+    }
+}
+
+class ScriptEditor extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+
+        this.shadowRoot.innerHTML = `
+            <div>
+                <select id="scripts-list"></select>
+                <textarea id="editor" class="editor"></textarea>
+                <button id="apply">Apply</button>
+                <button id="download">Download</button>
+            </div>
+            <style>
+                .editor { width: 100%; height: 200px; font-family: monospace; }
+            </style>
+        `;
+
+        this.scriptsList = this.shadowRoot.querySelector("#scripts-list");
+        this.editor = this.shadowRoot.querySelector("#editor");
+        this.applyBtn = this.shadowRoot.querySelector("#apply");
+        this.downloadBtn = this.shadowRoot.querySelector("#download");
+
+        this.scripts = [];
+        this.scriptSources = {};
+    }
+
+    connectedCallback() {
+        this.loadScripts();
+        this.scriptsList.addEventListener("change", () => this.loadScriptContent());
+        this.applyBtn.addEventListener("click", () => this.applyChanges());
+        this.downloadBtn.addEventListener("click", () => this.downloadJS());
+    }
+
+    loadScripts() {
+        document.querySelectorAll("script").forEach((el, index) => {
+            const name = el.src ? el.src.split("/").pop() : `Inline Script ${index + 1}`;
+            this.scripts.push(el);
+            this.scriptSources[index] = el.src || null;
+            this.scriptsList.innerHTML += `<option value="${index}">${name}</option>`;
+        });
+        if (this.scripts.length) this.loadScriptContent();
+    }
+
+    async loadScriptContent() {
+        const selectedIndex = this.scriptsList.value;
+        const selectedScript = this.scripts[selectedIndex];
+
+        if (this.scriptSources[selectedIndex]) {
+            // Jeśli skrypt pochodzi z pliku, pobieramy jego zawartość
+            try {
+                const res = await fetch(this.scriptSources[selectedIndex]);
+                this.editor.value = await res.text();
+            } catch (error) {
+                console.error("Błąd pobierania pliku JS:", error);
+                this.editor.value = "// Nie udało się załadować pliku";
+            }
+        } else {
+            // Inline script
+            this.editor.value = selectedScript.innerHTML;
+        }
+    }
+
+    applyChanges() {
+        const selectedIndex = this.scriptsList.value;
+        const selectedScript = this.scripts[selectedIndex];
+
+        if (this.scriptSources[selectedIndex]) {
+            console.warn("Edytujesz zewnętrzny skrypt. Zmiany nie zostaną zapisane na serwerze.");
+        }
+
+        const newScript = document.createElement("script");
+        newScript.innerHTML = this.editor.value;
+        document.body.appendChild(newScript);
+
+        selectedScript.remove();
+        this.scripts[selectedIndex] = newScript;
+
+        console.log("Kod JS zaktualizowany!");
+    }
+
+    downloadJS() {
+        const blob = new Blob([this.editor.value], { type: "text/javascript" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = this.scriptsList.selectedOptions[0].textContent;
+        a.click();
+    }
+}
+
 // Rejestracja niestandardowego elementu
+customElements.define("script-editor", ScriptEditor);
+customElements.define("css-editor", CSSEditor);  
 customElements.define('editable-element', EditableElement);
 customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList, MyRefresh};
+export {ToggleContent, ScriptList, MyRefresh, EditableElement, EditableElement, ScriptEditor};
