@@ -200,6 +200,7 @@ class EditableElement extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div>
                 <input type="checkbox" id="checkbox">
+                <label for="checkbox">Włącza edycję elementu DOM po jego kliknięciu.</label>
                 <textarea id="editor" part="textarea" class="editor"></textarea>
                 <button id="apply">Apply</button>
             </div>
@@ -271,6 +272,7 @@ class CSSEditor extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <div>
+                <label for="styles-list">Arkusz CSS do edycji: </label>
                 <select id="styles-list"></select>
                 <textarea id="editor" class="editor" part="textarea"></textarea>
                 <button id="apply">Apply</button>
@@ -345,6 +347,7 @@ class ScriptEditor extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <div>
+                <label for="scripts-list">Skrypt do edycji: </label>
                 <select id="scripts-list"></select>
                 <textarea id="editor" part="textarea" class="editor"></textarea>
                 <button id="apply">Apply</button>
