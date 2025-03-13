@@ -115,8 +115,7 @@
 
 
 
-
-                    <h3 >Zobacz wyniki w EKG</h3>
+                    <h3>Zobacz wyniki w EKG</h3>
                     <custom-checkbox-group max="1" calc="max">
                         <h2>Asystole</h2>
                         <table>
@@ -234,19 +233,72 @@
                     </custom-checkbox-group>
                     
                     <custom-checkbox-group max="1" calc="max">
-                        <h2 >Paroxysmal atrial tachycardia</h2>
+                        <h2>Paroxysmal atrial tachycardia</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Asymptomatic, intervention not indicated</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Non-urgent medical intervention indicated</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Symptomatic, urgent intervention indicated; ablation</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; incompletely controlled medically; cardioversion indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by a dysrhythmia with abrupt onset and sudden termination of atrial contractions with a rate of 150-250 beats per minute. The rhythm disturbance originates in the atria.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>
+
+                    <custom-checkbox-group max="1" calc="max" >
+                        <h2 >Sick sinus syndrome</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th >Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td >Asymptomatic, intervention not indicated</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td >Symptomatic, intervention not indicated; change in medication initiated</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Symptomatic, intervention indicated</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td >Life-threatening consequences; urgent intervention indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td >Death</td></tr>
+                            <tr><td>Definition</td><td >A disorder characterized by a dysrhythmia with alternating periods of bradycardia and atrial tachycardia accompanied by syncope, fatigue and dizziness.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>
+
+                    <custom-checkbox-group max="1" calc="max">
+                        <h2 >Sinus bradycardia</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td >Asymptomatic, intervention not indicated</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td >Symptomatic, intervention not indicated; change in medication initiated</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td >Symptomatic, intervention indicated</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td >Life-threatening consequences; urgent intervention indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td >A disorder characterized by a dysrhythmia with a heart rate less than 60 beats per minute that originates in the sinus node.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>
+
+                    <custom-checkbox-group max="1" calc="max">
+                        <h2 >Sinus tachycardia</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Asymptomatic, intervention not indicated</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td >Symptomatic; non-urgent medical intervention indicated</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td >Urgent medical intervention indicated</td></tr>
+                            <tr><td >Grade 4 </td><td > - </td></tr>
+                            <tr><td >Grade 5 </td><td > - </td></tr>
+                            <tr><td>Definition</td><td >A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates in the sinus node.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>
+
+                    <custom-checkbox-group max="1" calc="max">
+                        <h2 >Supraventricular tachycardia</h2>
                         <table>
                             <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
                             <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td >Asymptomatic, intervention not indicated</td></tr>
                             <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td >Non-urgent medical intervention indicated</td></tr>
-                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td >Symptomatic, urgent intervention indicated; ablation</td></tr>
-                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td >Life-threatening consequences; incompletely controlled medically; cardioversion indicated</td></tr>
-                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td >Death</td></tr>
-                            <tr><td>Definition</td><td >A disorder characterized by a dysrhythmia with abrupt onset and sudden termination of atrial contractions with a rate of 150-250 beats per minute. The rhythm disturbance originates in the atria.</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td >Symptomatic, urgent intervention indicated</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td >Life-threatening consequences</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td >A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates above the ventricles.</td></tr>
                         </tbody></table>
                     </custom-checkbox-group>
 
 
+                
                 
                 </div>
             </div>
