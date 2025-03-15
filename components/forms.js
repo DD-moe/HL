@@ -501,6 +501,7 @@ class DocumentEditor extends HTMLElement {
 class AIRequest extends HTMLElement {
     #shadow;
     #apiKey;
+    #model;
     #input;
     #instruction;
     #output;
@@ -533,6 +534,7 @@ class AIRequest extends HTMLElement {
                 .status { min-height: 20px; font-size: 14px; color: red; }
             </style>
             <input type="password" placeholder="Enter API Token" />
+            <input type="text" placeholder="Enter Model Name (e.g., gemini-2.0-flash-001)" />
             <textarea placeholder="Input"></textarea>
             <textarea placeholder="Instruction"></textarea>
             <textarea placeholder="Output" readonly></textarea>
@@ -541,10 +543,11 @@ class AIRequest extends HTMLElement {
             <div class="status"></div>
         `;
         
-        const [apiInput, input, instruction, output, generateBtn, cancelBtn, status] = 
+        const [apiInput, modelInput, input, instruction, output, generateBtn, cancelBtn, status] = 
             this.#shadow.querySelectorAll('input, textarea, button, div');
         
         this.#apiKey = apiInput;
+        this.#model = modelInput;
         this.#input = input;
         this.#instruction = instruction;
         this.#output = output;
@@ -561,6 +564,7 @@ class AIRequest extends HTMLElement {
         }
         
         const apiKey = this.#apiKey.value;
+        const modelName = this.#model.value || 'gemini-2.0-flash-001';
         const inputText = this.#input.value;
         const instructionText = this.#instruction.value;
         
@@ -570,21 +574,19 @@ class AIRequest extends HTMLElement {
         }
         
         this.#setLoading(true);
-        
         this.#controller = new AbortController();
+        
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: `${instructionText}\n${inputText}` }] }]
-                }),
-                signal: this.#controller.signal
+            const { GoogleGenAI } = await import('https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm');
+            const ai = new GoogleGenAI({ apiKey });
+            
+            const response = await ai.models.generateContent({
+                model: modelName,
+                contents: `${instructionText}\n${inputText}`,
             });
             
-            const data = await response.json();
-            if (data && data.contents && data.contents[0] && data.contents[0].parts[0]) {
-                this.#output.value = data.contents[0].parts[0].text;
+            if (response && response.text) {
+                this.#output.value = response.text;
                 this.#status.textContent = 'Success!';
             } else {
                 this.#status.textContent = 'Unexpected response format.';
@@ -616,7 +618,6 @@ class AIRequest extends HTMLElement {
     }
 }
 
-// Rejestracja niestandardowego elementu  as
 customElements.define('ai-request', AIRequest);
 customElements.define('document-editor', DocumentEditor);
 customElements.define("script-editor", ScriptEditor);
