@@ -533,10 +533,15 @@ class AIRequest extends HTMLElement {
                 button:disabled { background: #ccc; }
                 .status { min-height: 20px; font-size: 14px; color: red; }
             </style>
+            <label>API Token</label>
             <input type="password" placeholder="Enter API Token" />
+            <label>Model Name</label>
             <input type="text" placeholder="Enter Model Name (e.g., gemini-2.0-flash-001)" />
+            <label>Input</label>
             <textarea placeholder="Input"></textarea>
+            <label>Instruction</label>
             <textarea placeholder="Instruction"></textarea>
+            <label>Output</label>
             <textarea placeholder="Output" readonly></textarea>
             <button>Generate</button>
             <button disabled>Cancel</button>
@@ -557,7 +562,7 @@ class AIRequest extends HTMLElement {
         cancelBtn.addEventListener('click', () => this.cancel());
     }
     
-    async generate() {
+    async generate(inputText = this.#input.value, instructionText = this.#instruction.value) {
         if (!this.#apiKey.value) {
             this.#status.textContent = 'API key is required!';
             return;
@@ -565,8 +570,6 @@ class AIRequest extends HTMLElement {
         
         const apiKey = this.#apiKey.value;
         const modelName = this.#model.value || 'gemini-2.0-flash-001';
-        const inputText = this.#input.value;
-        const instructionText = this.#instruction.value;
         
         if (!inputText || !instructionText) {
             this.#status.textContent = 'Input and instruction are required!';
@@ -588,6 +591,7 @@ class AIRequest extends HTMLElement {
             if (response && response.text) {
                 this.#output.value = response.text;
                 this.#status.textContent = 'Success!';
+                return response.text;
             } else {
                 this.#status.textContent = 'Unexpected response format.';
             }
