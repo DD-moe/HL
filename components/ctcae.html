@@ -366,7 +366,7 @@
         </toggle-content> 
         
         <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
-        <ai-request> asdas</ai-request>
+        <ai-request id="AI"> asdas</ai-request>
 
         <div>
             <!-- Dane pacjenta -->
@@ -424,9 +424,16 @@
 
     </main>
     <footer>
-        <p>&copy; <span id="year"></span> [Damian Bezara]. Wszelkie prawa zastrzeżone.</p>
+        <p>&copy; <span id="year"></span> [Damian Bezara]. Wszelkie prawa zastrzeżone.</p><button id="autor_info">O autorze</button>
+        <pre id="credits"></pre>
         <script>
             document.getElementById("year").textContent = new Date().getFullYear();
+            const AI = document.getElementById("AI");
+            const autor_info = document.getElementById("autor_info");
+            const credits = document.getElementById('credits');
+            autor_info.addEventListener('click', async ()=>{
+                credits.textContent = await AI.generate('Autor: Damian Bezara, role: main developer & 6gl inventor, project: 6-th gen. language in web environment to create fast apps for medical society, contact: find on messenger', 'Napisz krótkie podsumowanie o autorze, przeznaczone dla credits, użyj mieszanych języków polskiego i angielskiego.');
+            });
         </script>
     </footer>
 </body>
