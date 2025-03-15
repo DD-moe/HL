@@ -616,7 +616,7 @@ class AIRequest extends HTMLElement {
     }
 }
 
-// Rejestracja niestandardowego elementu
+// Rejestracja niestandardowego elementu  as
 customElements.define('ai-request', AIRequest);
 customElements.define('document-editor', DocumentEditor);
 customElements.define("script-editor", ScriptEditor);
