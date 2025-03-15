@@ -498,7 +498,126 @@ class DocumentEditor extends HTMLElement {
     }
 }
 
+class AIRequest extends HTMLElement {
+    #shadow;
+    #apiKey;
+    #input;
+    #instruction;
+    #output;
+    #status;
+    #controller;
+    
+    constructor() {
+        super();
+        this.#shadow = this.attachShadow({ mode: 'closed' });
+        this.#render();
+    }
+    
+    #render() {
+        this.#shadow.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                    width: 100%;
+                    max-width: 500px;
+                    font-family: Arial, sans-serif;
+                }
+                input, textarea, button, div {
+                    width: 100%;
+                    margin: 5px 0;
+                    padding: 10px;
+                    box-sizing: border-box;
+                }
+                textarea { height: 100px; }
+                button:disabled { background: #ccc; }
+                .status { min-height: 20px; font-size: 14px; color: red; }
+            </style>
+            <input type="password" placeholder="Enter API Token" />
+            <textarea placeholder="Input"></textarea>
+            <textarea placeholder="Instruction"></textarea>
+            <textarea placeholder="Output" readonly></textarea>
+            <button>Generate</button>
+            <button disabled>Cancel</button>
+            <div class="status"></div>
+        `;
+        
+        const [apiInput, input, instruction, output, generateBtn, cancelBtn, status] = 
+            this.#shadow.querySelectorAll('input, textarea, button, div');
+        
+        this.#apiKey = apiInput;
+        this.#input = input;
+        this.#instruction = instruction;
+        this.#output = output;
+        this.#status = status;
+        
+        generateBtn.addEventListener('click', () => this.generate());
+        cancelBtn.addEventListener('click', () => this.cancel());
+    }
+    
+    async generate() {
+        if (!this.#apiKey.value) {
+            this.#status.textContent = 'API key is required!';
+            return;
+        }
+        
+        const apiKey = this.#apiKey.value;
+        const inputText = this.#input.value;
+        const instructionText = this.#instruction.value;
+        
+        if (!inputText || !instructionText) {
+            this.#status.textContent = 'Input and instruction are required!';
+            return;
+        }
+        
+        this.#setLoading(true);
+        
+        this.#controller = new AbortController();
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: `${instructionText}\n${inputText}` }] }]
+                }),
+                signal: this.#controller.signal
+            });
+            
+            const data = await response.json();
+            if (data && data.contents && data.contents[0] && data.contents[0].parts[0]) {
+                this.#output.value = data.contents[0].parts[0].text;
+                this.#status.textContent = 'Success!';
+            } else {
+                this.#status.textContent = 'Unexpected response format.';
+            }
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                this.#status.textContent = 'Request canceled.';
+            } else {
+                this.#status.textContent = 'Error fetching response.';
+            }
+        }
+        
+        this.#setLoading(false);
+    }
+    
+    cancel() {
+        if (this.#controller) {
+            this.#controller.abort();
+        }
+    }
+    
+    #setLoading(loading) {
+        const buttons = this.#shadow.querySelectorAll('button');
+        const textareas = this.#shadow.querySelectorAll('textarea');
+        
+        buttons[0].disabled = loading;
+        buttons[1].disabled = !loading;
+        textareas.forEach(el => el.readOnly = loading);
+    }
+}
+
 // Rejestracja niestandardowego elementu
+customElements.define('ai-request', AIRequest);
 customElements.define('document-editor', DocumentEditor);
 customElements.define("script-editor", ScriptEditor);
 customElements.define("css-editor", CSSEditor);  
@@ -507,4 +626,4 @@ customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor, DocumentEditor};
+export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor, DocumentEditor, AIRequest};
