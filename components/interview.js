@@ -481,11 +481,90 @@ class CustomCheckboxGroup extends HTMLElement {
     }
 }
 
-// Rejestracja komponentu
+
+class DirectoryExplorer extends HTMLElement {
+    constructor() {
+        super();
+
+        // Tworzymy Shadow DOM
+        this.attachShadow({ mode: 'open' });
+
+        // Dodajemy zawartość do Shadow DOM
+        this.shadowRoot.innerHTML = `
+            <button id="selectDirBtn">📂 Wybierz katalog</button>
+            <input type="file" id="directoryInput" webkitdirectory multiple hidden>
+        `;
+
+        // Inicjalizacja slotu w Shadow DOM (nazwa slotu nie jest potrzebna)
+        const slot = document.createElement('slot');
+        this.shadowRoot.appendChild(slot); // Dodajemy slot do Shadow DOM
+    }
+
+    connectedCallback() {
+        // Przypisanie event listenerów do elementów
+        this.shadowRoot.getElementById("selectDirBtn").addEventListener("click", () => {
+            this.shadowRoot.getElementById("directoryInput").click();
+        });
+
+        this.shadowRoot.getElementById("directoryInput").addEventListener("change", (event) => {
+            const files = Array.from(event.target.files);
+            const fileTree = {};
+
+            // Tworzenie struktury drzewa katalogów
+            files.forEach(file => {
+                const parts = file.webkitRelativePath.split("/");
+                let current = fileTree;
+
+                for (let i = 0; i < parts.length; i++) {
+                    if (!current[parts[i]]) {
+                        current[parts[i]] = i === parts.length - 1 ? null : {};
+                    }
+                    current = current[parts[i]];
+                }
+            });
+
+            // Funkcja do budowania listy plików
+            this.buildList(fileTree, this.querySelector('ul'));
+        });
+    }
+
+    buildList(obj, parentElement) {
+        parentElement.innerHTML = ""; // Wyczyść poprzednią listę
+
+        Object.keys(obj).forEach(key => {
+            const li = document.createElement("li");
+
+            // Dodanie checkboxa
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+
+            // Ikona 📁 dla folderów i 📄 dla plików
+            const icon = document.createElement("span");
+            icon.textContent = obj[key] === null ? "📄" : "📁";
+
+            li.appendChild(checkbox);
+            li.appendChild(icon);
+            li.appendChild(document.createTextNode(" " + key));
+
+            parentElement.appendChild(li);
+
+            if (obj[key] !== null) {
+                const ul = document.createElement("ul");
+                li.appendChild(ul);
+                this.buildList(obj[key], ul);
+            }
+        });
+    }
+}
+
+// Rejestracja niestandardowego elementu HTML
+customElements.define('directory-explorer', DirectoryExplorer);
 customElements.define('custom-checkbox-group', CustomCheckboxGroup);
 customElements.define('qr-scanner', QRScanner);
 customElements.define('encoder-component', EncoderComponent);
 customElements.define('my-shadow-component', MyShadowComponent);  
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
-export {EditableText, PageComponent, MyShadowComponent, EncoderComponent, QRScanner, CustomCheckboxGroup};
+export {EditableText, PageComponent, MyShadowComponent, EncoderComponent, QRScanner, CustomCheckboxGroup
+    , DirectoryExplorer
+};

@@ -1,0 +1,105 @@
+class RodoConsent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.url = this.getAttribute('url');
+        this.storageKey = 'rodoConsent';
+        this.render();
+    }
+
+    async connectedCallback() {
+        if (this.url) {
+            await this.loadForm();
+        }
+    }
+
+    async loadForm() {
+        try {
+            const response = await fetch(this.url);
+            const html = await response.text();
+            this.shadowRoot.querySelector('#content-slot').innerHTML = html;
+            this.checkVersion();
+            this.restoreConsent();
+            this.addEventListeners();
+        } catch (error) {
+            console.error('Błąd ładowania formularza:', error);
+        }
+    }
+
+    checkVersion() {
+        const savedVersion = localStorage.getItem(this.storageKey + '_version');
+        const versionElement = this.shadowRoot.querySelector('#content-slot h3#version');
+        if (versionElement && versionElement.textContent !== savedVersion) {
+            localStorage.setItem(this.storageKey, JSON.stringify({}));
+            localStorage.setItem(this.storageKey + '_version', versionElement.textContent);
+        }
+    }
+
+    restoreConsent() {
+        const savedData = JSON.parse(localStorage.getItem(this.storageKey) || '{}');
+        Object.keys(savedData).forEach(statement => {
+            const checkbox = this.shadowRoot.querySelector(`[data-statement="${statement}"]`);
+            if (checkbox) checkbox.checked = savedData[statement];
+        });
+    }
+
+    addEventListeners() {
+        this.shadowRoot.querySelectorAll('[data-cathegory]').forEach(button => {
+            button.addEventListener('click', () => this.toggleCategory(button.dataset.cathegory));
+        });
+        
+        this.shadowRoot.querySelector('#save-btn').addEventListener('click', () => this.saveConsent());
+        this.shadowRoot.querySelector('#reset-btn').addEventListener('click', () => this.restoreConsent());
+    }
+
+    toggleCategory(category) {
+        const checkboxes = this.shadowRoot.querySelectorAll('[data-role]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.dataset.role.split(' ').includes(category)) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
+    }
+
+    saveConsent() {
+        const checkboxes = this.shadowRoot.querySelectorAll('[data-statement]');
+        const consentData = {};
+        checkboxes.forEach(checkbox => {
+            consentData[checkbox.dataset.statement] = checkbox.checked;
+        });
+        localStorage.setItem(this.storageKey, JSON.stringify(consentData));
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <toggle-content>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej">RODO 🔽</div>
+                <div slot="expanded">
+                    <div class="scrollable">
+                        <div id="content-slot"></div>
+                        <button id="save-btn">Zapisz</button>
+                        <button id="reset-btn">Cofnij zmiany</button>
+                    </div>
+                </div>
+            </toggle-content>
+            <style>
+                .scrollable {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                    max-height: 80vh;
+                    overflow-y: auto;
+                }
+            </style>
+        `;
+    }
+}
+
+customElements.define('rodo-consent', RodoConsent);
