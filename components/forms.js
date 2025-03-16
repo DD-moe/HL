@@ -688,7 +688,7 @@ class RodoConsent extends HTMLElement {
     loadSavedConsent() {
         const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
         console.log(savedConsent);
-        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements();
+        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
 
         assignedElements.forEach((element) => {
             element.querySelectorAll('input[type=checkbox]').forEach(input => {
@@ -701,7 +701,7 @@ class RodoConsent extends HTMLElement {
     }
 
     addGroupEventListeners() {
-        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements();
+        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
 
         assignedElements.forEach((element) => {
             element.querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
