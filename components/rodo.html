@@ -1,22 +1,30 @@
-<h3 id="version">1.0</h3>
-<form>
-    <button type="button" data-cathegory="marketing">Zaznacz Marketing</button>
-    <button type="button" data-cathegory="analytics">Zaznacz Analitykę</button>
-    <button type="button" data-cathegory="necessary">Zaznacz Niezbędne</button>
-    
-    <label>
-        <input type="checkbox" data-statement="marketing_1" data-role="marketing"> Zgoda na marketing 1
-    </label>
-    <label>
-        <input type="checkbox" data-statement="marketing_2" data-role="marketing"> Zgoda na marketing 2
-    </label>
-    <label>
-        <input type="checkbox" data-statement="analytics_1" data-role="analytics"> Zgoda na analitykę 1
-    </label>
-    <label>
-        <input type="checkbox" data-statement="analytics_2" data-role="analytics marketing"> Zgoda na analitykę 2 (także marketing)
-    </label>
-    <label>
-        <input type="checkbox" data-statement="necessary_1" data-role="necessary"> Zgoda na niezbędne przetwarzanie
-    </label>
-</form>
+<h2 id="rodo-version" data-version="1.0">Wersja RODO: 1.0</h2>
+      <form id="rodo-form">
+          <label class="group-label">
+              <input type="checkbox" class="group-toggle" data-group="marketing"> Zgoda na marketing
+          </label>
+          <br>
+          <label>
+              <input type="checkbox" class="statement" data-groups="marketing" data-statement="email-marketing"> Email marketing
+          </label>
+          <br>
+          <label>
+              <input type="checkbox" class="statement" data-groups="marketing" data-statement="sms-marketing"> SMS marketing
+          </label>
+          <br><br>
+          
+          <label class="group-label">
+              <input type="checkbox" class="group-toggle" data-group="analytics"> Zgoda na analitykę
+          </label>
+          <br>
+          <label>
+              <input type="checkbox" class="statement" data-groups="analytics" data-statement="site-analytics"> Analityka strony
+          </label>
+          <br>
+          <label>
+              <input type="checkbox" class="statement" data-groups="analytics" data-statement="user-tracking"> Śledzenie użytkownika
+          </label>
+          <br><br>
+          
+          <button type="button" id="save-btn">Zatwierdź zmiany</button>
+      </form>
