@@ -591,24 +591,27 @@ class AIRequest extends HTMLElement {
             if (response && response.text) {
                 this.#output.value = response.text;
                 this.#status.textContent = 'Success!';
+                this.#setLoading(false);
                 return response.text;
             } else {
                 this.#status.textContent = 'Unexpected response format.';
+                this.#setLoading(false);
             }
         } catch (error) {
             if (error.name === 'AbortError') {
                 this.#status.textContent = 'Request canceled.';
+                this.#setLoading(false);
             } else {
                 this.#status.textContent = 'Error fetching response.';
+                this.#setLoading(false);
             }
         }
-        
-        this.#setLoading(false);
     }
     
     cancel() {
         if (this.#controller) {
             this.#controller.abort();
+            this.#setLoading(false);
         }
     }
     
