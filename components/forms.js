@@ -646,7 +646,9 @@ class RodoConsent extends HTMLElement {
             <toggle-content>
                 <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽RODO🔽</div>
                 <div slot="expanded" id='expanded'>
-                    <div id="url_slot"></div>
+                    <div part = "form" >
+                        <slot id="url_slot"></slot>
+                    </div>
                     <button id="save-btn">Zatwierdź zmiany</button>
                 </div>
             </toggle-content>
@@ -672,7 +674,7 @@ class RodoConsent extends HTMLElement {
     }
 
     checkRodoVersion() {
-        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        const versionFromForm = this.shadowRoot.querySelector('#url_slot').assignedElements().querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
         const savedVersion = localStorage.getItem('rodoVersion');
         
         if (savedVersion !== versionFromForm) {
@@ -682,7 +684,7 @@ class RodoConsent extends HTMLElement {
 
     loadSavedConsent() {
         const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
-        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
+        this.shadowRoot.querySelector('#url_slot').assignedElements().querySelectorAll('input[type=checkbox]').forEach(input => {
             const key = input.getAttribute('data-statement');
             if (key && savedConsent[key] !== undefined) {
                 input.checked = savedConsent[key];
@@ -691,10 +693,10 @@ class RodoConsent extends HTMLElement {
     }
 
     addGroupEventListeners() {
-        this.shadowRoot.querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
+        this.shadowRoot.querySelector('#url_slot').assignedElements().querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
             groupCheckbox.addEventListener('change', () => {
                 const group = groupCheckbox.getAttribute('data-group');
-                this.shadowRoot.querySelectorAll(`input[type=checkbox][data-groups*="${group}"]`).forEach(cb => {
+                this.shadowRoot.querySelector('#url_slot').assignedElements().querySelectorAll(`input[type=checkbox][data-groups*="${group}"]`).forEach(cb => {
                     cb.checked = groupCheckbox.checked;
                 });
             });
@@ -707,7 +709,7 @@ class RodoConsent extends HTMLElement {
 
     saveConsent() {
         const consentData = {};
-        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
+        this.shadowRoot.querySelector('#url_slot').assignedElements().querySelectorAll('input[type=checkbox]').forEach(input => {
             const key = input.getAttribute('data-statement');
             if (key) {
                 consentData[key] = input.checked;
@@ -715,7 +717,7 @@ class RodoConsent extends HTMLElement {
         });
 
         localStorage.setItem('rodoConsent', JSON.stringify(consentData));
-        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        const versionFromForm = this.shadowRoot.querySelector('#url_slot').assignedElements().querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
         localStorage.setItem('rodoVersion', versionFromForm);
     }
 }
