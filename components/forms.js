@@ -733,7 +733,7 @@ class RodoConsent extends HTMLElement {
                 }
             });
         });
-        console.log(assignedElements, this.shadowRoot.querySelector('#url_slot'));
+        console.log(assignedElements, this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true }));
         localStorage.setItem('rodoConsent', JSON.stringify(consentData));
         const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
         .map(element => element.querySelector('[data-version]'))
