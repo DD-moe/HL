@@ -674,7 +674,10 @@ class RodoConsent extends HTMLElement {
     }
 
     checkRodoVersion() {
-        const versionFromForm = this.shadowRoot.querySelector('#url_slot').assignedElements().querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
+  .map(element => element.querySelector('[data-version]'))
+  .find(element => element)?.getAttribute('data-version') || 'unknown';
+
         const savedVersion = localStorage.getItem('rodoVersion');
         
         if (savedVersion !== versionFromForm) {
