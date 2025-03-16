@@ -704,6 +704,11 @@ class RodoConsent extends HTMLElement {
                     input.checked = savedConsent[key];
                 }
             });
+            const rodoVersionElement = element.querySelector('#rodo-version');
+            if (rodoVersionElement) {
+                const rodoVersion = localStorage.getItem('rodoVersion') || 'Brak wersji';
+                rodoVersionElement.textContent = `Wersja RODO: ${rodoVersion}`;
+            }
         });
     }
 
