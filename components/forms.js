@@ -687,7 +687,6 @@ class RodoConsent extends HTMLElement {
   .find(element => element)?.getAttribute('data-version') || 'unknown';
 
         const savedVersion = localStorage.getItem('rodoVersion');
-        console.log(versionFromForm);
         if (savedVersion !== versionFromForm) {
             this.expand();
         }
@@ -706,7 +705,7 @@ class RodoConsent extends HTMLElement {
             });
             const rodoVersionElement = element.querySelector('#rodo-version');
             if (rodoVersionElement) {
-                const rodoVersion = localStorage.getItem('rodoVersion') || 'Brak wersji';
+                const rodoVersion = rodoVersionElement.getAttribute('data-version') || 'Brak wersji';
                 rodoVersionElement.textContent = `Wersja RODO: ${rodoVersion}`;
             }
         });
