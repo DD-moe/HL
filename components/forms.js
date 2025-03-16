@@ -660,8 +660,13 @@ class RodoConsent extends HTMLElement {
         if (url) {
             const response = await fetch(url);
             const html = await response.text();
-            const urlSlot = this.shadowRoot.querySelector('#url_slot');
-            urlSlot.innerHTML = html;
+            const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
+            if (assignedElements.length > 0) {
+                // Jeśli są przypisane elementy, ustawiamy innerHTML na pierwszy element
+                assignedElements[0].innerHTML = html;
+              } else {
+                console.log("Brak przypisanych elementów w slocie.");
+              }
 
             requestAnimationFrame(() => {
                 this.checkRodoVersion();
