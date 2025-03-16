@@ -687,7 +687,7 @@ class RodoConsent extends HTMLElement {
   .find(element => element)?.getAttribute('data-version') || 'unknown';
 
         const savedVersion = localStorage.getItem('rodoVersion');
-        
+        console.log(versionFromForm);
         if (savedVersion !== versionFromForm) {
             this.expand();
         }
