@@ -18,10 +18,22 @@ class RodoConsent extends HTMLElement {
             <style>
                 :host { display: block; }
                 toggle-content { display: block; }
+                toggle-content::part(expanded) {
+                    position: fixed;
+                    top: 10vh;
+                    left: 10vw;
+                    width: 70vw;
+                    height: 70vh;
+                    background: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                    overflow-y: auto;
+                }
             </style>
             <toggle-content>
                 <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽RODO🔽</div>
-                <div slot="expanded">
+                <div slot="expanded" id='expanded'>
                     <div id="url_slot"></div>
                     <button id="save-btn">Zatwierdź zmiany</button>
                 </div>
@@ -36,9 +48,11 @@ class RodoConsent extends HTMLElement {
             const html = await response.text();
             const urlSlot = this.shadowRoot.querySelector('#url_slot');
             urlSlot.innerHTML = html;
-            
+
             requestAnimationFrame(() => {
                 this.checkRodoVersion();
+                this.loadSavedConsent();
+                this.addGroupEventListeners();
             });
         }
 
@@ -46,15 +60,33 @@ class RodoConsent extends HTMLElement {
     }
 
     checkRodoVersion() {
-        const versionElement = this.shadowRoot.querySelector('#rodo-version');
         const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
         const savedVersion = localStorage.getItem('rodoVersion');
-        
-        versionElement.textContent = `Wersja RODO:  ${versionFromForm}`;
         
         if (savedVersion !== versionFromForm) {
             this.expand();
         }
+    }
+
+    loadSavedConsent() {
+        const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
+        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
+            const key = input.getAttribute('data-statement');
+            if (key && savedConsent[key] !== undefined) {
+                input.checked = savedConsent[key];
+            }
+        });
+    }
+
+    addGroupEventListeners() {
+        this.shadowRoot.querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
+            groupCheckbox.addEventListener('change', () => {
+                const group = groupCheckbox.getAttribute('data-group');
+                this.shadowRoot.querySelectorAll(`input[type=checkbox][data-groups*="${group}"]`).forEach(cb => {
+                    cb.checked = groupCheckbox.checked;
+                });
+            });
+        });
     }
 
     expand() {
@@ -62,10 +94,8 @@ class RodoConsent extends HTMLElement {
     }
 
     saveConsent() {
-        const form = this.shadowRoot.querySelector('#rodo-form');
         const consentData = {};
-        
-        form.querySelectorAll('input[type=checkbox]').forEach(input => {
+        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
             const key = input.getAttribute('data-statement');
             if (key) {
                 consentData[key] = input.checked;
@@ -79,12 +109,9 @@ class RodoConsent extends HTMLElement {
 }
 
 customElements.define('rodo-consent', RodoConsent);
-
 </script>
 
 <rodo-consent url="https://git.1ioe.top/HL/components/rodo.html"></rodo-consent>
 
 </body>
 </html>
-
-

@@ -622,6 +622,105 @@ class AIRequest extends HTMLElement {
     }
 }
 
+class RodoConsent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host { display: block; }
+                toggle-content { display: block; }
+                toggle-content::part(expanded) {
+                    position: fixed;
+                    top: 10vh;
+                    left: 10vw;
+                    width: 70vw;
+                    height: 70vh;
+                    background: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                    overflow-y: auto;
+                }
+            </style>
+            <toggle-content>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽RODO🔽</div>
+                <div slot="expanded" id='expanded'>
+                    <div id="url_slot"></div>
+                    <button id="save-btn">Zatwierdź zmiany</button>
+                </div>
+            </toggle-content>
+        `;
+    }
+
+    async connectedCallback() {
+        const url = this.getAttribute('url');
+        if (url) {
+            const response = await fetch(url);
+            const html = await response.text();
+            const urlSlot = this.shadowRoot.querySelector('#url_slot');
+            urlSlot.innerHTML = html;
+
+            requestAnimationFrame(() => {
+                this.checkRodoVersion();
+                this.loadSavedConsent();
+                this.addGroupEventListeners();
+            });
+        }
+
+        this.shadowRoot.querySelector('#save-btn').addEventListener('click', () => this.saveConsent());
+    }
+
+    checkRodoVersion() {
+        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        const savedVersion = localStorage.getItem('rodoVersion');
+        
+        if (savedVersion !== versionFromForm) {
+            this.expand();
+        }
+    }
+
+    loadSavedConsent() {
+        const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
+        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
+            const key = input.getAttribute('data-statement');
+            if (key && savedConsent[key] !== undefined) {
+                input.checked = savedConsent[key];
+            }
+        });
+    }
+
+    addGroupEventListeners() {
+        this.shadowRoot.querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
+            groupCheckbox.addEventListener('change', () => {
+                const group = groupCheckbox.getAttribute('data-group');
+                this.shadowRoot.querySelectorAll(`input[type=checkbox][data-groups*="${group}"]`).forEach(cb => {
+                    cb.checked = groupCheckbox.checked;
+                });
+            });
+        });
+    }
+
+    expand() {
+        this.shadowRoot.querySelector('toggle-content').expand();
+    }
+
+    saveConsent() {
+        const consentData = {};
+        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
+            const key = input.getAttribute('data-statement');
+            if (key) {
+                consentData[key] = input.checked;
+            }
+        });
+
+        localStorage.setItem('rodoConsent', JSON.stringify(consentData));
+        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        localStorage.setItem('rodoVersion', versionFromForm);
+    }
+}
+
+customElements.define('rodo-consent', RodoConsent);
 customElements.define('ai-request', AIRequest);
 customElements.define('document-editor', DocumentEditor);
 customElements.define("script-editor", ScriptEditor);
@@ -631,4 +730,5 @@ customElements.define('my-refresh', MyRefresh);
 customElements.define("script-list", ScriptList);
 customElements.define('toggle-content', ToggleContent);
 
-export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor, DocumentEditor, AIRequest};
+export {ToggleContent, ScriptList, MyRefresh, EditableElement, CSSEditor, ScriptEditor,
+     DocumentEditor, AIRequest, RodoConsent};
