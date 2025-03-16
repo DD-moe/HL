@@ -1,105 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+  <script type="module" src="https://git.1ioe.top/HL/components/forms.js" blocking="render" data-opis="tools components"></script>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+<script>
 class RodoConsent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.url = this.getAttribute('url');
-        this.storageKey = 'rodoConsent';
-        this.render();
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host { display: block; }
+                toggle-content { display: block; }
+            </style>
+            <toggle-content>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽RODO🔽</div>
+                <div slot="expanded">
+                    <div id="url_slot"></div>
+                    <button id="save-btn">Zatwierdź zmiany</button>
+                </div>
+            </toggle-content>
+        `;
     }
 
     async connectedCallback() {
-        if (this.url) {
-            await this.loadForm();
-        }
-    }
-
-    async loadForm() {
-        try {
-            const response = await fetch(this.url);
+        const url = this.getAttribute('url');
+        if (url) {
+            const response = await fetch(url);
             const html = await response.text();
-            this.shadowRoot.querySelector('#content-slot').innerHTML = html;
-            this.checkVersion();
-            this.restoreConsent();
-            this.addEventListeners();
-        } catch (error) {
-            console.error('Błąd ładowania formularza:', error);
+            const urlSlot = this.shadowRoot.querySelector('#url_slot');
+            urlSlot.innerHTML = html;
+            
+            requestAnimationFrame(() => {
+                this.checkRodoVersion();
+            });
         }
-    }
 
-    checkVersion() {
-        const savedVersion = localStorage.getItem(this.storageKey + '_version');
-        const versionElement = this.shadowRoot.querySelector('#content-slot h3#version');
-        if (versionElement && versionElement.textContent !== savedVersion) {
-            localStorage.setItem(this.storageKey, JSON.stringify({}));
-            localStorage.setItem(this.storageKey + '_version', versionElement.textContent);
-        }
-    }
-
-    restoreConsent() {
-        const savedData = JSON.parse(localStorage.getItem(this.storageKey) || '{}');
-        Object.keys(savedData).forEach(statement => {
-            const checkbox = this.shadowRoot.querySelector(`[data-statement="${statement}"]`);
-            if (checkbox) checkbox.checked = savedData[statement];
-        });
-    }
-
-    addEventListeners() {
-        this.shadowRoot.querySelectorAll('[data-cathegory]').forEach(button => {
-            button.addEventListener('click', () => this.toggleCategory(button.dataset.cathegory));
-        });
-        
         this.shadowRoot.querySelector('#save-btn').addEventListener('click', () => this.saveConsent());
-        this.shadowRoot.querySelector('#reset-btn').addEventListener('click', () => this.restoreConsent());
     }
 
-    toggleCategory(category) {
-        const checkboxes = this.shadowRoot.querySelectorAll('[data-role]');
-        checkboxes.forEach(checkbox => {
-            if (checkbox.dataset.role.split(' ').includes(category)) {
-                checkbox.checked = true;
-            } else {
-                checkbox.checked = false;
-            }
-        });
+    checkRodoVersion() {
+        const versionElement = this.shadowRoot.querySelector('#rodo-version');
+        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        const savedVersion = localStorage.getItem('rodoVersion');
+        
+        versionElement.textContent = `Wersja RODO:  ${versionFromForm}`;
+        
+        if (savedVersion !== versionFromForm) {
+            this.expand();
+        }
+    }
+
+    expand() {
+        this.shadowRoot.querySelector('toggle-content').expand();
     }
 
     saveConsent() {
-        const checkboxes = this.shadowRoot.querySelectorAll('[data-statement]');
+        const form = this.shadowRoot.querySelector('#rodo-form');
         const consentData = {};
-        checkboxes.forEach(checkbox => {
-            consentData[checkbox.dataset.statement] = checkbox.checked;
+        
+        form.querySelectorAll('input[type=checkbox]').forEach(input => {
+            const key = input.getAttribute('data-statement');
+            if (key) {
+                consentData[key] = input.checked;
+            }
         });
-        localStorage.setItem(this.storageKey, JSON.stringify(consentData));
-    }
 
-    render() {
-        this.shadowRoot.innerHTML = `
-            <toggle-content>
-                <div slot="minimized" title="Kliknij, aby zobaczyć więcej">RODO 🔽</div>
-                <div slot="expanded">
-                    <div class="scrollable">
-                        <div id="content-slot"></div>
-                        <button id="save-btn">Zapisz</button>
-                        <button id="reset-btn">Cofnij zmiany</button>
-                    </div>
-                </div>
-            </toggle-content>
-            <style>
-                .scrollable {
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: white;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-                    max-height: 80vh;
-                    overflow-y: auto;
-                }
-            </style>
-        `;
+        localStorage.setItem('rodoConsent', JSON.stringify(consentData));
+        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
+        localStorage.setItem('rodoVersion', versionFromForm);
     }
 }
 
 customElements.define('rodo-consent', RodoConsent);
+
+</script>
+
+<rodo-consent url="https://git.1ioe.top/HL/components/rodo.html"></rodo-consent>
+
+</body>
+</html>
+
+
