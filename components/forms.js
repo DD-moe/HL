@@ -687,7 +687,6 @@ class RodoConsent extends HTMLElement {
 
     loadSavedConsent() {
         const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
-        console.log(savedConsent);
         const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
 
         assignedElements.forEach((element) => {
@@ -733,7 +732,6 @@ class RodoConsent extends HTMLElement {
                 }
             });
         });
-        console.log(consentData);
         localStorage.setItem('rodoConsent', JSON.stringify(consentData));
         const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
         .map(element => element.querySelector('[data-version]'))
