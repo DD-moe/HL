@@ -723,8 +723,8 @@ class RodoConsent extends HTMLElement {
 
     saveConsent() {
         const consentData = {};
-        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements();
-
+        const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
+        console.log(assignedElements);
         assignedElements.forEach((element) => {
             element.querySelectorAll('input[type=checkbox]').forEach(input => {
                 const key = input.getAttribute('data-statement');
@@ -733,7 +733,6 @@ class RodoConsent extends HTMLElement {
                 }
             });
         });
-        console.log(assignedElements, this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true }));
         localStorage.setItem('rodoConsent', JSON.stringify(consentData));
         const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
         .map(element => element.querySelector('[data-version]'))
