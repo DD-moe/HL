@@ -40,10 +40,12 @@ class ToggleContent extends HTMLElement {
     }
 
     minimize() {
-        this.exitFullscreen();
+        if (document.fullscreenElement === this) {
+            this.exitFullscreen();
+        }
         this.expanded.style.display = 'none';
         this.minimized.style.display = 'block';
-    }
+    }    
 
     enterFullscreen() {
         if (this.expanded.requestFullscreen) {
