@@ -536,21 +536,69 @@
             </toggle-content>         
             
             <toggle-content>
-                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Badanie ogólne moczu</h1></div>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Morfologia Krwii</h1></div>
                 <div slot="expanded"> 
                     <div class="scrolable">
-                        <h3>Zobacz wyniki w badaniu ogólnym moczu</h3>
-                        <custom-checkbox-group max="1" calc="max"><h2>Acute kidney injury</h2>
+                        <h3>Zobacz wyniki w morfologii krwii</h3>
+                        <custom-checkbox-group max="1" calc="max">                        <h2>Hemoglobin increased</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Increase in &gt;0 - 2 g/dL</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Increase in &gt;2 - 4 g/dL</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Increase in &gt;4 g/dL</td></tr>
+                                <tr><td>Grade 4 </td><td> - </td></tr>
+                                <tr><td>Grade 5 </td><td> - </td></tr>
+                                <tr><td>Definition</td><td>A finding based on laboratory test results that indicate increased levels of hemoglobin above normal.</td></tr>
+                            </tbody></table>
+                        </custom-checkbox-group>
+                        <custom-checkbox-group max="1" calc="max"><h2>Lymphocyte count decreased</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;LLN - 800/mm3; &lt;LLN - 0.8 x 10e9/L</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;800 - 500/mm3; &lt;0.8 - 0.5 x 10e9 /L</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;500 - 200/mm3; &lt;0.5 - 0.2 x 10e9 /L</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;200/mm3; &lt;0.2 x 10e9 /L</td></tr>
+                                <tr><td>Grade 5 </td><td> - </td></tr>
+                                <tr><td>Definition</td><td>A finding based on laboratory test results that indicate a decrease in number of lymphocytes in a blood specimen.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>  
+                        <custom-checkbox-group max="1" calc="max">                        <h2>Lymphocyte count increased</h2>
                             <table>
                                 <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
                                 <tr><td>Grade 1 </td><td> - </td></tr>
-                                <tr><td>Grade 2 </td><td> - </td></tr>
-                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Hospitalization indicated</td></tr>
-                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; dialysis indicated</td></tr>
-                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
-                                <tr><td>Definition</td><td>A disorder characterized by the acute loss of renal function (within 2 weeks) and is traditionally classified as pre-renal (low blood flow into kidney), renal (kidney damage) and post-renal causes (ureteral or bladder outflow obstruction).</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;4000/mm3 - 20,000/mm3</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;20,000/mm3</td></tr>
+                                <tr><td>Grade 4 </td><td> - </td></tr>
+                                <tr><td>Grade 5 </td><td> - </td></tr>
+                                <tr><td>Definition</td><td>A finding based on laboratory test results that indicate an abnormal increase in the number of lymphocytes in the blood, effusions or bone marrow.</td></tr>
+                            </tbody></table>
+                        </custom-checkbox-group>  
+                        <custom-checkbox-group max="1" calc="max"><h2>Neutrophil count decreased</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;LLN - 1500/mm3; &lt;LLN - 1.5 x 10e9 /L</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;1500 - 1000/mm3; &lt;1.5 - 1.0 x 10e9 /L</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;1000 - 500/mm3; &lt;1.0 - 0.5 x 10e9 /L</td></tr>
+                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;500/mm3; &lt;0.5 x 10e9 /L</td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results that indicate a decrease in number of neutrophils in a blood specimen.</td></tr>
                                 </tbody>
-                            </table></custom-checkbox-group>                                
+                            </table>
+                        </custom-checkbox-group>  
+                        <custom-checkbox-group max="1" calc="max"><h2>Platelet count decreased</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;LLN - 75,000/mm3; &lt;LLN - 75.0 x 10e9 /L</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;75,000 - 50,000/mm3; &lt;75.0 - 50.0 x 10e9 /L</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;50,000 - 25,000/mm3; &lt;50.0 - 25.0 x 10e9 /L</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;25,000/mm3; &lt;25.0 x 10e9 /L</td></tr>
+                                <tr><td>Grade 5 </td><td> - </td></tr>
+                                <tr><td>Definition</td><td>A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>                                                              
                     </div>
                 </div>
             </toggle-content>             
