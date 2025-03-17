@@ -1,117 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-  <script type="module" src="https://git.1ioe.top/HL/components/forms.js" blocking="render" data-opis="tools components"></script>
-</head>
-<body>
+Oto przykładowe dane wejściowe:
+Asystole	Periods of asystole; non-urgent medical management indicated	 -	 -	Life-threatening consequences; urgent intervention indicated	Death	A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart.
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+A oto odpowiadające im dane wyjściowe:
+                    <custom-checkbox-group max="1" calc="max">
+                        <h2>Asystole</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Periods of asystole; non-urgent medical management indicated</td></tr>
+                            <tr><td>Grade 2 </td><td> - </td></tr>
+                            <tr><td>Grade 3 </td><td> - </td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent intervention indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>  
 
-<script>
-class RodoConsent extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host { display: block; }
-                toggle-content { display: block; }
-                toggle-content::part(expanded) {
-                    position: fixed;
-                    top: 10vh;
-                    left: 10vw;
-                    width: 70vw;
-                    height: 70vh;
-                    background: white;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-                    overflow-y: auto;
-                }
-            </style>
-            <toggle-content>
-                <div slot="minimized" title="Kliknij, aby zobaczyć więcej">🔽RODO🔽</div>
-                <div slot="expanded" id='expanded'>
-                    <div id="url_slot"></div>
-                    <button id="save-btn">Zatwierdź zmiany</button>
-                </div>
-            </toggle-content>
-        `;
-    }
-
-    async connectedCallback() {
-        const url = this.getAttribute('url');
-        if (url) {
-            const response = await fetch(url);
-            const html = await response.text();
-            const urlSlot = this.shadowRoot.querySelector('#url_slot');
-            urlSlot.innerHTML = html;
-
-            requestAnimationFrame(() => {
-                this.checkRodoVersion();
-                this.loadSavedConsent();
-                this.addGroupEventListeners();
-            });
-        }
-
-        this.shadowRoot.querySelector('#save-btn').addEventListener('click', () => this.saveConsent());
-    }
-
-    checkRodoVersion() {
-        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
-        const savedVersion = localStorage.getItem('rodoVersion');
-        
-        if (savedVersion !== versionFromForm) {
-            this.expand();
-        }
-    }
-
-    loadSavedConsent() {
-        const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
-        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
-            const key = input.getAttribute('data-statement');
-            if (key && savedConsent[key] !== undefined) {
-                input.checked = savedConsent[key];
-            }
-        });
-    }
-
-    addGroupEventListeners() {
-        this.shadowRoot.querySelectorAll('input[type=checkbox][data-group]').forEach(groupCheckbox => {
-            groupCheckbox.addEventListener('change', () => {
-                const group = groupCheckbox.getAttribute('data-group');
-                this.shadowRoot.querySelectorAll(`input[type=checkbox][data-groups*="${group}"]`).forEach(cb => {
-                    cb.checked = groupCheckbox.checked;
-                });
-            });
-        });
-    }
-
-    expand() {
-        this.shadowRoot.querySelector('toggle-content').expand();
-    }
-
-    saveConsent() {
-        const consentData = {};
-        this.shadowRoot.querySelectorAll('input[type=checkbox]').forEach(input => {
-            const key = input.getAttribute('data-statement');
-            if (key) {
-                consentData[key] = input.checked;
-            }
-        });
-
-        localStorage.setItem('rodoConsent', JSON.stringify(consentData));
-        const versionFromForm = this.shadowRoot.querySelector('[data-version]')?.getAttribute('data-version') || 'unknown';
-        localStorage.setItem('rodoVersion', versionFromForm);
-    }
-}
-
-customElements.define('rodo-consent', RodoConsent);
-</script>
-
-<rodo-consent url="https://git.1ioe.top/HL/components/rodo.html"></rodo-consent>
-
-</body>
-</html>
+Poszczególne sekcje w danych wejściowych oddzielone są znakami tabulacji. Na podstawie danych wejściowych utwórz analogiczny kod html do podanego w przykłądzie. Pamiętaj: dla " 	- " w kolumnie opis nie dodawaj przycisku w kolumnie kategoria. W każdym kolejnym rzędzie, atrybut data-value jest większy o 1 względem poprzedniego rzędu. Czyli data-value są od 1 do 5. Oto dane wejściowe: 
