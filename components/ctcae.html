@@ -380,6 +380,28 @@
             </div>
         </toggle-content> 
         
+
+        <toggle-content>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Opieka pielęgniarska</h1></div>
+            <div slot="expanded">
+                <div class="scrolable">
+                    <h3>Zobacz wyniki w sekcji pieki pielęgniarskiej</h3>
+                    <custom-checkbox-group max="1" calc="max">
+                        <h2>Asystole</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Periods of asystole; non-urgent medical management indicated</td></tr>
+                            <tr><td>Grade 2 </td><td> - </td></tr>
+                            <tr><td>Grade 3 </td><td> - </td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent intervention indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart.</td></tr>
+                        </tbody></table>
+                    </custom-checkbox-group>        
+                </div>
+            </div>
+        </toggle-content> 
+
         <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
         <ai-request id="AI"> asdas</ai-request>
         <directory-explorer><ul></ul></directory-explorer>
