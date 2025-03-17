@@ -459,22 +459,77 @@
         </toggle-content> 
 
         <toggle-content>
-            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Opieka pielęgniarska</h1></div>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Badanie ogólne moczu</h1></div>
             <div slot="expanded">
                 <div class="scrolable">
-                    <h3>Zobacz wyniki w sekcji pieki pielęgniarskiej</h3>
-                    <custom-checkbox-group max="1" calc="max"><h2>Fever</h2>
+                    <h3>Zobacz wyniki w badaniu ogólnym moczu</h3>
+                    <custom-checkbox-group max="1" calc="max"><h2>Acute kidney injury</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 </td><td> - </td></tr>
+                            <tr><td>Grade 2 </td><td> - </td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Hospitalization indicated</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; dialysis indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by the acute loss of renal function (within 2 weeks) and is traditionally classified as pre-renal (low blood flow into kidney), renal (kidney damage) and post-renal causes (ureteral or bladder outflow obstruction).</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group> 
+                    <custom-checkbox-group max="1" calc="max"><h2>Chronic kidney disease</h2>
                         <table>
                             <tbody>
                                 <tr><th>Kategoria</th><th>Opis</th></tr>
-                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>38.0 - 39.0 degrees C (100.4 - 102.2 degrees F)</td></tr>
-                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)</td></tr>
-                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &lt;=24 hrs</td></tr>
-                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &gt;24 hrs</td></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>eGFR (estimated Glomerular Filtration Rate) or CrCl (creatinine clearance) &lt;LLN - 60 ml/min/1.73 m2 or proteinuria 2+ present; urine protein/creatinine &gt;0.5</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>eGFR or CrCl 59 - 30 ml/min/1.73 m2</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>eGFR or CrCl 29 - 15 ml/min/1.73 m2</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>eGFR or CrCl &lt;15 ml/min/1.73 m2; dialysis or renal transplant indicated</td></tr>
                                 <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
-                                <tr><td>Definition</td><td>A disorder characterized by elevation of the body's temperature above the upper limit of normal.</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by gradual and usually permanent loss of kidney function resulting in renal failure.</td></tr>
                             </tbody>
                         </table></custom-checkbox-group> 
+                    <custom-checkbox-group max="1" calc="max">                        <h2>Glucosuria</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Present</td></tr>
+                            <tr><td>Grade 2 </td><td> - </td></tr>
+                            <tr><td>Grade 3 </td><td> - </td></tr>
+                            <tr><td>Grade 4 </td><td> - </td></tr>
+                            <tr><td>Grade 5 </td><td> - </td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate glucose in the urine.</td></tr>
+                        </tbody></table></custom-checkbox-group> 
+                    <custom-checkbox-group max="1" calc="max"><h2>Hematuria</h2>
+                        <table>
+                            <tbody>
+                                <tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Asymptomatic; clinical or diagnostic observations only; intervention not indicated</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Symptomatic; urinary catheter or bladder irrigation indicated; limiting instrumental ADL</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Gross hematuria; transfusion, IV medications, or hospitalization indicated; elective invasive intervention indicated; limiting self care ADL</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent invasive intervention indicated</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate blood in the urine.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group> 
+                    <custom-checkbox-group max="1" calc="max"><h2>Hemoglobinuria</h2>
+                        <table>
+                            <tbody>
+                                <tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Asymptomatic; clinical or diagnostic observations only; intervention not indicated</td></tr>
+                                <tr><td>Grade 2 </td><td> - </td></tr>
+                                <tr><td>Grade 3 </td><td> - </td></tr>
+                                <tr><td>Grade 4 </td><td> - </td></tr>
+                                <tr><td>Grade 5 </td><td> - </td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate the presence of free hemoglobin in the urine.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group> 
+                    <custom-checkbox-group max="1" calc="max">                        <h2>Proteinuria</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>1+ proteinuria; urinary protein ≥ULN - &lt;1.0 g/24 hrs</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>"Adult: 2+ and 3+ proteinuria; urinary protein 1.0 - &lt;3.5 g/24 hrs; Pediatric: Urine P/C (Protein/Creatinine) ratio 0.5 - 1.9"</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>"Adult: Urinary protein &gt;=3.5 g/24 hrs; 4+ proteinuria;Pediatric: Urine P/C (Protein/Creatinine) ratio &gt;1.9"</td></tr>
+                            <tr><td>Grade 4 </td><td> - </td></tr>
+                            <tr><td>Grade 5 </td><td> - </td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate the presence of excessive protein in the urine. It is predominantly albumin, but also globulin.</td></tr>
+                        </tbody></table></custom-checkbox-group> 
                     </div>
                 </div>
             </toggle-content>                         
