@@ -2,7 +2,6 @@ Oto przykładowe dane wejściowe:
 Asystole	Periods of asystole; non-urgent medical management indicated	 -	 -	Life-threatening consequences; urgent intervention indicated	Death	A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart.
 
 A oto odpowiadające im dane wyjściowe:
-                    <custom-checkbox-group max="1" calc="max">
                         <h2>Asystole</h2>
                         <table>
                             <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
@@ -13,6 +12,5 @@ A oto odpowiadające im dane wyjściowe:
                             <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
                             <tr><td>Definition</td><td>A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart.</td></tr>
                         </tbody></table>
-                    </custom-checkbox-group>  
 
 Poszczególne sekcje w danych wejściowych oddzielone są znakami tabulacji. Na podstawie danych wejściowych utwórz analogiczny kod html do podanego w przykłądzie. Pamiętaj: dla " 	- " w kolumnie opis nie dodawaj przycisku w kolumnie kategoria. W każdym kolejnym rzędzie, atrybut data-value jest większy o 1 względem poprzedniego rzędu. Czyli data-value są od 1 do 5. Oto dane wejściowe: 
