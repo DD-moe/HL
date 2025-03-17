@@ -385,57 +385,99 @@
             <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Opieka pielęgniarska</h1></div>
             <div slot="expanded">
                 <div class="scrolable">
-
                     <h3>Zobacz wyniki w sekcji pieki pielęgniarskiej</h3>
                     <custom-checkbox-group max="1" calc="max"><h2>Fever</h2>
-<table>
-    <tbody>
-        <tr><th>Kategoria</th><th>Opis</th></tr>
-        <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>38.0 - 39.0 degrees C (100.4 - 102.2 degrees F)</td></tr>
-        <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)</td></tr>
-        <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &lt;=24 hrs</td></tr>
-        <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &gt;24 hrs</td></tr>
-        <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
-        <tr><td>Definition</td><td>A disorder characterized by elevation of the body's temperature above the upper limit of normal.</td></tr>
-    </tbody>
-</table></custom-checkbox-group>        
-       
+                        <table>
+                            <tbody>
+                                <tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>38.0 - 39.0 degrees C (100.4 - 102.2 degrees F)</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &lt;=24 hrs</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &gt;24 hrs</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by elevation of the body's temperature above the upper limit of normal.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group>        
                     <custom-checkbox-group max="1" calc="max"><h2>Hypothermia</h2>
-        <table>
-            <tbody>
-                <tr>
-                    <th>Kategoria</th>
-                    <th>Opis</th>
-                </tr>
-                <tr>
-                    <td>Grade 1 </td>
-                    <td> - </td>
-                </tr>
-                <tr>
-                    <td>Grade 2 <input type="checkbox" data-value="2"></td>
-                    <td>35 - &gt;32 degrees C; 95 - &gt;89.6 degrees F</td>
-                </tr>
-                <tr>
-                    <td>Grade 3 <input type="checkbox" data-value="3"></td>
-                    <td>32 - &gt;28 degrees C; 89.6 - &gt;82.4 degrees F</td>
-                </tr>
-                <tr>
-                    <td>Grade 4 <input type="checkbox" data-value="4"></td>
-                    <td>&lt;=28 degrees C; 82.4 degrees F; life-threatening consequences (e.g., coma, hypotension, pulmonary edema, acidemia, ventricular fibrillation)</td>
-                </tr>
-                <tr>
-                    <td>Grade 5 <input type="checkbox" data-value="5"></td>
-                    <td>Death</td>
-                </tr>
-                <tr>
-                    <td>Definition</td>
-                    <td>A disorder characterized by an abnormally low body temperature. Treatment is required when the body temperature is 35C (95F) or below.</td>
-                </tr>
-            </tbody>
-        </table></custom-checkbox-group>          
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Kategoria</th>
+                                    <th>Opis</th>
+                                </tr>
+                                <tr>
+                                    <td>Grade 1 </td>
+                                    <td> - </td>
+                                </tr>
+                                <tr>
+                                    <td>Grade 2 <input type="checkbox" data-value="2"></td>
+                                    <td>35 - &gt;32 degrees C; 95 - &gt;89.6 degrees F</td>
+                                </tr>
+                                <tr>
+                                    <td>Grade 3 <input type="checkbox" data-value="3"></td>
+                                    <td>32 - &gt;28 degrees C; 89.6 - &gt;82.4 degrees F</td>
+                                </tr>
+                                <tr>
+                                    <td>Grade 4 <input type="checkbox" data-value="4"></td>
+                                    <td>&lt;=28 degrees C; 82.4 degrees F; life-threatening consequences (e.g., coma, hypotension, pulmonary edema, acidemia, ventricular fibrillation)</td>
+                                </tr>
+                                <tr>
+                                    <td>Grade 5 <input type="checkbox" data-value="5"></td>
+                                    <td>Death</td>
+                                </tr>
+                                <tr>
+                                    <td>Definition</td>
+                                    <td>A disorder characterized by an abnormally low body temperature. Treatment is required when the body temperature is 35C (95F) or below.</td>
+                                </tr>
+                            </tbody>
+                        </table></custom-checkbox-group>          
+                    <custom-checkbox-group max="1" calc="max"><h2>Hypertension</h2>
+                        <table>
+                            <tbody>
+                                <tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>"Adult: Systolic BP 120 - 139 mm Hg or diastolic BP 80 - 89 mm Hg; Pediatric: Systolic/diastolic BP &gt;90th percentile but&lt; 95th percentile; Adolescent: BP ≥120/80 even if &lt; 95th percentile"</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>"Adult: Systolic BP 140 - 159 mm Hg or diastolic BP 90 - 99 mm Hg if previously WNL; change in baseline medical intervention indicated; recurrent or persistent (&gt;=24 hrs); symptomatic increase by &gt;20 mm Hg (diastolic) or to &gt;140/90 mm Hg; monotherapy indicated initiated; Pediatric and adolescent: Recurrent or persistent (&gt;=24 hrs) BP &gt;ULN; monotherapy indicated; systolic and /or diastolic BP between the 95th percentile and 5 mmHg above the 99th percentile; Adolescent: Systolic between 130-139 or diastolic between 80-89 even if &lt; 95th percentile"</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>"Adult: Systolic BP &gt;=160 mm Hg or diastolic BP &gt;=100 mm Hg; medical intervention indicated; more than one drug or more intensive therapy than previously used indicated; Pediatric and adolescent: Systolic and/or diastolic &gt; 5 mmHg above the 99th percentile"</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Adult and Pediatric: Life-threatening consequences (e.g., malignant hypertension, transient or permanent neurologic deficit, hypertensive crisis); urgent intervention indicated</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by a pathological increase in blood pressure.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group>
+                    <custom-checkbox-group max="1" calc="max"><h2>Hypotension</h2>
+                        <table>
+                            <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                            <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Asymptomatic, intervention not indicated</td></tr>
+                            <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Non-urgent medical intervention indicated</td></tr>
+                            <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Medical intervention indicated; hospitalization indicated</td></tr>
+                            <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences and urgent intervention indicated</td></tr>
+                            <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                            <tr><td>Definition</td><td>A disorder characterized by a blood pressure that is below the normal expected for an individual in a given environment.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group>          
                 </div>
             </div>
         </toggle-content> 
+
+        <toggle-content>
+            <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Opieka pielęgniarska</h1></div>
+            <div slot="expanded">
+                <div class="scrolable">
+                    <h3>Zobacz wyniki w sekcji pieki pielęgniarskiej</h3>
+                    <custom-checkbox-group max="1" calc="max"><h2>Fever</h2>
+                        <table>
+                            <tbody>
+                                <tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>38.0 - 39.0 degrees C (100.4 - 102.2 degrees F)</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &lt;=24 hrs</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&gt;40.0 degrees C (&gt;104.0 degrees F) for &gt;24 hrs</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by elevation of the body's temperature above the upper limit of normal.</td></tr>
+                            </tbody>
+                        </table></custom-checkbox-group> 
+                    </div>
+                </div>
+            </toggle-content>                         
 
         <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
         <ai-request id="AI"> asdas</ai-request>
