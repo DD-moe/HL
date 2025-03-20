@@ -75,6 +75,7 @@
 <body>
     <header>
         <h1>Formularz CTCAE dla HL</h1>
+        <rodo-consent url="https://git.1ioe.top/HL/components/rodo.html"><div></div></rodo-consent>
     </header>
     <main>
         <p>Proszę wypełnić poniższy formularz w celu oceny działań niepożądanych.</p>
@@ -1112,13 +1113,18 @@
                         </custom-checkbox-group>               
                     </div>
                 </div>
-            </toggle-content>              
-
-        <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
-        <ai-request id="AI"> asdas</ai-request>
-        <directory-explorer><ul></ul></directory-explorer>
-        <rodo-consent url="https://git.1ioe.top/HL/components/rodo.html"><div></div></rodo-consent>
-
+            </toggle-content>
+                          
+            <toggle-content>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Pozostałe</h1></div>
+                <div slot="expanded"> 
+                    <div class="scrolable">
+                        <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
+                        <ai-request id="AI"> asdas</ai-request>
+                        <directory-explorer><ul></ul></directory-explorer>
+                    </div>
+                </div>
+            </toggle-content> 
         <div>
             <!-- Dane pacjenta -->
             <label><h3>ID pacjenta: </h3><encoder-component id="patient-id"></encoder-component></label>
