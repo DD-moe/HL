@@ -487,7 +487,10 @@ class DirectoryExplorer extends HTMLElement {
 
         // Tworzymy Shadow DOM
         this.attachShadow({ mode: 'open' });
+    }
 
+    connectedCallback() {
+        
         // Dodajemy zawartość do Shadow DOM
         this.shadowRoot.innerHTML = `
             <button id="selectDirBtn">📂 Wybierz katalog</button>
@@ -497,9 +500,7 @@ class DirectoryExplorer extends HTMLElement {
         // Inicjalizacja slotu w Shadow DOM (nazwa slotu nie jest potrzebna)
         const slot = document.createElement('slot');
         this.shadowRoot.appendChild(slot); // Dodajemy slot do Shadow DOM
-    }
-
-    connectedCallback() {
+        
         // Przypisanie event listenerów do elementów
         this.shadowRoot.getElementById("selectDirBtn").addEventListener("click", () => {
             this.shadowRoot.getElementById("directoryInput").click();
