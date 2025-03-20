@@ -650,17 +650,83 @@
                 <div slot="expanded"> 
                     <div class="scrolable">
                         <h3>Zobacz wyniki w badaniu elektrolitów</h3>
-                        <custom-checkbox-group max="1" calc="max">
-                            <h2>Hemoglobin increased</h2>
+                        <custom-checkbox-group max="1" calc="max"><h2>Hyperglycemia</h2>
                             <table>
                                 <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
-                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Increase in &gt;0 - 2 g/dL</td></tr>
-                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Increase in &gt;2 - 4 g/dL</td></tr>
-                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Increase in &gt;4 g/dL</td></tr>
-                                <tr><td>Grade 4 </td><td> - </td></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Abnormal glucose above baseline with no medical intervention</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Change in daily management from baseline for a diabetic; oral antiglycemic agent initiated; workup for diabetes</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Insulin therapy initiated; hospitalization indicated</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent intervention indicated</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an elevation in the concentration of blood sugar. It is usually an indication of diabetes mellitus or glucose intolerance.</td></tr>
+                                </tbody>
+                            </table></custom-checkbox-group>
+                        <custom-checkbox-group max="1" calc="max">                        
+                            <h2>Hyperlipidemia</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Requiring diet changes</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Requiring pharmaceutical intervention</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Hospitalization; pancreatitis</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences</td></tr>
                                 <tr><td>Grade 5 </td><td> - </td></tr>
-                                <tr><td>Definition</td><td>A finding based on laboratory test results that indicate increased levels of hemoglobin above normal.</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an elevation in the concentration of lipids in blood.</td></tr>
                             </tbody></table>
+                        </custom-checkbox-group>
+    
+                        <custom-checkbox-group max="1" calc="max">
+                            <h2>Hypertriglyceridemia</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>150 mg/dL - 300 mg/dL; 1.71 mmol/L - 3.42 mmol/L</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;300 mg/dL - 500 mg/dL; &gt;3.42 mmol/L - 5.7 mmol/L</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;500 mg/dL - 1000 mg/dL; &gt;5.7 mmol/L - 11.4 mmol/L</td></tr>
+                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&gt;1000 mg/dL; &gt;11.4 mmol/L; life-threatening consequences</td></tr>
+                                    <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                    <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an elevation in the concentration of triglyceride concentration in the blood.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>
+                        <custom-checkbox-group max="1" calc="max">                        
+                            <h2>Hyperuricemia</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&gt;ULN without physiologic consequences</td></tr>
+                                <tr><td>Grade 2 </td><td> - </td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;ULN with physiologic consequences</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an elevation in the concentration of uric acid.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>
+                        <custom-checkbox-group max="1" calc="max">
+                            <h2>Hypoalbuminemia</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;LLN - 3 g/dL; &lt;LLN - 30 g/L</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;3 - 2 g/dL; &lt;30 - 20 g/L</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;2 g/dL; &lt;20 g/L</td></tr>
+                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Life-threatening consequences; urgent intervention indicated</td></tr>
+                                    <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                    <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate a low concentration of albumin in the blood.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>
+                        <custom-checkbox-group max="1" calc="max">
+                            <h2>Hypoglycemia</h2>
+                            <table>
+                                <tbody><tr><th>Kategoria</th><th>Opis</th></tr>
+                                <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;LLN - 55 mg/dL; &lt;LLN - 3.0 mmol/L</td></tr>
+                                <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;55 - 40 mg/dL; &lt;3.0 - 2.2 mmol/L</td></tr>
+                                <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;40 - 30 mg/dL; &lt;2.2 - 1.7 mmol/L</td></tr>
+                                <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;30 mg/dL; &lt;1.7 mmol/L; life-threatening consequences; seizures</td></tr>
+                                <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
+                                <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate a low concentration of glucose in the blood.</td></tr>
+                                </tbody>
+                            </table>
                         </custom-checkbox-group>
                     </div>
                 </div>
