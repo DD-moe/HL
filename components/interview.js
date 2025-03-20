@@ -335,9 +335,6 @@ class QRScanner extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
         this.shadowRoot.innerHTML = `
             <style>
                 #video-container {
@@ -347,7 +344,7 @@ class QRScanner extends HTMLElement {
                 }
                 video {
                     width: 100%;
-                    height: auto;
+                    height: auto; 
                 }
                 #start-btn {
                     font-size: 24px;
@@ -360,6 +357,9 @@ class QRScanner extends HTMLElement {
             </div>
             <input type="text" id="qr-result" readonly placeholder="Kod QR tutaj">
         `;
+    }
+
+    connectedCallback() {
         this.videoStream = null;
         this.video = this.shadowRoot.getElementById('video');
         this.qrResult = this.shadowRoot.getElementById('qr-result');
