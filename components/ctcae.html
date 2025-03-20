@@ -1008,26 +1008,100 @@
             </toggle-content>       
             
             <toggle-content>
-                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Elektrolity</h1></div>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Krzepnięcie</h1></div>
                 <div slot="expanded"> 
                     <div class="scrolable">
                         <h3>Zobacz wyniki w badaniu elektrolitów</h3>
-                        <custom-checkbox-group max="1" calc="max"><h2>Hypercalcemia</h2>
+                        <custom-checkbox-group max="1" calc="max"><h2>Activated partial thromboplastin time prolonged</h2>
                             <table>
                                 <tbody>
                                     <tr><th>Kategoria</th><th>Opis</th></tr>
-                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>Corrected serum calcium of &gt;ULN - 11.5 mg/dL; &gt;ULN - 2.9 mmol/L; Ionized calcium &gt;ULN - 1.5 mmol/L</td></tr>
-                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>Corrected serum calcium of &gt;11.5 - 12.5 mg/dL; &gt;2.9 - 3.1 mmol/L; Ionized calcium &gt;1.5 - 1.6 mmol/L; symptomatic</td></tr>
-                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>Corrected serum calcium of &gt;12.5 - 13.5 mg/dL; &gt;3.1 - 3.4 mmol/L; Ionized calcium &gt;1.6 - 1.8 mmol/L; hospitalization indicated</td></tr>
-                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>Corrected serum calcium of &gt;13.5 mg/dL; &gt;3.4 mmol/L; Ionized calcium &gt;1.8 mmol/L; life-threatening consequences</td></tr>
-                                    <tr><td>Grade 5 <input type="checkbox" data-value="5"></td><td>Death</td></tr>
-                                    <tr><td>Definition</td><td>A disorder characterized by laboratory test results that indicate an elevation in the concentration of calcium (corrected for albumin) in blood.</td></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&gt;ULN - 1.5 x ULN</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;1.5 - 2.5 x ULN</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;2.5 x ULN; bleeding</td></tr>
+                                    <tr><td>Grade 4 </td><td> - </td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results in which the partial thromboplastin time is found to be greater than the control value. As a possible indicator of coagulopathy, a prolonged partial thromboplastin time (PTT) may occur in a variety of diseases and disorders, both primary and related to treatment.</td></tr>
                                 </tbody>
                             </table>
-                        </custom-checkbox-group>              
+                        </custom-checkbox-group>                                                              
+                        <custom-checkbox-group max="1" calc="max"><h2>Fibrinogen decreased</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;1.0 - 0.75 x LLN; if abnormal, &lt;25% decrease from baseline</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;0.75 - 0.5 x LLN; if abnormal, 25 - &lt;50% decrease from baseline</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;0.5 - 0.25 x LLN; if abnormal, 50 - &lt;75% decrease from baseline</td></tr>
+                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;0.25 x LLN; if abnormal, 75% decrease from baseline; absolute value &lt;50 mg/dL</td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results that indicate an decrease in levels of fibrinogen in a blood specimen.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>   
+                        <custom-checkbox-group max="1" calc="max"><h2>INR increased</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&gt;1.2 - 1.5; &gt;1 - 1.5 x baseline if on anticoagulation; monitoring only indicated</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;1.5 - 2.5; &gt;1.5 - 2.5 x baseline if on anticoagulation; dose adjustment indicated</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;2.5; &gt;2.5 x baseline if on anticoagulation; bleeding</td></tr>
+                                    <tr><td>Grade 4 </td><td> - </td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results that indicate an increase in the ratio of the patient's prothrombin time to a control sample in the blood.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>                 
                     </div>
                 </div>
-            </toggle-content>                
+            </toggle-content>    
+            
+            <toggle-content>
+                <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Pozostałe</h1></div>
+                <div slot="expanded"> 
+                    <div class="scrolable">
+                        <h3>Zobacz pozostałe wyniki</h3>
+                        <custom-checkbox-group max="1" calc="max"><h2>Activated partial thromboplastin time prolonged</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&gt;ULN - 1.5 x ULN</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;1.5 - 2.5 x ULN</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;2.5 x ULN; bleeding</td></tr>
+                                    <tr><td>Grade 4 </td><td> - </td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results in which the partial thromboplastin time is found to be greater than the control value. As a possible indicator of coagulopathy, a prolonged partial thromboplastin time (PTT) may occur in a variety of diseases and disorders, both primary and related to treatment.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>                                                              
+                        <custom-checkbox-group max="1" calc="max"><h2>Fibrinogen decreased</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&lt;1.0 - 0.75 x LLN; if abnormal, &lt;25% decrease from baseline</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&lt;0.75 - 0.5 x LLN; if abnormal, 25 - &lt;50% decrease from baseline</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&lt;0.5 - 0.25 x LLN; if abnormal, 50 - &lt;75% decrease from baseline</td></tr>
+                                    <tr><td>Grade 4 <input type="checkbox" data-value="4"></td><td>&lt;0.25 x LLN; if abnormal, 75% decrease from baseline; absolute value &lt;50 mg/dL</td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results that indicate an decrease in levels of fibrinogen in a blood specimen.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>   
+                        <custom-checkbox-group max="1" calc="max"><h2>INR increased</h2>
+                            <table>
+                                <tbody>
+                                    <tr><th>Kategoria</th><th>Opis</th></tr>
+                                    <tr><td>Grade 1 <input type="checkbox" data-value="1"></td><td>&gt;1.2 - 1.5; &gt;1 - 1.5 x baseline if on anticoagulation; monitoring only indicated</td></tr>
+                                    <tr><td>Grade 2 <input type="checkbox" data-value="2"></td><td>&gt;1.5 - 2.5; &gt;1.5 - 2.5 x baseline if on anticoagulation; dose adjustment indicated</td></tr>
+                                    <tr><td>Grade 3 <input type="checkbox" data-value="3"></td><td>&gt;2.5; &gt;2.5 x baseline if on anticoagulation; bleeding</td></tr>
+                                    <tr><td>Grade 4 </td><td> - </td></tr>
+                                    <tr><td>Grade 5 </td><td> - </td></tr>
+                                    <tr><td>Definition</td><td>A finding based on laboratory test results that indicate an increase in the ratio of the patient's prothrombin time to a control sample in the blood.</td></tr>
+                                </tbody>
+                            </table>
+                        </custom-checkbox-group>                 
+                    </div>
+                </div>
+            </toggle-content>              
 
         <document-editor ignore-id = "documenteditor" id="documenteditor" highlight-class="highlight-class"></document-editor>
         <ai-request id="AI"> asdas</ai-request>
