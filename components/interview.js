@@ -419,9 +419,11 @@ class CustomCheckboxGroup extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
         this.max = parseInt(this.getAttribute('max')) || Infinity;
         this.calcFunc = this.getCalcFunction(this.getAttribute('calc'));
-        
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; padding: 10px; border: 1px solid #ccc; }
@@ -433,9 +435,6 @@ class CustomCheckboxGroup extends HTMLElement {
             <p class="error">Można wybrać opcje w liczbie maksymalnie: ${this.max}.</p>
             <p>Wynik: <span id="result">0</span></p>
         `;
-    }
-
-    connectedCallback() {
         this.checkboxes = Array.from(this.querySelectorAll('input[type="checkbox"]'));
         this.button = this.shadowRoot.querySelector('button');
         this.resultSpan = this.shadowRoot.querySelector('#result');
