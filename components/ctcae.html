@@ -1125,12 +1125,15 @@
             <label><h3>Data pobytu: </h3><encoder-component id="stay-date"></encoder-component></label>
             <label><h3>Schemat leczenia: </h3><br><textarea id="treatment-plan"></textarea><br>
             <button id="summarize-btn">Podsumuj</button>
+            <input type="checkbox" id="labels">
+            <label for="labels">Nie używaj etykiet w tabeli</label>
 
             <!-- Miejsce na tabelę wynikową -->
             <div id="summary-output"></div>            
         </div>
 
         <script>
+            const label_checkbox = document.getElementById('labels');
             document.getElementById('summarize-btn').addEventListener('click', () => {
                 const summaryDiv = document.getElementById('summary-output');
                 summaryDiv.innerHTML = ''; // Czyści stare podsumowanie
@@ -1144,7 +1147,12 @@
                 const table = document.createElement('table');
                 table.border = "1";
                 const headerRow = table.insertRow();
-                headerRow.innerHTML = "<th>Parametr</th><th>Ocena CTCAE</th>";
+                if (label_checkbox.checked) {
+                    headerRow.innerHTML = "<th>Ocena CTCAE</th>";
+                }
+                else{
+                    headerRow.innerHTML = "<th>Parametr</th><th>Ocena CTCAE</th>";
+                }
     
                 // Dodanie danych pacjenta na początku tabeli
                 const patientData = [
@@ -1154,7 +1162,12 @@
                 ];
                 patientData.forEach(([label, value]) => {
                     const row = table.insertRow();
-                    row.innerHTML = `<td><b>${label}</b></td><td>${value}</td>`;
+                    if (label_checkbox.checked) {
+                        row.innerHTML = `<td>${value}</td>`;
+                    }
+                    else{
+                        row.innerHTML = `<td><b>${label}</b></td><td>${value}</td>`;
+                    }
                 });
     
                 // Pobieranie wartości z custom-checkbox-group
@@ -1165,7 +1178,12 @@
                     const value = resultSpan ? resultSpan.textContent.trim() : "Brak wartości";
     
                     const row = table.insertRow();
-                    row.innerHTML = `<td>${title}</td><td>${value}</td>`;
+                    if (label_checkbox.checked) {
+                        row.innerHTML = `<td>${value}</td>`;
+                    }
+                    else{
+                        row.innerHTML = `<td><b>${label}</b></td><td>${value}</td>`;
+                    }
                 });
     
                 // Dodanie tabeli do dokumentu
