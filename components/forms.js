@@ -40,7 +40,7 @@ class ToggleContent extends HTMLElement {
     }
 
     minimize() {
-        if (document.fullscreenElement === this) {
+        if (document.fullscreenElement) {
             this.exitFullscreen();
         }
         this.expanded.style.display = 'none';
