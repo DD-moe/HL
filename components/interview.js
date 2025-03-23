@@ -557,7 +557,62 @@ class DirectoryExplorer extends HTMLElement {
     }
 }
 
+class EmojiKanji extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+
+    static get observedAttributes() {
+        return ['content'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'content' && oldValue !== newValue) {
+            this.render();
+        }
+    }
+
+    render() {
+        const content = this.getAttribute('content');
+        let elements = [];
+
+        try {
+            elements = JSON.parse(content) || [];
+        } catch (e) {
+            console.error('Invalid JSON in content attribute', e);
+        }
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: inline-block;
+                    position: relative;
+                    width: 100px;
+                    height: 100px;
+                }
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+                text {
+                    font-size: 50px;
+                    dominant-baseline: middle;
+                    text-anchor: middle;
+                }
+            </style>
+            <svg viewBox="0 0 100 100">
+                ${elements.map(([char, transform]) => `
+                    <text x="50" y="50" transform="${transform}">${char}</text>
+                `).join('')}
+            </svg>
+        `;
+    }
+}
+
 // Rejestracja niestandardowego elementu HTML
+customElements.define('emoji-kanji', EmojiKanji);
 customElements.define('directory-explorer', DirectoryExplorer);
 customElements.define('custom-checkbox-group', CustomCheckboxGroup);
 customElements.define('qr-scanner', QRScanner);
@@ -566,5 +621,5 @@ customElements.define('my-shadow-component', MyShadowComponent);
 customElements.define('page-component', PageComponent);
 customElements.define('editable-text', EditableText);
 export {EditableText, PageComponent, MyShadowComponent, EncoderComponent, QRScanner, CustomCheckboxGroup
-    , DirectoryExplorer
+    , DirectoryExplorer, EmojiKanji
 };
