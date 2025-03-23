@@ -589,13 +589,13 @@ class EmojiKanji extends HTMLElement {
                 :host {
                     display: inline-block;
                     position: relative;
-                    width: 100px;
-                    height: 100px;
+                    width: 20px;
+                    height: 20px;
                 }
                 .emoji {
                     position: absolute;
                     transform-origin: center;
-                    font-size: 2em;
+                    font-size: 20px;
                 }
             </style>
         `;
@@ -609,7 +609,6 @@ class EmojiKanji extends HTMLElement {
         });
     }
 }
-
 
 // Rejestracja niestandardowego elementu HTML
 customElements.define('emoji-kanji', EmojiKanji);
