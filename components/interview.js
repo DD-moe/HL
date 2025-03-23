@@ -577,7 +577,7 @@ class EmojiKanji extends HTMLElement {
     render() {
         const content = this.getAttribute('content');
         let elements = [];
-
+        
         try {
             elements = JSON.parse(content) || [];
         } catch (e) {
@@ -592,24 +592,24 @@ class EmojiKanji extends HTMLElement {
                     width: 100px;
                     height: 100px;
                 }
-                svg {
-                    width: 100%;
-                    height: 100%;
-                }
-                text {
-                    font-size: 50px;
-                    dominant-baseline: middle;
-                    text-anchor: middle;
+                .emoji {
+                    position: absolute;
+                    transform-origin: center;
+                    font-size: 2em;
                 }
             </style>
-            <svg viewBox="0 0 100 100">
-                ${elements.map(([char, transform]) => `
-                    <text x="50" y="50" transform="${transform}">${char}</text>
-                `).join('')}
-            </svg>
         `;
+
+        elements.forEach(([char, transform]) => {
+            const div = document.createElement('div');
+            div.textContent = char;
+            div.classList.add('emoji');
+            div.style.transform = transform;
+            this.shadowRoot.appendChild(div);
+        });
     }
 }
+
 
 // Rejestracja niestandardowego elementu HTML
 customElements.define('emoji-kanji', EmojiKanji);
