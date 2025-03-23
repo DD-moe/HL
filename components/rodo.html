@@ -1,28 +1,29 @@
 <h2 id="rodo-version" data-version="2.0" data-project="ctcae" class="statement-label"></h2>
-    <h4 class="statement-label">To jest przykładowy formularz RODO do celów pokazowych. Nie należy traktować go poważnie.</h4>
+    <h4 class="statement-label">Przed przystąpieniem do wypełniania skali CTCAE zapoznaj się z treścią ochrony danych pacjentów.</h4>
       <form id="rodo-form">
-          <label class="group-label">
-              <input type="checkbox" class="group-toggle" data-group="marketing"> Zgoda na marketing
-          </label>
+        <strong class="statement-label">Bezpieczeństwo przeglądarki</strong>
+        <p class="statement-label">Aby zminimalizować ryzyko wycieku danych, zaleca się używanie przeglądarki bez aktywnych wtyczek i rozszerzeń. Włączaj tylko te, które są zaufane.</p>
           <br>
           <label class="statement-label">
-              <input type="checkbox" class="statement" data-groups="marketing" data-statement="email-marketing"> Email marketing
-          </label>
-          <br>
-          <label class="statement-label">
-              <input type="checkbox" class="statement" data-groups="marketing" data-statement="sms-marketing"> SMS marketing
+              <input type="checkbox" class="statement" data-groups="browser" data-statement="browser_safty"> Potwierdzam, że będę korzystać z przeglądarki z wyłączonymi nieznanymi wtyczkami i rozszerzeniami.
+            </label>
           </label>
           <br><br>
-          
+        <strong class="statement-label">Bezpieczeństwo danych pacjenta</strong>
+        <p class="statement-label">Potwierdzam, że:</p>          
           <label class="group-label">
-              <input type="checkbox" class="group-toggle" data-group="analytics"> Zgoda na analitykę
+              <input type="checkbox" class="group-toggle" data-group="form"> Potwierdzam wszystko
           </label>
           <br>
           <label class="statement-label">
-              <input type="checkbox" class="statement" data-groups="analytics" data-statement="site-analytics"> Analityka strony
+              <input type="checkbox" class="statement" data-groups="analytics" data-statement="id_encoding"> Będę kodować identyfikator pacjenta korzystając z wbudowanego komponentu w formularzu.
           </label>
           <br>
           <label class="statement-label">
-              <input type="checkbox" class="statement" data-groups="analytics" data-statement="user-tracking"> Śledzenie użytkownika
+              <input type="checkbox" class="statement" data-groups="analytics" data-statement="date_encoding"> Rozumiem, że chociaż zakodowanie daty wizyty utrudnia analizę, to znacząco ogranicza możliwość śledzenia pacjenta.
+          </label>
+          <br>
+          <label class="statement-label">
+            <input type="checkbox" class="statement" data-groups="analytics" data-statement="data_storage"> Dane wyjściowe skopiowane z formularza będę przechowywać w bezpiecznym miejscu i nie udostępniać osobom postronnym.
           </label>
       </form>
