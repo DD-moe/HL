@@ -630,6 +630,8 @@ class AIRequest extends HTMLElement {
 class RodoConsent extends HTMLElement {
     constructor() {
         super();
+        this.consent = {};
+        this.project ='';
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
             <style>
@@ -684,18 +686,22 @@ class RodoConsent extends HTMLElement {
     }
 
     checkRodoVersion() {
-        const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
-  .map(element => element.querySelector('[data-version]'))
-  .find(element => element)?.getAttribute('data-version') || 'unknown';
+        this.project = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
+        .map(element => element.querySelector('[data-project]'))
+        .find(element => element)?.getAttribute('data-project') || 'unknown';
 
-        const savedVersion = localStorage.getItem('rodoVersion');
+        const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
+        .map(element => element.querySelector('[data-version]'))
+        .find(element => element)?.getAttribute('data-version') || 'unknown';
+
+        const savedVersion = localStorage.getItem(`rodoVersion_${this.project}`);
         if (savedVersion !== versionFromForm) {
             this.expand();
         }
     }
 
     loadSavedConsent() {
-        const savedConsent = JSON.parse(localStorage.getItem('rodoConsent') || '{}');
+        const savedConsent = JSON.parse(localStorage.getItem(`rodoConsent_${this.project}`) || '{}');
         const assignedElements = this.shadowRoot.querySelector('#url_slot').assignedElements({ flatten: true });
 
         assignedElements.forEach((element) => {
@@ -750,11 +756,12 @@ class RodoConsent extends HTMLElement {
                 }
             });
         });
-        localStorage.setItem('rodoConsent', JSON.stringify(consentData));
+        this.consent = consentData;
+        localStorage.setItem(`rodoConsent_${this.project}`, JSON.stringify(consentData));
         const versionFromForm = Array.from(this.shadowRoot.querySelector('#url_slot').assignedElements())
         .map(element => element.querySelector('[data-version]'))
         .find(element => element)?.getAttribute('data-version') || 'unknown';
-        localStorage.setItem('rodoVersion', versionFromForm);
+        localStorage.setItem(`rodoVersion_${this.project}`, versionFromForm);
         // minimize
         this.minimize();
     }
