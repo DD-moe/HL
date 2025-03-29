@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decription</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0/jsencrypt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <h2>RSA Encryption & Decryption</h2>
+    <label>Private Key:</label>
+    <textarea id="privateKey" rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="generateKeys()">Generate xlsl</button>
+    
+    <script>
+        function decryptText(iv, key, encryptedText) {
+            let decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            
+            return decrypted.toString(CryptoJS.enc.Utf8);
+        }
+
+        function decrypt(privateKey, encryptedText) {
+            let decryptor = new JSEncrypt();
+            decryptor.setPrivateKey(privateKey);
+            const decryptedText = decryptor.decrypt(encryptedText);
+            return decryptedText || "Decryption failed";
+        }
+        
+        function generateExcel(data) {
+            // Pobieranie kluczy z pierwszego obiektu
+            const keys = Object.keys(data[0]);
+
+            // Tworzenie wierszy danych (nagłówki + dane)
+            const rows = data.map(item => keys.map(key => item[key]));
+            rows.unshift(keys); // Dodanie nagłówków na początek
+
+            // Tworzenie arkusza (worksheet)
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+
+            // Tworzenie skoroszytu (workbook)
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+            // Pobieranie pliku Excel
+            XLSX.writeFile(wb, "output.xlsx");
+        }
+
+        function generateKeys(){
+            let encryptedText = document.getElementById("output").value;
+            const parsed = JSON.parse(encryptedText);
+            row = [];
+            for (let index = 0; index < parsed.length; index++) {
+            const element = parsed[index];
+            let decryptedData = {};
+            let lightData = {};
+            let restData = {};
+
+            // Iterujemy po wszystkich kluczach obiektu
+            Object.keys(element).forEach(key => {
+                if (key.includes("shadow")) {
+                    // Odszyfrowujemy tylko klucze zawierające "shadow" w nazwie
+                    const decrypted = decrypt(privateKeyPem, element[key].key);
+                    const aesDecrypted = decryptText(element[key].iv, decrypted, element[key].data)
+                    decryptedData = {...decryptedData, ...JSON.parse(aesDecrypted)};
+                }
+                else if (key.includes("light")) {
+                    lightData= {...lightData, ...element[key]};
+                }
+                else{
+                    restData[key] = element[key];
+                }
+            });
+                // Łączymy odszyfrowane wartości z pozostałymi danymi
+                row.push({ ...decryptedData, ...lightData, ...restData });
+            }
+
+            generateExcel(row);
+        }
+    </script>
+</body>
+</html>

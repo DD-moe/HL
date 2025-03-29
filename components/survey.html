@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>Imię: <input type="text" name="imie"></label><br>
+        <label>Nazwisko: <input type="text" name="nazwisko"></label><br>
+        <label>Email: <input type="email" name="email"></label><br>
+        <label>Telefon: <input type="tel" name="telefon"></label><br>
+        <label>Adres: <input type="text" name="adres"></label><br>
+        <label>Miasto: <input type="text" name="miasto"></label><br>
+        <label>Kod pocztowy: <input type="text" name="kod_pocztowy"></label><br>
+        <label>Imię: <input type="text" name="imie1"></label><br>
+        <label>Nazwisko: <input type="text" name="nazwisko1"></label><br>
+        <label>Email: <input type="email" name="email1"></label><br>
+        <label>Telefon: <input type="tel" name="telefon1"></label><br>
+        <label>Adres: <input type="text" name="adres1"></label><br>
+        <label>Miasto: <input type="text" name="miasto1"></label><br>
+        <label>Kod pocztowy: <input type="text" name="kod_pocztowy1"></label><br>
+        <button type="button" id="submitBtn">Wyślij</button>
+    </form>
+    <textarea  id="output"></textarea>
+    <button id="decipher">odczytaj</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0/jsencrypt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+
+function generateKeys() {
+            let iv = CryptoJS.lib.WordArray.random(16);
+            let key = CryptoJS.lib.WordArray.random(16);
+            return {
+                iv: CryptoJS.enc.Base64.stringify(iv),
+                key: CryptoJS.enc.Base64.stringify(key)
+            }
+        }
+
+function encryptText(iv, key, plainText) {
+    let encrypted = CryptoJS.AES.encrypt(plainText, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    
+    return encrypted.toString();
+}
+
+function decryptText(iv, key, encryptedText) {
+     let decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+function encrypt(publicKey, rawText) {
+            const aes = generateKeys();
+            let encryptor = new JSEncrypt();
+            encryptor.setPublicKey(publicKey);
+            return {
+                key: encryptor.encrypt(aes.key),
+                iv: aes.iv,
+                data: encryptText(aes.iv, aes.key, rawText)
+            };
+            
+            /*
+            let blockSize = 64; // Maksymalna długość bloku zależy od klucza
+            let encryptedBlocks = [];
+            for (let i = 0; i < rawText.length; i += blockSize) {
+                let block = rawText.substring(i, i + blockSize);
+                let encrypted = encryptor.encrypt(block);
+                if (encrypted) {
+                    encryptedBlocks.push(encrypted);
+                }
+            }
+             */
+            // Łączenie bloków z separatorem "<--!-->"
+            //return encryptedBlocks.join("<--!-->");
+
+        }
+
+
+const publicKeyPem = `-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTy4LSMj+RARzcXeRnJ4pt3/N8
+feWA7JgyrwFRs3KE6D+wTW902cVM5qvYS/mdbn8W16eHNVLkqP7BwY+ecHvKUah+
+/I4Fir1kjsn4b7R4Bqen5uW9BO1+zpIJKH0RNZanQoM8Kzq21WVOYy6/HwbudqcK
+RJfb7TvLJ4ndWOmrQQIDAQAB
+-----END PUBLIC KEY-----`;
+
+const privateKeyPem = `-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQCTy4LSMj+RARzcXeRnJ4pt3/N8feWA7JgyrwFRs3KE6D+wTW90
+2cVM5qvYS/mdbn8W16eHNVLkqP7BwY+ecHvKUah+/I4Fir1kjsn4b7R4Bqen5uW9
+BO1+zpIJKH0RNZanQoM8Kzq21WVOYy6/HwbudqcKRJfb7TvLJ4ndWOmrQQIDAQAB
+AoGAKYhqVgl65ZPreV4FXpu1AhWKRjTW9vkF+FBHzZ7hEsp1g2TvamX8VRUJu7n2
+BrDTlCa8VHm+trVrCiYL5xlzH8TdGoxmKmXUOPRNFQqOCSwBG/GU3CeHpvCJmHLP
+GTwWFNt4MffP7CXqTK0jGiOG6AuujMWXsOuwIRps+7XVohUCQQDbf0ZqAkQ7hbQa
+P85TtPxUfRxrtWcjjVdwxCzMNbMzeUdTRLTO8ZxrggM5BgOMiF+eqx//NqWO3uTi
+FI/Ge05TAkEArF+icXs3eaHgPKHxZs7Lab4DRwYqeoC+Q62gXJAl54wMhpMz48Ip
+G7+lMLH+TGGRb1I3FOAgwy4rgCE4A+vlmwJAP+7dgqkwWKoEIJUvMuCHktByQ8kt
+xoQ30OfDKKQHk1mi9dUQWSq05feTmrtuszNRrrSneD3hkTDJODTHAAgQcwJBAKZ+
+FQQxdIrabSGDdgzMLzOqobXHYd5DXgM2wE7HuKTm4+5UXmleT6CKwn6/XZXfI793
+lNZoCZ0cik3PSDCZeIMCQC1oN+FEIS46Kr5DZisO2CsxXX2HE8HcDFYiEpFSD4f6
+nnO0/WZOMZRiGcmr38AUOFpzACPnkpTbNwd3R+xNUpM=
+-----END RSA PRIVATE KEY-----`;
+
+function decrypt(privateKey, encryptedText) {
+            let decryptor = new JSEncrypt();
+            decryptor.setPrivateKey(privateKey);
+            const decryptedText = decryptor.decrypt(encryptedText);
+            // Rozdzielanie tekstu w miejscach wstawek "<--!-->"
+            //let encryptedBlocks = encryptedText.split("<--!-->");
+            //let decryptedText = encryptedBlocks.map(block => decryptor.decrypt(block)).join("");
+            
+            return decryptedText || "Decryption failed";
+        }
+
+
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            const form = document.getElementById("myForm");
+            const formData = {};
+            new FormData(form).forEach((value, key) => {
+                formData[key] = value;
+            });
+            const formData1 = {};
+            new FormData(form).forEach((value, key) => {
+                formData[key+'1'] = value;
+            });            
+            const shadow = encrypt(publicKeyPem, JSON.stringify(formData));
+            const shadow1 = encrypt(publicKeyPem, JSON.stringify(formData1));
+            const record = {light: {sadd: "asad"}, shadow: shadow, shadow1: shadow1, light1: {das: "asad"}, id:'11'};
+            table = [];
+            for (let index = 0; index < 15000; index++) {
+                table.push(record);
+            }
+            document.getElementById("output").value = JSON.stringify(table);
+        });
+
+        document.getElementById("decipher").addEventListener("click", function() {
+            let encryptedText = document.getElementById("output").value;
+            const parsed = JSON.parse(encryptedText);
+            row = [];
+            for (let index = 0; index < parsed.length; index++) {
+            const element = parsed[index];
+            let decryptedData = {};
+            let lightData = {};
+            let restData = {};
+
+            // Iterujemy po wszystkich kluczach obiektu
+            Object.keys(element).forEach(key => {
+                if (key.includes("shadow")) {
+                    // Odszyfrowujemy tylko klucze zawierające "shadow" w nazwie
+                    const decrypted = decrypt(privateKeyPem, element[key].key);
+                    const aesDecrypted = decryptText(element[key].iv, decrypted, element[key].data)
+                    decryptedData = {...decryptedData, ...JSON.parse(aesDecrypted)};
+                }
+                else if (key.includes("light")) {
+                    lightData= {...lightData, ...element[key]};
+                }
+                else{
+                    restData[key] = element[key];
+                }
+            });
+
+
+            // Łączymy odszyfrowane wartości z pozostałymi danymi
+            row.push({ ...decryptedData, ...lightData, ...restData });
+        }
+
+            generateExcel(row);
+        });
+
+        function generateExcel(data) {
+
+            // Pobieranie kluczy z pierwszego obiektu
+            const keys = Object.keys(data[0]);
+            
+            // Tworzenie wierszy danych (nagłówki + dane)
+            const rows = data.map(item => keys.map(key => item[key]));
+            rows.unshift(keys); // Dodanie nagłówków na początek
+
+            // Tworzenie arkusza (worksheet)
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+
+            // Tworzenie skoroszytu (workbook)
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+            // Pobieranie pliku Excel
+            XLSX.writeFile(wb, "output.xlsx");
+        }
+
+    </script>
+</body>
+</html>

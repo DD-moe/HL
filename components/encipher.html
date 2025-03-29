@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>Imię: <input type="text" name="imie"></label><br>
+        <label>Nazwisko: <input type="text" name="nazwisko"></label><br>
+        <label>Email: <input type="email" name="email"></label><br>
+        <label>Telefon: <input type="tel" name="telefon"></label><br>
+        <label>Adres: <input type="text" name="adres"></label><br>
+        <label>Miasto: <input type="text" name="miasto"></label><br>
+        <label>Kod pocztowy: <input type="text" name="kod_pocztowy"></label><br>
+        <label>Imię: <input type="text" name="imie1"></label><br>
+        <label>Nazwisko: <input type="text" name="nazwisko1"></label><br>
+        <label>Email: <input type="email" name="email1"></label><br>
+        <label>Telefon: <input type="tel" name="telefon1"></label><br>
+        <label>Adres: <input type="text" name="adres1"></label><br>
+        <label>Miasto: <input type="text" name="miasto1"></label><br>
+        <label>Kod pocztowy: <input type="text" name="kod_pocztowy1"></label><br>
+        <button type="button" id="submitBtn">Wyślij</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0/jsencrypt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+
+        // aes unique key generation
+        function generateKeys() {
+            let iv = CryptoJS.lib.WordArray.random(16);
+            let key = CryptoJS.lib.WordArray.random(16);
+            return {
+                iv: CryptoJS.enc.Base64.stringify(iv),
+                key: CryptoJS.enc.Base64.stringify(key)
+            }
+        }
+        //aes text encryption
+        function encryptText(iv, key, plainText) {
+            let encrypted = CryptoJS.AES.encrypt(plainText, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            
+            return encrypted.toString();
+        }   
+
+        // rsa encryption of aes key
+        function encrypt(publicKey, rawText) {
+            const aes = generateKeys();
+            let encryptor = new JSEncrypt();
+            encryptor.setPublicKey(publicKey);
+            return {
+                key: encryptor.encrypt(aes.key),
+                iv: aes.iv,
+                data: encryptText(aes.iv, aes.key, rawText)
+            };
+        }
+
+        // public rsa key - could be kept anywhere
+        const publicKeyPem = `-----BEGIN PUBLIC KEY-----
+        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTy4LSMj+RARzcXeRnJ4pt3/N8
+        feWA7JgyrwFRs3KE6D+wTW902cVM5qvYS/mdbn8W16eHNVLkqP7BwY+ecHvKUah+
+        /I4Fir1kjsn4b7R4Bqen5uW9BO1+zpIJKH0RNZanQoM8Kzq21WVOYy6/HwbudqcK
+        RJfb7TvLJ4ndWOmrQQIDAQAB
+        -----END PUBLIC KEY-----`;
+        // command to specify where send data
+        const command = 'users'
+
+        document.getElementById("submitBtn").addEventListener("click", async function() {
+            //get all elements from form
+            const form = document.getElementById("myForm");
+            const formData = {};
+            new FormData(form).forEach((value, key) => {
+                formData[key] = value;
+            });
+            // encrypt data that should be shadowed           
+            const shadow = encrypt(publicKeyPem, JSON.stringify(formData));
+            // create database object
+            const record = {shadow: shadow, date_id:'11'};
+            // stringify object
+            const output = JSON.stringify(record);
+
+            const response = await fetch(`https://frog01-21435.wykr.es/${command}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: output
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message);
+            } else {
+                alert(data.error);
+            }
+        });
+
+    </script>
+</body>
+</html>
