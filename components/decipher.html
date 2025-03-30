@@ -72,7 +72,6 @@
             });
 
             const parsed = await response.json();
-            console.log(parsed);
             if (response.ok) {
                 row = [];
                 for (let index = 0; index < parsed.message.length; index++) {
@@ -84,9 +83,10 @@
                 // Iterujemy po wszystkich kluczach obiektu
                 Object.keys(element).forEach(key => {
                     if (key.includes("shadow")) {
+                        const shadowed = JSON.parse(element[key]);
                         // Odszyfrowujemy tylko klucze zawierające "shadow" w nazwie
-                        const decrypted = decrypt(privateKeyPem, element[key].key);
-                        const aesDecrypted = decryptText(element[key].iv, decrypted, element[key].data)
+                        const decrypted = decrypt(privateKeyPem, shadowed.key);
+                        const aesDecrypted = decryptText(shadowed.iv, decrypted, shadowed.data)
                         decryptedData = {...decryptedData, ...JSON.parse(aesDecrypted)};
                     }
                     else if (key.includes("light")) {
