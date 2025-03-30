@@ -68,7 +68,7 @@
         RJfb7TvLJ4ndWOmrQQIDAQAB
         -----END PUBLIC KEY-----`;
         // command to specify where send data
-        const command = 'ctcae_insert'
+        const command = 'examplesurvey'
 
         document.getElementById("submitBtn").addEventListener("click", async function() {
             //get all elements from form
@@ -80,7 +80,7 @@
             // encrypt data that should be shadowed           
             const shadow = encrypt(publicKeyPem, JSON.stringify(formData));
             // create database object
-            const record = {shadow: shadow, date_id:'11'};
+            const record = {shadow: shadow};
             // stringify object
             const output = JSON.stringify(record);
 

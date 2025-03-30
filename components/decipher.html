@@ -63,12 +63,12 @@
             const command = document.getElementById('operation').value;
             const password = document.getElementById('password').value;
 
-            const response = await fetch(`https://frog01-21435.wykr.es/${command}`, {
+            const response = await fetch(`https://frog01-21435.wykr.es/tableanalytic`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(password)
+                body: JSON.stringify({password: password, command: command})
             });
 
             const parsed = await response.json();
