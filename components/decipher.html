@@ -25,8 +25,8 @@
         function decryptText(iv, key, encryptedText) {
             let decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
                 iv: iv,
-                mode: CryptoJS.mode.GCM,
-                padding: CryptoJS.pad.NoPadding
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
             });
             
             return decrypted.toString(CryptoJS.enc.Utf8);
