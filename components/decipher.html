@@ -84,10 +84,12 @@
                 Object.keys(element).forEach(key => {
                     if (key.includes("shadow")) {
                         const shadowed = JSON.parse(element[key]);
-                        // Odszyfrowujemy tylko klucze zawierające "shadow" w nazwie
-                        const decrypted = decrypt(privateKeyPem, shadowed.key);
-                        const aesDecrypted = decryptText(shadowed.iv, decrypted, shadowed.data)
-                        decryptedData = {...decryptedData, ...JSON.parse(aesDecrypted)};
+                        if (shadowed.key !== null || shadowed.key !== undefined) {
+                            // Odszyfrowujemy tylko klucze zawierające "shadow" w nazwie
+                            const decrypted = decrypt(privateKeyPem, shadowed.key);
+                            const aesDecrypted = decryptText(shadowed.iv, decrypted, shadowed.data)
+                            decryptedData = {...decryptedData, ...JSON.parse(aesDecrypted)};
+                        }
                     }
                     else if (key.includes("light")) {
                         lightData= {...lightData, ...element[key]};
