@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Symulator AMMS - Pobyty</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f0f4fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h1 {
+      background-color: #1e3c72;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+
+    .menuPobytow {
+      max-height: 40vh;
+      overflow-y: auto;
+      background-color: #e8eef7;
+      border-top: 2px solid #1e3c72;
+      border-bottom: 2px solid #1e3c72;
+      padding: 10px;
+    }
+
+    .pobytItem {
+      background-color: #d0def0;
+      border: 1px solid #1e3c72;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .pobytItem:hover {
+      background-color: #b5cbe7;
+    }
+
+    .pobytContent {
+      display: table;
+      width: 100%;
+    }
+
+    .pobytRow {
+      display: table-row;
+    }
+
+    .pobytCell {
+      display: table-cell;
+      padding: 0 10px;
+      border-left: 1px solid #1e3c72;
+    }
+
+    .pobytCell:hover {
+      background-color: #8e9eb3;
+    }
+
+    .pobytCell:first-child {
+      border-left: none;
+    }
+    
+    .pobytCell b {
+      color: #1e3c72;  /* ciemny granat AMMSowy */
+      font-weight: bold;
+    }
+
+    .detailsSection {
+        max-height: 40vh;
+        overflow-y: auto;
+        background-color: #f4f8fc;
+        border: 1px solid #1e3c72;
+        padding: 15px;
+        margin: 15px 10px;
+        border-radius: 6px;
+    }
+
+    .detailsSection h2 {
+        margin-top: 0;
+        color: #1e3c72;
+    }
+
+    .subItem {
+        background-color: #dde6f5;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 4px;
+    }
+
+    .subItem:hover {
+        background-color: #b5cbe7;
+    }
+
+    .subCell {
+        margin-bottom: 4px;
+        color: #333;
+    }
+
+    .subCell b {
+        color: #1e3c72;
+    }
+
+    textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 120px;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+
+  </style>
+</head>
+<body>
+    <h1>Symulator AMMS - Pobyty</h1>
+
+    <!-- MENU wizyt-->
+    <div class="menuPobytow">
+    
+        <div class="pobytItem" onclick="openVisit(this)" data-visit="123">
+            <div class="pobytContent">
+                <div class="pobytRow">
+                    <div class="pobytCell">ID: <b>123</b></div>
+                    <div class="pobytCell">Początek pobytu: <b>2024-04-01</b></div>
+                    <div class="pobytCell">Koniec pobytu: <b>2024-04-05</b></div>
+                    <div class="pobytCell">Imię i nazwisko: <b>Jan Kowalski</b></div>
+                    <div class="pobytCell">Płeć: <b>M</b></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MENU wizyty-->
+    <div class="menuPobytow">
+    
+        <div class="pobytItem" id="123" style="display: none;">
+            <div class="pobytContent">
+                <div class="pobytRow">
+                    <div class="pobytCell" onclick="openVisit1(this)" data-visit="123-wyniki"><b>Wyniki</b></div>
+                    <div class="pobytCell" onclick="openVisit1(this)" data-visit="123-opieka"><b>Opieka pielęgniarska</b></div>
+                    <div class="pobytCell" onclick="openVisit1(this)" data-visit="123-zlecenia"><b>Zlecenia lekarskie</b></div>
+                    <div class="pobytCell" onclick="openVisit1(this)" data-visit="123-pobyt"><b>Szczegóły pobytu</b></div>
+                    <div class="pobytCell" onclick="openVisit2(this)" data-visit="123-uwagi"><b>Uwagi do pobytu</b></div>
+                </div>
+            </div>
+        </div>
+
+    </div>    
+
+    <!-- zawartość wizyty -->
+    <div>
+        <!-- MENU BADAŃ -->
+        <div class="detailsSection" id="123-wyniki" style="display: none;">
+            <h2>Wyniki</h2>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-wyniki-Morfologia_2024-04-02_08:30">
+                <div class="subCell">Data: <b>2024-04-02</b></div>
+                <div class="subCell">Godzina: <b>08:30</b></div>
+                <div class="subCell">Nazwa badania: <b>Morfologia</b></div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-wyniki-eGFR_2024-04-03_10:15">
+                <div class="subCell">Data: <b>2024-04-03</b></div>
+                <div class="subCell">Godzina: <b>10:15</b></div>
+                <div class="subCell">Nazwa badania: <b>eGFR</b></div>
+            </div>
+        </div>
+    
+        <!-- MENU OPIEKI PIELĘGNIARSKIEJ -->
+        <div class="detailsSection" id="123-opieka" style="display: none;">
+            <h2>Opieka pielęgniarska</h2>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-opieka-temperatura_2024-04-01_07:45">
+                <div class="subCell">Data: <b>2024-04-01</b></div>
+                <div class="subCell">Godzina: <b>07:45</b></div>
+                <div class="subCell">Czynność: <b>Pomiar temperatury</b></div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-opieka-rana_2024-04-02_13:20">
+                <div class="subCell">Data: <b>2024-04-02</b></div>
+                <div class="subCell">Godzina: <b>13:20</b></div>
+                <div class="subCell">Czynność: <b>Pielęgnacja rany</b></div>
+            </div>
+        </div>
+
+        <!-- MENU ZLECEŃ LEKARSKICH -->
+        <div class="detailsSection" id="123-zlecenia" style="display: none;">
+            <h2>Zlecenia lekarskie</h2>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-zlecenia-paracetamol_2024-04-01_09:00">
+                <div class="subCell">Data: <b>2024-04-01</b></div>
+                <div class="subCell">Godzina: <b>09:00</b></div>
+                <div class="subCell">Zlecenie: <b>Podanie paracetamolu 500mg</b></div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-zlecenia-Morfologia_2024-04-03_11:10">
+                <div class="subCell">Data: <b>2024-04-03</b></div>
+                <div class="subCell">Godzina: <b>11:10</b></div>
+                <div class="subCell">Zlecenie: <b>Badanie krwi - morfologia</b></div>
+            </div>
+        </div>
+
+        <!-- SZCZEGÓŁY POBYTU -->
+        <div class="detailsSection" id="123-pobyt" style="display: none;">
+            <h2>Szczegóły pobytu</h2>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-pobyt-podmiotowe_2024-04-01_08:00">
+                <div class="subCell">Data: <b>2024-04-01</b></div>
+                <div class="subCell">Godzina: <b>08:00</b></div>
+                <div class="subCell">Badanie podmiotowe</div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-pobyt-przedmiotowe_2024-04-03:09:45">
+                <div class="subCell">Data: <b>2024-04-03</b></div>
+                <div class="subCell">Godzina: <b>09:45</b></div>
+                <div class="subCell">Badanie przedmiotowe</div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-pobyt-Epikryza">
+                <div class="subCell">Data: <b>2024-04-03</b></div>
+                <div class="subCell">Godzina: <b>15:30</b></div>
+                <div class="subCell">Epikryza</div>
+            </div>
+            <div class="subItem" onclick="openVisit3(this)" data-visit="123-pobyt-leczenie">
+                <div class="subCell">Data: <b>2024-04-03</b></div>
+                <div class="subCell">Godzina: <b>16:00</b></div>
+                <div class="subCell">Zastosowane leczenie</div>
+            </div>
+        </div>
+
+        <!-- uwagi do POBYTU -->
+        <div class="detailsSection" id="123-uwagi" style="display: none;">
+            <label for="uwagi">Uwagi do pobytu:</label>
+            <textarea name="uwagi" placeholder="Wprowadź uwagi..." onchange="saveTextarea(this)" data-indexText="uwagi_123"></textarea>
+        </div>
+    </div>
+
+    <div class="detailsSection">
+        <h2>Szczegły:</h2>
+        <textarea style="display: none;" id="123-wyniki-Morfologia_2024-04-02_08:30">
+        Morfologia
+        Hemoglobina (Hb): 11.5 g/dl (norma: 13.5-17.5 g/dl)
+        Leukocyty (WBC): 4.2 x10^3/µl (norma: 4.0-10.0 x10^3/µl)
+        Płytki krwi (PLT): 150 x10^3/µl (norma: 150-400 x10^3/µl)
+        Hematokryt (Hct): 35.2% (norma: 40-50%)
+        MCV (objętość średnia krwinki): 85 fl (norma: 80-100 fl)
+        MCH (średnia masa hemoglobiny w krwince): 28 pg (norma: 27-32 pg)
+        MCHC (średnie stężenie hemoglobiny w krwince): 33.0 g/dl (norma: 32-36 g/dl)
+        Retikulocyty: 0.5% (norma: 0.5-1.5%)
+        </textarea>
+        
+        <textarea style="display: none;" id="123-wyniki-eGFR_2024-04-03_10:15">
+        eGFR
+        eGFR: 75 ml/min/1.73m² (norma: >90 ml/min/1.73m²)
+        </textarea>
+
+        <textarea style="display: none;" id="123-opieka-temperatura_2024-04-01_07:45">
+        Temperatura ciała
+        Temperatura: 37.8°C (norma: 36.5°C - 37.5°C)
+        </textarea>
+            
+        <textarea style="display: none;" id="123-opieka-rana_2024-04-02_13:20">
+        Ocena odleżyn (skala EPUAP)
+        Stopień: 2
+        </textarea>
+
+        <textarea style="display: none;" id="123-zlecenia-paracetamol_2024-04-01_09:00">
+        Zlecenie:
+        Podanie paracetamolu 500 mg
+        Dawka: 500 mg doustnie co 6 godzin
+        </textarea>
+        
+        <textarea style="display: none;" id="123-zlecenia-Morfologia_2024-04-03_11:10">
+        Zlecenie:
+        Wykonanie podstawowego badania morfologii krwi
+        </textarea>   
+
+        <textarea style="display: none;" id="123-pobyt-podmiotowe_2024-04-01_08:00">
+        Badanie podmiotowe:
+        Pacjent: Mężczyzna, 38 lat, rozpoznanie chłoniaka Hodgkina. Skarży się na ogólne osłabienie, utratę masy ciała oraz gorączkę (temperatura 37.8°C), bóle głowy, przewlekłe zmęczenie. Nie zgłasza dolegliwości ze strony układu pokarmowego ani oddechowego. Wywiad rodzinny: brak nowotworów hematologicznych. Historia leczenia: rozpoczyna chemioterapię zgodnie z protokołem ABVD (Adriamycyna, Bleomycyna, Winkaalkaloidy, Dakarbazyna).
+        </textarea>
+        
+        <textarea style="display: none;" id="123-pobyt-przedmiotowe_2024-04-03:09:45">
+        Badanie przedmiotowe:
+        Stan ogólny: Średni, pacjent wyczerpany, leżący, w stanie ogólnym dobrym, bez objawów ostrej niewydolności narządowej. 
+        Układ oddechowy: Bez szmerów rzężeniowych, osłabienie oddechu na bazach płucnych.
+        Układ krążenia: Tętno 88/min, ciśnienie 125/80 mmHg, obrzęki kończyn dolnych nieobecne. 
+        Skóra: Blada, w miejscach nakłuć widoczna skóra uszkodzona po chemoterapii, brak objawów skórnych infekcji.
+        Węzły chłonne: Powiększenie węzłów chłonnych w okolicy pachowej i szyjnej, bezbolesne.
+        </textarea>
+        
+        <textarea style="display: none;" id="123-pobyt-Epikryza">
+        Epikryza:
+        Pacjent hospitalizowany w związku z chłoniakiem Hodgkina, z objawami ogólnego osłabienia, gorączki oraz utraty masy ciała. Rozpoczęcie leczenia chemioterapią ABVD. Po pierwszym cyklu chemioterapii pacjent wykazuje lekką poprawę, choć nadal utrzymują się objawy ogólnego wyczerpania i bólu głowy. Monitorowana jest reakcja na leczenie oraz ewentualne powikłania hematologiczne. Plan: Kontynuacja chemioterapii, monitorowanie parametrów krwi (morfologia, poziom leukocytów, płytek krwi), wsparcie w zakresie leczenia objawowego.
+        </textarea>
+        
+        <textarea style="display: none;" id="123-pobyt-leczenie">
+        Zastosowany schemat leczenia:
+        - Chemioterapia ABVD (Adriamycyna 25 mg/m², Bleomycyna 10 mg/m², Winkaalkaloidy 1.4 mg/m², Dakarbazyna 375 mg/m²)
+        - Leczenie objawowe:
+            - Paracetamol 500 mg co 6 godzin w razie bólu
+            - Płyny dożylne: NaCl 0.9% 500 ml 2x dziennie
+            - Leczenie wspomagające: profilaktyka zakażeń grzybiczych (Flukonazol 200 mg/d), profilaktyka infekcji bakteryjnych (Cefaleksyna 500 mg 2x dziennie)
+        - Procedury pomocnicze:
+            - Monitorowanie parametrów krwi (morfologia, eGFR, poziom elektrolitów)
+            - Kontrola odżywiania i suplementacja witamin (witamina D, kwas foliowy)
+        </textarea>  
+    </div>
+
+    <script>
+        let last;
+        let last1;
+        let last3;
+      
+        function openVisit(element) {
+          const visitId = element.dataset.visit;
+          if (last) {
+            last.style.display = "none";
+          }
+          last = document.getElementById(visitId);
+          if (last) {
+            last.style.display = "block";
+          } else {
+            console.warn("Nie znaleziono elementu o ID:", visitId);
+          }
+        }
+
+        function openVisit1(element) {
+          const visitId = element.dataset.visit;
+          if (last1) {
+            last1.style.display = "none";
+          }
+          last1 = document.getElementById(visitId);
+          if (last1) {
+            last1.style.display = "block";
+          } else {
+            console.warn("Nie znaleziono elementu o ID:", visitId);
+          }
+        }        
+
+        function openVisit2(element) {
+            const visitId = element.dataset.visit;
+            if (last1) {
+            last1.style.display = "none";
+            }
+            last1 = document.getElementById(visitId);
+            if (last1) {
+            last1.style.display = "block";
+
+            // Uzupełnij textarea z localStorage
+            const textareas = last1.querySelectorAll('textarea[data-indexText]');
+            textareas.forEach(textarea => {
+                const key = textarea.dataset.indextext;
+                const saved = localStorage.getItem(key);
+                if (saved !== null) {
+                textarea.value = saved;
+                }
+            });
+
+            } else {
+            console.warn("Nie znaleziono elementu o ID:", visitId);
+            }
+        }
+        
+        function saveTextarea(textarea) {
+            const key = textarea.dataset.indextext;
+            const value = textarea.value;
+            if (key) {
+            localStorage.setItem(key, value);
+            console.log(`Zapisano: ${key} = ${value}`);
+            }
+        }
+
+        function openVisit3(element) {
+          const visitId = element.dataset.visit;
+          if (last3) {
+            last3.style.display = "none";
+          }
+          last3 = document.getElementById(visitId);
+          if (last3) {
+            last3.style.display = "block";
+          } else {
+            console.warn("Nie znaleziono elementu o ID:", visitId);
+          }
+        }     
+
+
+      </script>
+      
+</body>
+</html>
