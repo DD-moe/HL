@@ -2544,18 +2544,29 @@
         let last;
         let last1;
         let last3;
+        let last_color;
+        let last1_color;
+        let last3_color;
+        const selected = "#6666ff";
       
         function openVisit(element) {
-          const visitId = element.dataset.visit;
-          if (last) {
-            last.style.display = "none";
-          }
-          last = document.getElementById(visitId);
-          if (last) {
-            last.style.display = "block";
-          } else {
-            console.warn("Nie znaleziono elementu o ID:", visitId);
-          }
+            if (last_color) {
+                last.style.backgroundColor = last_color;
+            }
+
+            last_color = element.style.backgroundColor;
+            element.style.backgroundColor = selected;
+
+            const visitId = element.dataset.visit;
+            if (last) {
+                last.style.display = "none";
+            }
+            last = document.getElementById(visitId);
+            if (last) {
+                last.style.display = "block";
+            } else {
+                console.warn("Nie znaleziono elementu o ID:", visitId);
+            }
         }
 
         function openVisit1(element) {
