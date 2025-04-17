@@ -2557,6 +2557,13 @@
             if (last3) {
                 last3.style.display = "none";
             }
+            if (last3_element) {
+                last3_element.classList.remove(last_color_class);
+            }
+            if (last1_element) {
+                last1_element.classList.remove(last_color_class);
+            }
+
             if (last_element) {
                 last_element.classList.remove(last_color_class);
             }
@@ -2580,13 +2587,17 @@
             if (last3) {
                 last3.style.display = "none";
             }
+            if (last3_element) {
+                last3_element.classList.remove(last_color_class);
+            }
+
             if (last1_element) {
                 last1_element.classList.remove(last_color_class);
             }
 
             last1_element = element;
             element.classList.add(last_color_class);
-                        
+
             const visitId = element.dataset.visit;
             if (last1) {
                 last1.style.display = "none";
@@ -2603,6 +2614,16 @@
             if (last3) {
                 last3.style.display = "none";
             }
+            if (last3_element) {
+                last3_element.classList.remove(last_color_class);
+            }
+
+            if (last1_element) {
+                last1_element.classList.remove(last_color_class);
+            }
+
+            last1_element = element;
+            element.classList.add(last_color_class);
 
             const visitId = element.dataset.visit;
             if (last1) {
