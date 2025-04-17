@@ -140,3 +140,29 @@ tu masz schemat html, dla zleceń lekarskich, które zawierają:
         Utwórz podobne na podstawie podanych poniżej wyników:
 
         ...
+
+
+
+Badanie ogólne moczu
+
+Barwa moczu	Żółty
+Klarowność moczu	Przejrzysty
+Ciężar właściwy moczu	1.02 g/mL	[1.016- 1.022]
+pH - Odczyn moczu	5 pH	[5,0-6,5]
+Leukocyty w moczu	Negatywny
+Azotyny w moczu	Negatywny
+Białko w moczu	Negatywny	[Negatywny]
+Glukoza w moczu	Negatywny	[Negatywny]
+Ciała ketonowe w moczu	Negatywny
+Urobilinogen w moczu	Norma
+Bilirubina w moczu	Negatywny
+Krew w moczu	Negatywny
+
+Osad moczu
+
+Nabłonki płaskie	0-2 wpw 
+Leukocyty	0-4 wpw
+
+
+Napisz na wzór tego przykłądowe dane dla chorego na chłoniaka hodgkina; uwaga dane mają być w formie tekstowej:
+...
