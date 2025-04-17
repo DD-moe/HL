@@ -47,7 +47,7 @@ Poszczególne sekcje w danych wejściowych oddzielone są znakami tabulacji. Na 
             ciśnienie tętnicze, masa ciała
             utwórz 10 wyników wg. schematu, data pobytu to ... do ...
             uwaga - pomiary mogą się powtarzać nawet 1 dnia tylko w różnych godzinach - zwykle rano i wieczorem.
-            !!! 123-wyniki jest stałe dla wszystkich badań, bo to identyfikator konkretnego pobytu 123 i rodzaju danych : wyniki
+            !!! 123-opieka jest stałe dla wszystkich badań, bo to identyfikator konkretnego pobytu 123 i rodzaju danych : opieka
 
 
                 <div class="subItem" onclick="openVisit3(this)" data-visit="123-zlecenia-paracetamol_2024-04-01_09:00">
@@ -60,8 +60,9 @@ Poszczególne sekcje w danych wejściowych oddzielone są znakami tabulacji. Na 
                 <div class="subCell">Godzina: <b>11:10</b></div>
                 <div class="subCell">Zlecenie: <b>Badanie krwi - morfologia</b></div>
             </div>
-tu msza schemat html, dla zleceń lekarskich, które zawierają: 
+tu masz schemat html, dla zleceń lekarskich, które zawierają: 
             zlecenia badań - także obrazowych i usg, podanie leków - płynow infuzyjnych, leczenia żywieniowego, itp.
-            utwórz ok. 5 wyników wg. schematu, data pobytu to ... do ...
+            utwórz ok. 5 wyników wg. schematu, data pobytu to 2024-04-12 do 2024-04-12
             uwaga - pomiary mogą się powtarzać nawet 1 dnia tylko w różnych godzinach - zwykle rano i wieczorem.
-            !!! 123-wyniki jest stałe dla wszystkich badań, bo to identyfikator konkretnego pobytu 123 i rodzaju danych : wyniki
+            !!! 201-zlecenia jest stałe dla wszystkich badań, bo to identyfikator konkretnego pobytu 201 i rodzaju danych : zlecenia
+            
