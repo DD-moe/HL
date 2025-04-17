@@ -81,5 +81,20 @@ tu masz schemat html, dla zleceń lekarskich, które zawierają:
 
         tu masz przykłąd zleceń, na ich podstawie napisz zlecenia dla danych podanych poniżej
         id jest takie samo ja data-visit.:
-        
-                    
+
+        <!-- opieka -->
+        <textarea style="display: none;" id="123-opieka-temperatura_2024-04-01_07:45">
+        Temperatura ciała
+        Temperatura: 37.8°C (norma: 36.5°C - 37.5°C)
+        </textarea>
+            
+        <textarea style="display: none;" id="123-opieka-rana_2024-04-02_13:20">
+        Ocena odleżyn (skala EPUAP)
+        Stopień: 2
+        </textarea>
+
+        tu masz przykłąd notatek opieki pielęgniarskiej, na ich podstawie napisz podobne dla danych podanych poniżej
+        nie używaj placeholderów - tylko uzupełnij dane.
+        id jest takie samo ja data-visit.:
+
+
