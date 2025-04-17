@@ -2544,16 +2544,21 @@
         let last;
         let last1;
         let last3;
+
         let last_color;
         let last1_color;
         let last3_color;
+        let last_element;
+        let last1_element;
+        let last3_element;
         const selected = "#6666ff";
       
         function openVisit(element) {
-            if (last_color) {
-                last.style.backgroundColor = last_color;
+            if (last_color && last_element) {
+                last_element.style.backgroundColor = last_color;
             }
 
+            last_element = element;
             last_color = element.style.backgroundColor;
             element.style.backgroundColor = selected;
 
