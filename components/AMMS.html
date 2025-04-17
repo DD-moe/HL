@@ -2559,8 +2559,11 @@
             }
 
             last_element = element;
+            if (!element.style.backgroundColor) {
+                element.style.backgroundColor = "";
+            }
+
             last_color = element.style.backgroundColor;
-            console.log(last_color);
             element.style.backgroundColor = selected;
 
             const visitId = element.dataset.visit;
