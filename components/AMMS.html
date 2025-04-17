@@ -2554,6 +2554,9 @@
         const last_color_class = "selected-color";
       
         function openVisit(element) {
+            if (last3) {
+                last3.style.display = "none";
+            }
             if (last_element) {
                 last_element.classList.remove(last_color_class);
             }
@@ -2574,6 +2577,9 @@
         }
 
         function openVisit1(element) {
+            if (last3) {
+                last3.style.display = "none";
+            }
             const visitId = element.dataset.visit;
             if (last1) {
                 last1.style.display = "none";
@@ -2587,6 +2593,9 @@
         }        
 
         function openVisit2(element) {
+            if (last3) {
+                last3.style.display = "none";
+            }
             if (last1_element) {
                 last1_element.classList.remove(last_color_class);
             }
