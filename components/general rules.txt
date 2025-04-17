@@ -164,5 +164,4 @@ Nabłonki płaskie	0-2 wpw
 Leukocyty	0-4 wpw
 
 
-Napisz na wzór tego przykłądowe dane dla chorego na chłoniaka hodgkina; uwaga dane mają być w formie tekstowej:
-...
+Napisz na wzór tego przykłądowe dane dla chorego na chłoniaka hodgkina; uwaga dane mają być w formie tekstowej; każdy parametr ma być w nowej linii:
