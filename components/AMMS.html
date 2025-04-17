@@ -2574,19 +2574,26 @@
         }
 
         function openVisit1(element) {
-          const visitId = element.dataset.visit;
-          if (last1) {
-            last1.style.display = "none";
-          }
-          last1 = document.getElementById(visitId);
-          if (last1) {
-            last1.style.display = "block";
-          } else {
-            console.warn("Nie znaleziono elementu o ID:", visitId);
-          }
+            const visitId = element.dataset.visit;
+            if (last1) {
+                last1.style.display = "none";
+            }
+            last1 = document.getElementById(visitId);
+            if (last1) {
+                last1.style.display = "block";
+            } else {
+                console.warn("Nie znaleziono elementu o ID:", visitId);
+            }
         }        
 
         function openVisit2(element) {
+            if (last1_element) {
+                last1_element.classList.remove(last_color_class);
+            }
+
+            last1_element = element;
+            element.classList.add(last_color_class);
+
             const visitId = element.dataset.visit;
             if (last1) {
             last1.style.display = "none";
@@ -2620,16 +2627,23 @@
         }
 
         function openVisit3(element) {
-          const visitId = element.dataset.visit;
-          if (last3) {
-            last3.style.display = "none";
-          }
-          last3 = document.getElementById(visitId);
-          if (last3) {
-            last3.style.display = "block";
-          } else {
-            console.warn("Nie znaleziono elementu o ID:", visitId);
-          }
+            if (last_element) {
+                last_element.classList.remove(last_color_class);
+            }
+
+            last_element = element;
+            element.classList.add(last_color_class);
+
+            const visitId = element.dataset.visit;
+            if (last3) {
+                last3.style.display = "none";
+            }
+            last3 = document.getElementById(visitId);
+            if (last3) {
+                last3.style.display = "block";
+            } else {
+                console.warn("Nie znaleziono elementu o ID:", visitId);
+            }
         }     
 
 
