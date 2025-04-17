@@ -135,6 +135,9 @@
     font-family: Arial, sans-serif;
   }
 
+  .selected-color {
+    background-color: #6666ff; /* The selected background color */
+  }  
   </style>
 </head>
 <body>
@@ -2545,26 +2548,18 @@
         let last1;
         let last3;
 
-        let last_color;
-        let last1_color;
-        let last3_color;
         let last_element;
         let last1_element;
         let last3_element;
-        const selected = "#6666ff";
+        const last_color_class = "selected-color";
       
         function openVisit(element) {
-            if (last_color && last_element) {
-                last_element.style.backgroundColor = last_color;
+            if (last_element) {
+                last_element.classList.remove(last_color_class);
             }
 
             last_element = element;
-            if (!element.style.backgroundColor) {
-                element.style.backgroundColor = "";
-            }
-
-            last_color = element.style.backgroundColor;
-            element.style.backgroundColor = selected;
+            element.classList.add(last_color_class);
 
             const visitId = element.dataset.visit;
             if (last) {
