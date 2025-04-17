@@ -65,4 +65,21 @@ tu masz schemat html, dla zleceń lekarskich, które zawierają:
             utwórz ok. 5 wyników wg. schematu, data pobytu to 2024-04-12 do 2024-04-12
             uwaga - pomiary mogą się powtarzać nawet 1 dnia tylko w różnych godzinach - zwykle rano i wieczorem.
             !!! 201-zlecenia jest stałe dla wszystkich badań, bo to identyfikator konkretnego pobytu 201 i rodzaju danych : zlecenia
-            
+
+
+        <!-- zlecenia -->
+        <textarea style="display: none;" id="123-zlecenia-paracetamol_2024-04-01_09:00">
+        Zlecenie:
+        Podanie paracetamolu 500 mg
+        Dawka: 500 mg doustnie co 6 godzin
+        </textarea>
+        
+        <textarea style="display: none;" id="123-zlecenia-Morfologia_2024-04-03_11:10">
+        Zlecenie:
+        Wykonanie podstawowego badania morfologii krwi
+        </textarea>  
+
+        tu masz przykłąd zleceń, na ich podstawie napisz zlecenia dla danych podanych poniżej
+        id jest takie samo ja data-visit.:
+        
+                    
