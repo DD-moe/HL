@@ -207,14 +207,6 @@ btnRemove.addEventListener('click', () => {
     textarea.value = textarea.value.replace(/<baseline>[\s\S]*?<\/baseline>/g, '');
   });
 
-// Wykrywanie typu badania
-function wykryjBadanie(text) {
-    if (text.includes("WBC")) {
-      return "morfologia"; // morfologia
-    }
-    return null; // brak rozpoznania
-  }
-
 // Tworzenie panelu z alertem
 function AlertPanel(nieprawidlowosci) {
     list.innerHTML = '';
@@ -239,6 +231,16 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//################################### funkcje do przeszukiwania
+
+// Wykrywanie typu badania
+function wykryjBadanie(text) {
+    if (text.includes("WBC")) {
+      return "morfologia"; // morfologia
+    }
+    return null; // brak rozpoznania
+  }
+
 // zwraca wszystkie nieprawidłowości
 function analyze(input) {
     const lines = input.trim().split("\n");
@@ -255,6 +257,7 @@ function analyze(input) {
 
 // zwraca tekst nieprawidłowego wyniku
 function parseIfMatches(line) {
+    // WBC#
     if (line.includes("WBC")) {
         if (line.includes("10*3/uL")) {
             const match = line.match(/(\d+,\d+)\s*-/);
@@ -275,11 +278,63 @@ function parseIfMatches(line) {
                     } else {
                         grade = 4;
                     }
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
                 }
-                return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
             }
         }
     }
+    // NEUT#
+    else if (line.includes("NEUT#")) {
+        if (line.includes("10*3/uL")) {
+            const match = line.match(/(\d+,\d+)\s*-/);
+            if (match) {
+                const parts = line.trim().split(/\s+/);
+                const name = parts[0];
+                const value = parseFloat(parts[1].replace(",", "."));
+                const refLow = parseFloat(match[1].replace(",", "."));
+                let grade = 0;
+
+                if (value < refLow) {
+                    if (value > 1.5) {
+                        grade = 1;
+                    } else if (value > 1) {
+                        grade = 2;
+                    } else if (value > 0.5) {
+                        grade = 3;
+                    } else {
+                        grade = 4;
+                    }
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
+                }
+            }
+        }
+    }   
+    // LYMPH#
+    else if (line.includes("LYMPH#")) {
+        if (line.includes("10*3/uL")) {
+            const match = line.match(/(\d+,\d+)\s*-/);
+            if (match) {
+                const parts = line.trim().split(/\s+/);
+                const name = parts[0];
+                const value = parseFloat(parts[1].replace(",", "."));
+                const refLow = parseFloat(match[1].replace(",", "."));
+                let grade = 0;
+
+                if (value < refLow) {
+                    if (value > 0.8) {
+                        grade = 1;
+                    } else if (value > 0.5) {
+                        grade = 2;
+                    } else if (value > 0.2) {
+                        grade = 3;
+                    } else {
+                        grade = 4;
+                    }
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
+                }
+            }
+        }
+    }      
     return null;
 }
 
