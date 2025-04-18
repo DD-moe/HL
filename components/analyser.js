@@ -7,7 +7,7 @@ let process = true;
 // stylowanie panelu
 const panel = document.createElement('div');
 panel.id = 'emoji-panel';
-panel.title = 'wciśnij: "shift" + "alt" + "p" aby wyłączyć sprawdzanie CTCAE.';
+panel.title = 'wciśnij: "shift" + "alt" + "p" aby włączyć/wyłączyć sprawdzanie CTCAE.';
 panel.style.cssText = `
   position: absolute;
   background: #f9f9f9;
