@@ -47,6 +47,7 @@ panel.appendChild(btnInsert);
 // Tworzymy nowy panel dla alertów
 const alert_panel = document.createElement('div');
 alert_panel.id = 'alert-panel';
+panel.title = 'wciśnij: "shift" + "alt" + "p" aby włączyć/wyłączyć sprawdzanie CTCAE.';
 alert_panel.style.cssText = `
   position: fixed;
   background: #f9f9f9;
