@@ -5,21 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zautomatyzowana ocena działań niepożądanych leczenia przy użyciu uproszczonej skali CTCAE w środowisku klinicznym</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 1em;
+    background-color: #f9f9f9;
+}
 
-        #pdf-frame {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
+#pdf-frame {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
 
-        #container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+#container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.page-image {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+}
     </style>
 </head>
 <body>
@@ -27,10 +40,10 @@
     <h1>Zautomatyzowana ocena działań niepożądanych leczenia przy użyciu uproszczonej skali CTCAE w środowisku klinicznym</h1>
 
     <div id="container">
-        <iframe id="pdf-frame"></iframe>
+        
     </div>
-    <a href="https://git.1ioe.top/HL/components/ctcae.html"></a>
-    <a href="https://git.1ioe.top/HL/components/AMMS.html"></a>
+    <a href="https://git.1ioe.top/HL/components/ctcae.html">CTCAE ankieta</a>
+    <a href="https://git.1ioe.top/HL/components/AMMS.html">symulator AMMS</a>
     <script src="audio_parameters.js"></script>
 
     <script>
