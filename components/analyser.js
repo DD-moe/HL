@@ -96,7 +96,7 @@ function ocenBadania(text) {
     const badanie = wykryjBadanie(text);
     let nieprawidlowosci = [];
     if (badanie === "morfologia") {
-        nieprawidlowosci = analyze(input);
+        nieprawidlowosci = analyze(text);
     }
 
     // 4. Wyświetlanie nieprawidłowości w panelu – zawsze wywoływane
