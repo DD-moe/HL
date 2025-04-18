@@ -278,7 +278,7 @@ function parseIfMatches(line) {
                     } else {
                         grade = 4;
                     }
-                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)} * 10*3/u; gdzie norma to: >${refLow.toFixed(2)}`;
                 }
             }
         }
@@ -304,7 +304,7 @@ function parseIfMatches(line) {
                     } else {
                         grade = 4;
                     }
-                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)} * 10*3/u; gdzie norma to: >${refLow.toFixed(2)}`;
                 }
             }
         }
@@ -330,7 +330,7 @@ function parseIfMatches(line) {
                     } else {
                         grade = 4;
                     }
-                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)}; gdzie norma to: >${refLow.toFixed(2)}`;
+                    return `<b>${name}:</b> GRADE: <b>${grade}</b> w CTCAE dla wartości: ${value.toFixed(2)} * 10*3/u; gdzie norma to: >${refLow.toFixed(2)}`;
                 }
             }
         }
