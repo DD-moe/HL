@@ -164,7 +164,9 @@ document.addEventListener('click', (e) => {
 
     for (const jsonStr of candidates) {
       if (isValidJSON(jsonStr)) {
-        wynikiZBadania = JSON.parse(jsonStr);
+        if (confirm('czy wczytać dane baseline?') === true) {
+            wynikiZBadania = JSON.parse(jsonStr);
+        }
         showPanel(e.pageX, e.pageY);
         return;
       }
