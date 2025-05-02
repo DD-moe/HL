@@ -1,5 +1,4 @@
 // globalne zmienne
-let globalnyJSON = null; // wyodrębnione baseline z json z komentarza w systemie
 let wynikiZBadania = {}; // baseline przechowywane w pamięci przeglądarki
 let clickedTextarea = null; // ostatnio kliknięty textarea
 let process = true;
@@ -162,11 +161,10 @@ document.addEventListener('click', (e) => {
     clickedTextarea = target;
     const text = target.value;
     const candidates = extractBaselineJSONs(text);
-    globalnyJSON = null;
 
     for (const jsonStr of candidates) {
       if (isValidJSON(jsonStr)) {
-        globalnyJSON = JSON.parse(jsonStr);
+        wynikiZBadania = JSON.parse(jsonStr);
         showPanel(e.pageX, e.pageY);
         return;
       }
