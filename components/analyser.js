@@ -455,9 +455,9 @@ function parseMasaIfMatches(line) {
             }
         }
 
-        if (wynikiZBadania.masa && wynikiZBadania.masa.params && wynikiZBadania.masa.params.value !== undefined) {
-            if (value !== null && wynikiZBadania.masa.params.value !== undefined) {
-                const baseline = wynikiZBadania.masa.params.value;
+        if (wynikiZBadania.masa && wynikiZBadania.masa.value !== undefined) {
+            if (value !== null && wynikiZBadania.masa.value !== undefined) {
+                const baseline = wynikiZBadania.masa.value;
                 const spadekProc = ((baseline - value) / baseline) * 100;
                 let grade = 0;
     
@@ -519,25 +519,25 @@ function parseAlatIfMatches(line) {
         }
 
         let baseline;
-        if (!wynikiZBadania.alat || !wynikiZBadania.alat.params || wynikiZBadania.alat.params.normal === undefined || wynikiZBadania.alat.params.value === undefined) {
+        if (!wynikiZBadania.alat || wynikiZBadania.alat.normal === undefined || wynikiZBadania.alat.value === undefined) {
             return; // Jeśli którakolwiek z właściwości nie istnieje, zakończ funkcję
         }
 
-        if (wynikiZBadania.alat.params.normal) {
+        if (wynikiZBadania.alat.normal) {
             // jeśli baseline jest normalny → używamy ULN
             if (uln !== null) {
                 baseline = uln;
             } else {
-                baseline = wynikiZBadania.alat.params.value; // fallback jeśli ULN nie znaleziono
+                baseline = wynikiZBadania.alat.value; // fallback jeśli ULN nie znaleziono
             }
         } else {
             // jeśli baseline jest nieprawidłowy → używamy zapisanej wartości
-            baseline = wynikiZBadania.alat.params.value;
+            baseline = wynikiZBadania.alat.value;
         }
 
         // 3. Oblicz grade
         let grade = 0;
-        if (wynikiZBadania.alat.params.normal) {
+        if (wynikiZBadania.alat.normal) {
             if (value > baseline * 20.0) {
                 grade = 4;
             } else if (value > baseline * 5.0) {
@@ -560,7 +560,7 @@ function parseAlatIfMatches(line) {
         }
 
         if (grade > 0) {
-            return `<b>ALAT:</b> GRADE: <b>${grade}</b> w CTCAE (wynik: ${value.toFixed(2)} U/L; baseline: ${baseline.toFixed(2)} U/L; normalBaseline: ${wynikiZBadania.alat.params.normal})`;
+            return `<b>ALAT:</b> GRADE: <b>${grade}</b> w CTCAE (wynik: ${value.toFixed(2)} U/L; baseline: ${baseline.toFixed(2)} U/L; normalBaseline: ${wynikiZBadania.alat.normal})`;
         }
     }
     return null;
