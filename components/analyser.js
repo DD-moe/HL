@@ -582,11 +582,11 @@ function extractIfMatches(line) {
     if (line.includes("ALAT") && line.includes("U/L")) {
         const matchValue = line.match(/ALAT:\s*(\d+[.,]?\d*)\s*U\/L/i);  // szukamy wartości ALAT
         const matchNorma = line.match(/norma:\s*(\d+[.,]?\d*)\s*-\s*(\d+[.,]?\d*)\s*U\/L/i); // szukamy normy
+        console.log(matchValue, matchNorma);
         if (matchValue) {
             const value = parseFloat(matchValue[1].replace(",", "."));
             let normal = false;
             if (matchNorma) {
-                const low = parseFloat(matchNorma[1].replace(",", "."));
                 const high = parseFloat(matchNorma[2].replace(",", "."));
                 // ALAT w normie jeśli value <= high
                 normal = value <= high;
