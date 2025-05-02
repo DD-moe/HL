@@ -523,7 +523,7 @@ function parseAlatIfMatches(line) {
         if (!wynikiZBadania.alat || !wynikiZBadania.alat.params || wynikiZBadania.alat.params.normal === undefined || wynikiZBadania.alat.params.value === undefined) {
             return; // Jeśli którakolwiek z właściwości nie istnieje, zakończ funkcję
         }
-        
+
         if (wynikiZBadania.alat.params.normal) {
             // jeśli baseline jest normalny → używamy ULN
             if (uln !== null) {
@@ -569,18 +569,18 @@ function parseAlatIfMatches(line) {
 
 
 function extractIfMatches(line) {
-    // 1️⃣ Masa ciała
+    // 1️⃣ Masa ciała - wyciągamy tylko wartość masy
     if (line.includes("Masa") && line.includes("kg")) {
-        const match = line.match(/(\d+[.,]?\d*)\s*kg/i);
-        if (match) {
-            const value = parseFloat(match[1].replace(",", "."));
+        const matchValue = line.match(/Masa:\s*(\d+[.,]?\d*)\s*kg/i);
+        if (matchValue) {
+            const value = parseFloat(matchValue[1].replace(",", "."));
             return { name: "masa", params: { value } };
         }
     }
 
     // 2️⃣ ALAT
     if (line.includes("ALAT") && line.includes("U/L")) {
-        const matchValue = line.match(/(\d+[.,]?\d*)\s*U\/L/); // szukamy wartości ALAT
+        const matchValue = line.match(/ALAT:\s*(\d+[.,]?\d*)\s*U\/L/i);  // szukamy wartości ALAT
         const matchNorma = line.match(/norma:\s*(\d+[.,]?\d*)\s*-\s*(\d+[.,]?\d*)\s*U\/L/i); // szukamy normy
         if (matchValue) {
             const value = parseFloat(matchValue[1].replace(",", "."));
@@ -597,3 +597,4 @@ function extractIfMatches(line) {
 
     return null; // jeśli nic nie pasuje
 }
+
