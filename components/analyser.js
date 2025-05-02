@@ -222,20 +222,11 @@ btnRemove.addEventListener('click', () => {
   });
 
 // funkcaj czyszcząca zgromadzone dane w zmiennej globalnej
-btnClearBaseline.onclick = () => {
-    if (window.wynikiZBadania && typeof wynikiZBadania === 'object') {
-        for (const key in wynikiZBadania) {
-            if (wynikiZBadania.hasOwnProperty(key)) {
-                delete wynikiZBadania[key];
-            }
-        }
-        console.log('Wszystkie dane w wynikiZBadania zostały usunięte.');
-        alert('Wszystkie dane w wynikiZBadania zostały wyczyszczone.');
-    } else {
-        console.warn('Brak zmiennej globalnej wynikiZBadania.');
-        alert('Nie znaleziono zmiennej wynikiZBadania.');
+btnClearBaseline.addEventListener('click', () => {
+    if(confirm("Czy na pewno chcesz usunąć dane bazowe?") === true){
+        wynikiZBadania = {};
     }
-};
+});
 
 // Tworzenie panelu z alertem
 function AlertPanel(nieprawidlowosci) {
