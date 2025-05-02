@@ -184,13 +184,12 @@ btnExtract.addEventListener('click', () => {
     const textarea = clickedTextarea;
     if (!textarea) return;
   
-    wynikiZBadania = {}; // reset
     const lines = textarea.value.trim().split("\n");
     
     lines.forEach(line => {
         const result = extractIfMatches(line);
-        if (result && result.name && result.param !== undefined) {
-            wynikiZBadania[result.name] = result.param;
+        if (result && result.name && result.params !== undefined) {
+            wynikiZBadania[result.name] = result.params;
         }
     });    
 });  
@@ -591,7 +590,6 @@ function extractIfMatches(line) {
                 // ALAT w normie jeśli value <= high
                 normal = value <= high;
             }
-            console.log(value, normal);
             return { name: "alat", params: { value, normal } };
         }
     }
