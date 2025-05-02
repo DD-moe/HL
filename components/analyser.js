@@ -40,9 +40,17 @@ btnRemove.title = 'Usuń JSON z <baseline>...</baseline>';
 btnRemove.style.fontSize = '24px';
 btnRemove.style.margin = '5px';
 
+// przycisk do czysszczenia zebranych danych
+const btnClearBaseline = document.createElement('button');
+btnClearBaseline.textContent = '🗑️';
+btnClearBaseline.title = 'Wyczyść wszystkie dane ze zmiennej globalnej wynikiZBadania';
+btnClearBaseline.style.fontSize = '24px';
+btnClearBaseline.style.margin = '5px';
+
 panel.appendChild(btnRemove);
 panel.appendChild(btnExtract);
 panel.appendChild(btnInsert);
+panel.appendChild(btnClearBaseline);
 
 // Tworzymy nowy panel dla alertów
 const alert_panel = document.createElement('div');
@@ -213,6 +221,22 @@ btnRemove.addEventListener('click', () => {
     // Usuwanie wszystkich wystąpień <baseline>...</baseline>
     textarea.value = textarea.value.replace(/<baseline>[\s\S]*?<\/baseline>/g, '');
   });
+
+// funkcaj czyszcząca zgromadzone dane w zmiennej globalnej
+btnClearBaseline.onclick = () => {
+    if (window.wynikiZBadania && typeof wynikiZBadania === 'object') {
+        for (const key in wynikiZBadania) {
+            if (wynikiZBadania.hasOwnProperty(key)) {
+                delete wynikiZBadania[key];
+            }
+        }
+        console.log('Wszystkie dane w wynikiZBadania zostały usunięte.');
+        alert('Wszystkie dane w wynikiZBadania zostały wyczyszczone.');
+    } else {
+        console.warn('Brak zmiennej globalnej wynikiZBadania.');
+        alert('Nie znaleziono zmiennej wynikiZBadania.');
+    }
+};
 
 // Tworzenie panelu z alertem
 function AlertPanel(nieprawidlowosci) {
@@ -432,21 +456,23 @@ function parseMasaIfMatches(line) {
             }
         }
 
-        if (value !== null && wynikiZBadania.masa.params.value !== undefined) {
-            const baseline = wynikiZBadania.masa.params.value;
-            const spadekProc = ((baseline - value) / baseline) * 100;
-            let grade = 0;
-
-            if (spadekProc >= 5 && spadekProc < 10) {
-                grade = 1;
-            } else if (spadekProc >= 10 && spadekProc < 20) {
-                grade = 2;
-            } else if (spadekProc >= 20) {
-                grade = 3;
-            }
-
-            if (grade > 0) {
-                return `<b>Masa ciała:</b> GRADE: <b>${grade}</b> w CTCAE – spadek o ${spadekProc.toFixed(1)}% (wartość: ${value.toFixed(1)} kg; baseline: ${baseline.toFixed(1)} kg)`;
+        if (wynikiZBadania.masa && wynikiZBadania.masa.params && wynikiZBadania.masa.params.value !== undefined) {
+            if (value !== null && wynikiZBadania.masa.params.value !== undefined) {
+                const baseline = wynikiZBadania.masa.params.value;
+                const spadekProc = ((baseline - value) / baseline) * 100;
+                let grade = 0;
+    
+                if (spadekProc >= 5 && spadekProc < 10) {
+                    grade = 1;
+                } else if (spadekProc >= 10 && spadekProc < 20) {
+                    grade = 2;
+                } else if (spadekProc >= 20) {
+                    grade = 3;
+                }
+    
+                if (grade > 0) {
+                    return `<b>Masa ciała:</b> GRADE: <b>${grade}</b> w CTCAE – spadek o ${spadekProc.toFixed(1)}% (wartość: ${value.toFixed(1)} kg; baseline: ${baseline.toFixed(1)} kg)`;
+                }
             }
         }
     }
@@ -494,6 +520,10 @@ function parseAlatIfMatches(line) {
         }
 
         let baseline;
+        if (!wynikiZBadania.alat || !wynikiZBadania.alat.params || wynikiZBadania.alat.params.normal === undefined || wynikiZBadania.alat.params.value === undefined) {
+            return; // Jeśli którakolwiek z właściwości nie istnieje, zakończ funkcję
+        }
+        
         if (wynikiZBadania.alat.params.normal) {
             // jeśli baseline jest normalny → używamy ULN
             if (uln !== null) {
