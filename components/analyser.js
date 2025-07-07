@@ -450,8 +450,11 @@ function parseMasaIfMatches(line) {
             if (value !== null && wynikiZBadania.masa.value !== undefined) {
                 const baseline = wynikiZBadania.masa.value;
                 const spadekProc = ((baseline - value) / baseline) * 100;
+                const wzrostProc = ((value - baseline) / baseline) * 100;
                 let grade = 0;
-    
+                let message = "";
+
+                // Spadek masy ciała
                 if (spadekProc >= 5 && spadekProc < 10) {
                     grade = 1;
                 } else if (spadekProc >= 10 && spadekProc < 20) {
@@ -459,9 +462,28 @@ function parseMasaIfMatches(line) {
                 } else if (spadekProc >= 20) {
                     grade = 3;
                 }
-    
+
                 if (grade > 0) {
-                    return `<b>Masa ciała:</b> GRADE: <b>${grade}</b> w CTCAE – spadek o ${spadekProc.toFixed(1)}% (wartość: ${value.toFixed(1)} kg; baseline: ${baseline.toFixed(1)} kg)`;
+                    message = `<b>Masa ciała:</b> GRADE: <b>${grade}</b> w CTCAE – spadek o ${spadekProc.toFixed(1)}% (wartość: ${value.toFixed(1)} kg; baseline: ${baseline.toFixed(1)} kg)`;
+                }
+
+                // Wzrost masy ciała – progi przykładowe
+                if (grade === 0) {  // jeśli wcześniej nie było oceny za spadek
+                    if (wzrostProc >= 5 && wzrostProc < 10) {
+                        grade = 1;
+                    } else if (wzrostProc >= 10 && wzrostProc < 20) {
+                        grade = 2;
+                    } else if (wzrostProc >= 20) {
+                        grade = 3;
+                    }
+
+                    if (grade > 0) {
+                        message = `<b>Masa ciała:</b> GRADE: <b>${grade}</b> – wzrost o ${wzrostProc.toFixed(1)}% (wartość: ${value.toFixed(1)} kg; baseline: ${baseline.toFixed(1)} kg)`;
+                    }
+                }
+
+                if (message) {
+                    return message;
                 }
             }
         }
