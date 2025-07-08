@@ -541,11 +541,11 @@ function parseAlatIfMatches(line) {
             if (uln !== null) {
                 baseline = uln;
             } else {
-                baseline = wynikiZBadania.alat.value; // fallback jeśli ULN nie znaleziono
+                return; // nie można obliczyć poprawnego wyniku
             }
         } else {
-            // jeśli baseline jest nieprawidłowy → nie można obliczyć poprawnego wyniku
-            return;
+            // jeśli baseline jest nieprawidłowy → używamy baseline
+            baseline = wynikiZBadania.alat.value;
         }
 
         // 3. Oblicz grade
