@@ -544,8 +544,8 @@ function parseAlatIfMatches(line) {
                 baseline = wynikiZBadania.alat.value; // fallback jeśli ULN nie znaleziono
             }
         } else {
-            // jeśli baseline jest nieprawidłowy → używamy zapisanej wartości
-            baseline = wynikiZBadania.alat.value;
+            // jeśli baseline jest nieprawidłowy → nie można obliczyć poprawnego wyniku
+            return;
         }
 
         // 3. Oblicz grade
